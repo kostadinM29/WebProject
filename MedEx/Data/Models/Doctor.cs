@@ -25,16 +25,16 @@ namespace MedEx.Data.Models
 
         public string Biography { get; set; }
 
-        public string RatingId { get; set; }
-
-        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
-
-        public string PictureId { get; set; }
+        public ICollection<Reviews> Reviews { get; set; } = new List<Reviews>();
 
         public ICollection<Picture> Pictures { get; set; } = new List<Picture>();
 
-        public string AppointmentId { get; set; }
-
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+        public ICollection<User> Clients { get; set; } = new List<User>();
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

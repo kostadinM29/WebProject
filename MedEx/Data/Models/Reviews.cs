@@ -2,7 +2,7 @@
 
 namespace MedEx.Data.Models
 {
-    public class Rating
+    public class Reviews
     {
         public string Id { get; set; } = new Guid().ToString();
 

@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MedEx.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class MedExDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public MedExDbContext(DbContextOptions<MedExDbContext> options)
             : base(options)
         {
         }
