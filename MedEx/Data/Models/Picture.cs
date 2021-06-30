@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Data.Models
 {
     public class Picture
     {
-        public string Id { get; set; } = new Guid().ToString();
+        public string Id { get; set; }
 
         public string Description { get; set; }
 

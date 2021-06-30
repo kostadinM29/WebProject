@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MedEx.Data.Models
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
         public string Location { get; set; }
@@ -18,5 +18,9 @@ namespace MedEx.Data.Models
         public string PictureId { get; set; }
 
         public Picture ProfilePicture { get; set; }
+
+        public string TownId { get; set; }
+
+        public Town Town { get; set; }
     }
 }
