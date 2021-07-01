@@ -11,15 +11,15 @@ namespace MedEx.Data.Models
         public int Rating { get; set; } // 0-10
 
         [ForeignKey(nameof(Comment))]
-        public int CommentId { get; set; }
+        public int? CommentId { get; set; }
         public Comment Comment { get; set; }
 
         [ForeignKey(nameof(Doctor))]
-        public int DoctorId { get; set; }
+        public int? DoctorId { get; set; }
         public Doctor Doctor { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        [ForeignKey(nameof(Patient))]
+        public int? PatientId { get; set; }
+        public Patient Patient { get; set; }
     }
 }

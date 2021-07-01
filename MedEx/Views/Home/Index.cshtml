@@ -2,6 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="row">
+    <div class="col-6">
+        <label class="alert alert-success">@Model.EmailStatusMessage</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Email Test</button>
+        </form>
+    </div>
+</div>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>

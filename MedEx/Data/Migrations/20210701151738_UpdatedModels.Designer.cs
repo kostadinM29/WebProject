@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedEx.Data.Migrations
 {
     [DbContext(typeof(MedExDbContext))]
-    [Migration("20210701140015_UpdatedModels")]
+    [Migration("20210701151738_UpdatedModels")]
     partial class UpdatedModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,7 +256,7 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CommentId")
+                    b.Property<int?>("CommentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -265,7 +265,7 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -274,11 +274,11 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Rating")
+                    b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -286,7 +286,7 @@ namespace MedEx.Data.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Reviews");
                 });
@@ -666,25 +666,21 @@ namespace MedEx.Data.Migrations
                 {
                     b.HasOne("MedEx.Data.Models.Comment", "Comment")
                         .WithMany()
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CommentId");
 
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
                         .WithMany("Reviews")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
-                    b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
+                    b.HasOne("MedEx.Data.Models.Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("PatientId");
 
                     b.Navigation("Comment");
 
                     b.Navigation("Doctor");
 
-                    b.Navigation("User");
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
