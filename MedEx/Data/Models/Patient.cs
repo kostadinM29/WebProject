@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using MedEx.Data.Models.BaseModels;
 
 namespace MedEx.Data.Models
 {
-    public class Patient
+    public class Patient : BaseDeletableModel<int>
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public int Age { get; set; }

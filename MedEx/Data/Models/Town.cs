@@ -1,19 +1,13 @@
 ﻿using System;
+using MedEx.Data.Models.BaseModels;
 
 namespace MedEx.Data.Models
 {
-    public class Town
+    public class Town : BaseModel<int>
     {
-        public string Id { get; set; }
-
         public string Name { get; set; }
 
         public int ZipCode { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
-
 }
 

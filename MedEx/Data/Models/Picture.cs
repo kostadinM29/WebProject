@@ -1,18 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MedEx.Data.Models.BaseModels;
 
 namespace MedEx.Data.Models
 {
-    public class Picture
+    public class Picture : BaseDeletableModel<int>
     {
-        public string Id { get; set; }
-
         public string Description { get; set; }
 
         public string  ImagePath { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

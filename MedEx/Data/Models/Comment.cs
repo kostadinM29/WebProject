@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MedEx.Data.Models.BaseModels;
 
 namespace MedEx.Data.Models
 {
-    public class Comment
+    public class Comment : BaseModel<int>
     {
-        public int Id { get; set; }
-
         [Required]
         public string Content { get; set; }
 
