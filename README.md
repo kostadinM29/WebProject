@@ -2,11 +2,11 @@
  Softuni web project
 
 Things i'd like to add: 
-realtime chat with doctors
-make model collections private
-add google/facebook login options
-integrate a bootstrap template
-add emailsender 
+-realtime chat with doctors	
+-make model collections private	
+-add google/facebook login options	
+-integrate a bootstrap template	
+-add emailsender 	
 
 
 VIEWS
