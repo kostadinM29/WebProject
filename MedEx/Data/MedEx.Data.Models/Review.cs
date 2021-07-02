@@ -17,11 +17,11 @@ namespace MedEx.Data.Models
         [ForeignKey(nameof(Doctor))]
         public int? DoctorId { get; set; }
 
-        public Doctor Doctor { get; set; }
+        public virtual Doctor Doctor { get; set; }
 
         [ForeignKey(nameof(Patient))]
         public int? PatientId { get; set; }
 
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

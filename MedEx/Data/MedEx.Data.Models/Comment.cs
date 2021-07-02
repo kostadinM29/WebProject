@@ -9,12 +9,14 @@ namespace MedEx.Data.Models
         [Required]
         public string Content { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
-        [ForeignKey("Doctor")]
+        [ForeignKey(nameof(Doctor))]
         public int DoctorId { get; set; }
+
         public virtual Doctor Doctor { get; set; }
     }
 }

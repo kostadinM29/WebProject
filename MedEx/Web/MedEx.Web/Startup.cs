@@ -1,41 +1,39 @@
-﻿namespace MedEx.Web
+﻿using MedEx.Data;
+using MedEx.Data.Common;
+using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Data.Repositories;
+using MedEx.Data.Seeding;
+using MedEx.Services.Data;
+using MedEx.Services.Mapping;
+using MedEx.Services.Messaging;
+using MedEx.Web.ViewModels;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
+
+namespace MedEx.Web
 {
-    using System.Reflection;
-
-    using MedEx.Data;
-    using MedEx.Data.Common;
-    using MedEx.Data.Common.Repositories;
-    using MedEx.Data.Models;
-    using MedEx.Data.Repositories;
-    using MedEx.Data.Seeding;
-    using MedEx.Services.Data;
-    using MedEx.Services.Mapping;
-    using MedEx.Services.Messaging;
-    using MedEx.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     public class Startup
     {
         private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(this._configuration.GetConnectionString("DefaultConnection")));
+                options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -55,7 +53,7 @@
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddSingleton(this._configuration);
+            services.AddSingleton(_configuration);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));

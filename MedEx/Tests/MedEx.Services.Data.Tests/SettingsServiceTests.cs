@@ -1,20 +1,16 @@
-﻿namespace MedEx.Services.Data.Tests
+﻿using MedEx.Data;
+using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace MedEx.Services.Data.Tests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using MedEx.Data;
-    using MedEx.Data.Common.Repositories;
-    using MedEx.Data.Models;
-    using MedEx.Data.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using Moq;
-
-    using Xunit;
-
     public class SettingsServiceTests
     {
         [Fact]

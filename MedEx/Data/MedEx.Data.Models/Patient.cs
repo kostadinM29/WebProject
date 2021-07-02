@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using MedEx.Data.Common.Models;
+﻿using MedEx.Data.Common.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEx.Data.Models
 {
@@ -13,7 +13,7 @@ namespace MedEx.Data.Models
 
         public string PhoneNumber { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }

@@ -1,9 +1,8 @@
-﻿namespace MedEx.Data.Common.Repositories
+﻿using MedEx.Data.Common.Models;
+using System.Linq;
+
+namespace MedEx.Data.Common.Repositories
 {
-    using System.Linq;
-
-    using MedEx.Data.Common.Models;
-
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {

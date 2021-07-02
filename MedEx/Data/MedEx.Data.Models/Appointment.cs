@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using MedEx.Data.Common.Models;
+﻿using MedEx.Data.Common.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEx.Data.Models
 {
@@ -18,6 +18,5 @@ namespace MedEx.Data.Models
         public int PatientId { get; set; }
 
         public virtual Patient Patient { get; set; }
-
     }
 }

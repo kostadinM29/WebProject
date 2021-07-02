@@ -1,7 +1,7 @@
-﻿namespace MedEx.Services.Data
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace MedEx.Services.Data
+{
     public interface ISettingsService
     {
         int GetCount();

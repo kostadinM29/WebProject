@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MedEx.Data.Common.Models;
+﻿using MedEx.Data.Common.Models;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace MedEx.Data.Models
 {
@@ -16,7 +14,7 @@ namespace MedEx.Data.Models
         public ApplicationRole(string name)
             : base(name)
         {
-            this.Id = Guid
+            Id = Guid
                 .NewGuid()
                 .ToString();
         }

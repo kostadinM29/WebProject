@@ -1,10 +1,9 @@
-﻿namespace MedEx.Web.ViewModels.Settings
+﻿using AutoMapper;
+using MedEx.Data.Models;
+using MedEx.Services.Mapping;
+
+namespace MedEx.Web.ViewModels.Settings
 {
-    using MedEx.Data.Models;
-    using MedEx.Services.Mapping;
-
-    using AutoMapper;
-
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
         public int Id { get; set; }

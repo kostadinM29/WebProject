@@ -1,9 +1,8 @@
-﻿namespace MedEx.Data.Migrations
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+
+namespace MedEx.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

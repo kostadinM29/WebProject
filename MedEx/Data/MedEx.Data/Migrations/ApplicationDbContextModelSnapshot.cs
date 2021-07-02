@@ -111,10 +111,7 @@ namespace MedEx.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PictureId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProfilePictureId")
+                    b.Property<int>("PictureId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RegisteredOn")
@@ -123,10 +120,7 @@ namespace MedEx.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TownId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TownId1")
+                    b.Property<int?>("TownId")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -148,9 +142,9 @@ namespace MedEx.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ProfilePictureId");
+                    b.HasIndex("PictureId");
 
-                    b.HasIndex("TownId1");
+                    b.HasIndex("TownId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -288,11 +282,7 @@ namespace MedEx.Data.Migrations
                     b.Property<int?>("SpecializationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TownId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TownId1")
+                    b.Property<int>("TownId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -304,7 +294,7 @@ namespace MedEx.Data.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.HasIndex("TownId1");
+                    b.HasIndex("TownId");
 
                     b.HasIndex("UserId");
 
@@ -630,15 +620,17 @@ namespace MedEx.Data.Migrations
                         .WithMany("Clients")
                         .HasForeignKey("DoctorId");
 
-                    b.HasOne("MedEx.Data.Models.Picture", "ProfilePicture")
+                    b.HasOne("MedEx.Data.Models.Picture", "Picture")
                         .WithMany()
-                        .HasForeignKey("ProfilePictureId");
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Town", "Town")
                         .WithMany()
-                        .HasForeignKey("TownId1");
+                        .HasForeignKey("TownId");
 
-                    b.Navigation("ProfilePicture");
+                    b.Navigation("Picture");
 
                     b.Navigation("Town");
                 });
@@ -691,7 +683,9 @@ namespace MedEx.Data.Migrations
 
                     b.HasOne("MedEx.Data.Models.Town", "Town")
                         .WithMany()
-                        .HasForeignKey("TownId1");
+                        .HasForeignKey("TownId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
                         .WithMany()

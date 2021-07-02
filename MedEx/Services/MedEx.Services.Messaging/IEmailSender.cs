@@ -1,8 +1,8 @@
-﻿namespace MedEx.Services.Messaging
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
+namespace MedEx.Services.Messaging
+{
     public interface IEmailSender
     {
         Task SendEmailAsync(

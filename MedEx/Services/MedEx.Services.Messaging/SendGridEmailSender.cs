@@ -1,20 +1,19 @@
-﻿namespace MedEx.Services.Messaging
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MedEx.Services.Messaging
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using SendGrid;
-    using SendGrid.Helpers.Mail;
-
     public class SendGridEmailSender : IEmailSender
     {
-        private readonly SendGridClient client;
+        private readonly SendGridClient _client;
 
         public SendGridEmailSender(string apiKey)
         {
-            this.client = new SendGridClient(apiKey);
+            _client = new SendGridClient(apiKey);
         }
 
         public async Task SendEmailAsync(string from, string fromName, string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
@@ -37,7 +36,7 @@
 
             try
             {
-                var response = await this.client.SendEmailAsync(message);
+                var response = await _client.SendEmailAsync(message);
                 Console.WriteLine(response.StatusCode);
                 Console.WriteLine(await response.Body.ReadAsStringAsync());
             }

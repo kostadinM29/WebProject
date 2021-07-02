@@ -1,29 +1,28 @@
-﻿namespace MedEx.Services.Data
+﻿using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Services.Mapping;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MedEx.Services.Data
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using MedEx.Data.Common.Repositories;
-    using MedEx.Data.Models;
-    using MedEx.Services.Mapping;
-
     public class SettingsService : ISettingsService
     {
-        private readonly IDeletableEntityRepository<Setting> settingsRepository;
+        private readonly IDeletableEntityRepository<Setting> _settingsRepository;
 
         public SettingsService(IDeletableEntityRepository<Setting> settingsRepository)
         {
-            this.settingsRepository = settingsRepository;
+            _settingsRepository = settingsRepository;
         }
 
         public int GetCount()
         {
-            return this.settingsRepository.AllAsNoTracking().Count();
+            return _settingsRepository.AllAsNoTracking().Count();
         }
 
         public IEnumerable<T> GetAll<T>()
         {
-            return this.settingsRepository.All().To<T>().ToList();
+            return _settingsRepository.All().To<T>().ToList();
         }
     }
 }

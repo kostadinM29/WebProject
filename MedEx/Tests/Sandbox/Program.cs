@@ -1,26 +1,23 @@
-﻿namespace Sandbox
+﻿using CommandLine;
+using MedEx.Data;
+using MedEx.Data.Common;
+using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Data.Repositories;
+using MedEx.Data.Seeding;
+using MedEx.Services.Data;
+using MedEx.Services.Messaging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace Sandbox
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading.Tasks;
-
-    using MedEx.Data;
-    using MedEx.Data.Common;
-    using MedEx.Data.Common.Repositories;
-    using MedEx.Data.Models;
-    using MedEx.Data.Repositories;
-    using MedEx.Data.Seeding;
-    using MedEx.Services.Data;
-    using MedEx.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
     public static class Program
     {
         public static int Main(string[] args)

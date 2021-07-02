@@ -1,11 +1,10 @@
-﻿namespace MedEx.Data.Seeding
+﻿using MedEx.Data.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MedEx.Data.Seeding
 {
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using MedEx.Data.Models;
-
     internal class SettingsSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)

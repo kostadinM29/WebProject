@@ -1,7 +1,7 @@
-﻿namespace MedEx.Web.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
+namespace MedEx.Web.Controllers
+{
     public class BaseController : Controller
     {
     }

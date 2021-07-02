@@ -15,9 +15,9 @@
       "documentInternalElements": false
     },
     "orderingRules": {
-      "usingDirectivesPlacement": "insideNamespace",
-      "systemUsingDirectivesFirst": true,
-      "blankLinesBetweenUsingGroups": "require"
+      "usingDirectivesPlacement": "outsideNamespace",
+      "systemUsingDirectivesFirst": false,
+      "blankLinesBetweenUsingGroups": "allow"
     }
   }
 }

@@ -1,7 +1,7 @@
-﻿namespace MedEx.Services.Mapping
-{
-    using AutoMapper;
+﻿using AutoMapper;
 
+namespace MedEx.Services.Mapping
+{
     public interface IHaveCustomMappings
     {
         void CreateMappings(IProfileExpression configuration);

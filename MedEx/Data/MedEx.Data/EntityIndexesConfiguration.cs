@@ -1,9 +1,9 @@
-﻿namespace MedEx.Data
-{
-    using System.Linq;
-    using MedEx.Data.Common.Models;
-    using Microsoft.EntityFrameworkCore;
+﻿using MedEx.Data.Common.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
+namespace MedEx.Data
+{
     internal static class EntityIndexesConfiguration
     {
         public static void Configure(ModelBuilder modelBuilder)

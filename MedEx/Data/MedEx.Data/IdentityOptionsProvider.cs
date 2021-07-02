@@ -1,7 +1,7 @@
-﻿namespace MedEx.Data
-{
-    using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
+namespace MedEx.Data
+{
     public static class IdentityOptionsProvider
     {
         public static void GetIdentityOptions(IdentityOptions options)

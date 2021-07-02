@@ -1,15 +1,13 @@
-﻿namespace MedEx.Web.Controllers
+﻿using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Services.Data;
+using MedEx.Web.ViewModels.Settings;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+
+namespace MedEx.Web.Controllers
 {
-    using System;
-    using System.Threading.Tasks;
-
-    using MedEx.Data.Common.Repositories;
-    using MedEx.Data.Models;
-    using MedEx.Services.Data;
-    using MedEx.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
-
     public class SettingsController : BaseController
     {
         private readonly ISettingsService settingsService;
@@ -24,9 +22,9 @@
 
         public IActionResult Index()
         {
-            var settings = this.settingsService.GetAll<SettingViewModel>();
+            var settings = settingsService.GetAll<SettingViewModel>();
             var model = new SettingsListViewModel { Settings = settings };
-            return this.View(model);
+            return View(model);
         }
 
         public async Task<IActionResult> InsertSetting()
@@ -34,10 +32,10 @@
             var random = new Random();
             var setting = new Setting { Name = $"Name_{random.Next()}", Value = $"Value_{random.Next()}" };
 
-            await this.repository.AddAsync(setting);
-            await this.repository.SaveChangesAsync();
+            await repository.AddAsync(setting);
+            await repository.SaveChangesAsync();
 
-            return this.RedirectToAction(nameof(this.Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

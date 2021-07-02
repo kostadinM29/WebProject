@@ -1,15 +1,15 @@
-﻿namespace MedEx.Data
-{
-    using MedEx.Data.Common.Models;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-    using Models;
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using MedEx.Data.Common.Models;
+using MedEx.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
+namespace MedEx.Data
+{
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
@@ -21,6 +21,7 @@
             : base(options)
         {
         }
+
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -41,22 +42,22 @@
 
         public DbSet<Town> Towns { get; set; }
 
-        public override int SaveChanges() => this.SaveChanges(true);
+        public override int SaveChanges() => SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            this.ApplyAuditInfoRules();
+            ApplyAuditInfoRules();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
-            this.SaveChangesAsync(true, cancellationToken);
+            SaveChangesAsync(true, cancellationToken);
 
         public override Task<int> SaveChangesAsync(
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default)
         {
-            this.ApplyAuditInfoRules();
+            ApplyAuditInfoRules();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
@@ -65,7 +66,7 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
-            this.ConfigureUserIdentityRelations(builder);
+            ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
 
@@ -97,11 +98,11 @@
 
         // Applies configurations
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
-             => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+             => builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
         private void ApplyAuditInfoRules()
         {
-            var changedEntries = this.ChangeTracker
+            var changedEntries = ChangeTracker
                 .Entries()
                 .Where(e =>
                     e.Entity is IAuditInfo &&

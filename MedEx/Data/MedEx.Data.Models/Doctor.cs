@@ -7,7 +7,6 @@ namespace MedEx.Data.Models
 {
     public class Doctor : BaseDeletableModel<int>
     {
-
         [Required]
         [MaxLength(20)]
         public string FirstName { get; set; }
@@ -26,34 +25,34 @@ namespace MedEx.Data.Models
         public string Email { get; set; }
 
         [Required]
-        public string TownId { get; set; }
-
-        public Town Town { get; set; }
-
-        [Required]
         [MaxLength(50)]
         public string Address { get; set; }
 
         [MaxLength(500)]
         public string Biography { get; set; }
 
-        [ForeignKey("Specialization")]
-        public int? SpecializationId { get; set; } 
+        [Required]
+        [ForeignKey(nameof(Town))]
+        public int TownId { get; set; }
+
+        public virtual Town Town { get; set; }
+
+        [ForeignKey(nameof(Specialization))]
+        public int? SpecializationId { get; set; }
 
         public virtual Specialization Specialization { get; set; }
 
-        [ForeignKey("User")]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-        public ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
 
-        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
-        public ICollection<ApplicationUser> Clients { get; set; } = new List<ApplicationUser>();
-
+        public virtual ICollection<ApplicationUser> Clients { get; set; } = new List<ApplicationUser>();
     }
 }

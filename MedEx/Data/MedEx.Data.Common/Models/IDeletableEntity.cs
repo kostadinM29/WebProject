@@ -1,7 +1,7 @@
-﻿namespace MedEx.Data.Common.Models
-{
-    using System;
+﻿using System;
 
+namespace MedEx.Data.Common.Models
+{
     public interface IDeletableEntity
     {
         bool IsDeleted { get; set; }
