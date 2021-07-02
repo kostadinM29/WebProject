@@ -4,7 +4,6 @@ using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Data.Repositories;
 using MedEx.Data.Seeding;
-using MedEx.Services.Data;
 using MedEx.Services.Mapping;
 using MedEx.Services.Messaging;
 using MedEx.Web.ViewModels;
@@ -62,7 +61,6 @@ namespace MedEx.Web
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

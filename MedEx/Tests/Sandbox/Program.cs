@@ -5,7 +5,6 @@ using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Data.Repositories;
 using MedEx.Data.Seeding;
-using MedEx.Services.Data;
 using MedEx.Services.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,10 +47,6 @@ namespace Sandbox
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
             var sw = Stopwatch.StartNew();
-
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
-
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
         }
@@ -78,7 +73,6 @@ namespace Sandbox
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
     }
 }
