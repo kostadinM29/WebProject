@@ -49,7 +49,7 @@ namespace MedEx.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>(); // cabinet pictures?
 
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

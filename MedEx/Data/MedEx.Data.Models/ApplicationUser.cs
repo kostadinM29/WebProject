@@ -13,25 +13,18 @@ namespace MedEx.Data.Models
 
         public DateTime RegisteredOn { get; set; }
 
-        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-
         [ForeignKey(nameof(Picture))]
         public int PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
 
-        [ForeignKey(nameof(Town))]
-        public int? TownId { get; set; }
 
-        public virtual Town Town { get; set; }
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
-            = new HashSet<IdentityUserRole<string>>();
+        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; } = new List<IdentityUserRole<string>>();
 
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
-            = new HashSet<IdentityUserClaim<string>>();
+        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; } = new List<IdentityUserClaim<string>>();
 
-        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
-            = new HashSet<IdentityUserLogin<string>>();
+        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; } = new List<IdentityUserLogin<string>>();
     }
 }

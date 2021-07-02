@@ -21,9 +21,6 @@ namespace MedEx.Data
             : base(options)
         {
         }
-
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Appointment> Appointments { get; set; }

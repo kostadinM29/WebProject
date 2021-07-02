@@ -120,9 +120,6 @@ namespace MedEx.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TownId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -143,8 +140,6 @@ namespace MedEx.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("PictureId");
-
-                    b.HasIndex("TownId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -425,38 +420,6 @@ namespace MedEx.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("MedEx.Data.Models.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Settings");
-                });
-
             modelBuilder.Entity("MedEx.Data.Models.Specialization", b =>
                 {
                     b.Property<int>("Id")
@@ -626,13 +589,7 @@ namespace MedEx.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MedEx.Data.Models.Town", "Town")
-                        .WithMany()
-                        .HasForeignKey("TownId");
-
                     b.Navigation("Picture");
-
-                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Appointment", b =>
