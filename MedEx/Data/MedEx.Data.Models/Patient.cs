@@ -13,6 +13,11 @@ namespace MedEx.Data.Models
 
         public string PhoneNumber { get; set; }
 
+        [ForeignKey(nameof(Town))]
+        public int TownId { get; set; }
+
+        public virtual Town Town { get; set; }
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 

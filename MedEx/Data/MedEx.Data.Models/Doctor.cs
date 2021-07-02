@@ -31,7 +31,6 @@ namespace MedEx.Data.Models
         [MaxLength(500)]
         public string Biography { get; set; }
 
-        [Required]
         [ForeignKey(nameof(Town))]
         public int TownId { get; set; }
 
