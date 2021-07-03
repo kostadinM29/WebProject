@@ -9,6 +9,8 @@ Things i'd like to add:
 -add emailsender 	
 
 
+
+
 VIEWS
 --upper footer?? search pulldown tab with doctors and towns and user profile
 --footer - about the site, link to github, towns?
