@@ -14,9 +14,7 @@ namespace MedEx.Data.Models
         public ApplicationRole(string name)
             : base(name)
         {
-            Id = Guid
-                .NewGuid()
-                .ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         public DateTime CreatedOn { get; set; }
