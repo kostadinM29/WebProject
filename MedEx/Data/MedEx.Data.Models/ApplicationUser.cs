@@ -18,7 +18,6 @@ namespace MedEx.Data.Models
 
         public virtual Picture Picture { get; set; }
 
-
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; } = new List<IdentityUserRole<string>>();

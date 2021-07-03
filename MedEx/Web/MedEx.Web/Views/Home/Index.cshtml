@@ -4,16 +4,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>We have</p>
-    <div class="col-md-4 offset-md-4">
-        <ul class="list-group">
-            <li class="list-group-item">@Model.DoctorCount Doctors</li>
-            <li class="list-group-item">In @Model.TownCount Towns</li>
-            <li class="list-group-item">With @Model.PositiveReviews Positive Reviews </li>
-            <li class="list-group-item">Out of @Model.TotalReviews Total Reviews</li>
-        </ul>
+<div class="bg">
+    <div class="text-center">
+        <h1 class="col-md-6">Welcome to @GlobalConstants.SystemName!</h1>
+        <p>We have</p>
+        <div class="col-md-4 offset-md-4">
+            <ul class="list-group">
+                <li class="list-group-item">@Model.DoctorCount Doctors</li>
+                <li class="list-group-item">In @Model.TownCount Towns</li>
+                <li class="list-group-item">With @Model.PositiveReviews Positive Reviews </li>
+                <li class="list-group-item">Out of @Model.TotalReviews Total Reviews</li>
+            </ul>
+        </div>
     </div>
-
 </div>

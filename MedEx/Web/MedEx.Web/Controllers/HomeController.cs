@@ -1,29 +1,34 @@
-﻿using MedEx.Web.ViewModels;
+﻿using MedEx.Data.Common.Repositories;
+using MedEx.Data.Models;
+using MedEx.Web.ViewModels;
+using MedEx.Web.ViewModels.Index;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
-using MedEx.Data;
-using MedEx.Web.ViewModels.Index;
 
 namespace MedEx.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext _data;
+        private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
+        private readonly IRepository<Town> _townRepository;
+        private readonly IDeletableEntityRepository<Review> _reviewRepository;
 
-        public HomeController(ApplicationDbContext data)
+        public HomeController(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<Review> reviewRepository, IRepository<Town> townRepository)
         {
-            this._data = data;
+            _doctorRepository = doctorRepository;
+            _reviewRepository = reviewRepository;
+            _townRepository = townRepository;
         }
 
         public IActionResult Index()
         {
             var viewModel = new IndexViewModel()
             {
-                DoctorCount = _data.Doctors.Count(),
-                TownCount = _data.Towns.Count(),
-                PositiveReviews = _data.Reviews.Count(r => r.Rating > 5), // counting reviews 1-5 as negative and 6-10 as positive
-                TotalReviews = _data.Reviews.Count(),
+                DoctorCount = _doctorRepository.All().Count(),
+                TownCount = _townRepository.All().Count(),
+                PositiveReviews = _reviewRepository.All().Count(r => r.Rating > 5), // counting reviews 1-5 as negative and 6-10 as positive
+                TotalReviews = _reviewRepository.All().Count(),
             };
             return View(viewModel);
         }
