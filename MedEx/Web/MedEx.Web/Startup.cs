@@ -4,6 +4,10 @@ using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Data.Repositories;
 using MedEx.Data.Seeding;
+using MedEx.Services.Data.Appointments;
+using MedEx.Services.Data.Doctors;
+using MedEx.Services.Data.Home;
+using MedEx.Services.Data.Patients;
 using MedEx.Services.Mapping;
 using MedEx.Services.Messaging;
 using MedEx.Web.ViewModels;
@@ -16,10 +20,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using MedEx.Services.Data.Appointments;
-using MedEx.Services.Data.Doctors;
-using MedEx.Services.Data.Home;
-using MedEx.Services.Data.Patients;
 
 namespace MedEx.Web
 {

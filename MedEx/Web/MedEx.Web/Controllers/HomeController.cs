@@ -1,11 +1,7 @@
-﻿using MedEx.Data.Common.Repositories;
-using MedEx.Data.Models;
+﻿using MedEx.Services.Data.Home;
 using MedEx.Web.ViewModels;
-using MedEx.Web.ViewModels.Index;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Linq;
-using MedEx.Services.Data.Home;
 
 namespace MedEx.Web.Controllers
 {
