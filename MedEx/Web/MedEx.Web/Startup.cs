@@ -16,6 +16,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using MedEx.Services.Data.Appointments;
+using MedEx.Services.Data.Doctors;
+using MedEx.Services.Data.Home;
+using MedEx.Services.Data.Patients;
 
 namespace MedEx.Web
 {
@@ -61,6 +65,10 @@ namespace MedEx.Web
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IDoctorService, DoctorService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IPatientService, PatientService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

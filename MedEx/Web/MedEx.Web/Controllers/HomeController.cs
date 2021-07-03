@@ -5,31 +5,22 @@ using MedEx.Web.ViewModels.Index;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
+using MedEx.Services.Data.Home;
 
 namespace MedEx.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
-        private readonly IRepository<Town> _townRepository;
-        private readonly IDeletableEntityRepository<Review> _reviewRepository;
+        private readonly IHomeService _homeService;
 
-        public HomeController(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<Review> reviewRepository, IRepository<Town> townRepository)
+        public HomeController(IHomeService homeService)
         {
-            _doctorRepository = doctorRepository;
-            _reviewRepository = reviewRepository;
-            _townRepository = townRepository;
+            _homeService = homeService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel()
-            {
-                DoctorCount = _doctorRepository.All().Count(),
-                TownCount = _townRepository.All().Count(),
-                PositiveReviews = _reviewRepository.All().Count(r => r.Rating > 5), // counting reviews 1-5 as negative and 6-10 as positive
-                TotalReviews = _reviewRepository.All().Count(),
-            };
+            var viewModel = _homeService.GetAllCounts();
             return View(viewModel);
         }
 
