@@ -1,8 +1,10 @@
 ﻿using MedEx.Services.Data.Specializations;
+using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.Doctor;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using MedEx.Services.Data.Towns;
+using System.Threading.Tasks;
+using MedEx.Services.Data.Doctors;
 
 
 namespace MedEx.Web.Controllers
@@ -12,11 +14,13 @@ namespace MedEx.Web.Controllers
 
         private readonly ISpecializationService _specializationService;
         private readonly ITownService _townService;
+        private readonly IDoctorService _doctorService;
 
-        public DoctorController(ISpecializationService specializationService, ITownService townService)
+        public DoctorController(ISpecializationService specializationService, ITownService townService,IDoctorService doctorService)
         {
             _specializationService = specializationService;
             _townService = townService;
+            _doctorService = doctorService;
         }
 
         public IActionResult Index()
@@ -45,7 +49,7 @@ namespace MedEx.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Apply(DoctorApplyInputModel model)
+        public async Task<IActionResult> Apply(DoctorApplyInputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -56,9 +60,10 @@ namespace MedEx.Web.Controllers
 
             model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return Json(model);
+            await _doctorService.CreateAsync(model);
+
             // TODO Redirect to your doctor profile
-            //return Redirect("/");
+            return Redirect("/");
         }
     }
 }

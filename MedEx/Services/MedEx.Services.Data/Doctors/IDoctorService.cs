@@ -1,9 +1,10 @@
-﻿using MedEx.Web.ViewModels.Doctor;
+﻿using System.Threading.Tasks;
+using MedEx.Web.ViewModels.Doctor;
 
 namespace MedEx.Services.Data.Doctors
 {
     public interface IDoctorService
     {
-        void Create(DoctorApplyInputModel model);
+        Task CreateAsync(DoctorApplyInputModel model);
     }
 }

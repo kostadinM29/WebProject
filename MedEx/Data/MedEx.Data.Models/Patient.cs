@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MedEx.Data.Common.Models;
+﻿using MedEx.Data.Common.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEx.Data.Models

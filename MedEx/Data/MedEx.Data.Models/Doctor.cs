@@ -37,7 +37,7 @@ namespace MedEx.Data.Models
         public virtual Town Town { get; set; }
 
         [ForeignKey(nameof(Specialization))]
-        public int? SpecializationId { get; set; }
+        public int SpecializationId { get; set; }
 
         public virtual Specialization Specialization { get; set; }
 
@@ -51,8 +51,6 @@ namespace MedEx.Data.Models
         public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>(); // cabinet pictures?
 
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-
-        public virtual ICollection<ApplicationUser> Clients { get; set; } = new List<ApplicationUser>();
 
         public bool HasApplied { get; set; }
 

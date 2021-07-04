@@ -30,15 +30,15 @@ namespace MedEx.Web.ViewModels.Doctor
         [MinLength(5)]
         public string Address { get; set; }
 
+        public string Biography { get; set; }
+
         [Display(Name = "Town")]
-        public string TownId { get; set; }
+        public int TownId { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> TownItems { get; set; }
 
-        public string Biography { get; set; }
-
         [Display(Name = "Specialization")]
-        public string SpecializationId { get; set; }
+        public int SpecializationId { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
 

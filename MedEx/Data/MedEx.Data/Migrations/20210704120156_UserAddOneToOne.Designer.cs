@@ -4,14 +4,16 @@ using MedEx.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MedEx.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210704120156_UserAddOneToOne")]
+    partial class UserAddOneToOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace MedEx.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DoctorId")
+                    b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -99,7 +101,7 @@ namespace MedEx.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PatientId")
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
@@ -581,11 +583,15 @@ namespace MedEx.Data.Migrations
                 {
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Doctor");
 
