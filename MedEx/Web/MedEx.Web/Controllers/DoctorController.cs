@@ -1,12 +1,7 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Data;
-using MedEx.Data.Models;
-using MedEx.Services.Data.Specializations;
+﻿using MedEx.Services.Data.Specializations;
 using MedEx.Web.ViewModels.Doctor;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 
 namespace MedEx.Web.Controllers
