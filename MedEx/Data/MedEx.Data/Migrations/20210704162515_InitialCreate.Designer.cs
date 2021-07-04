@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedEx.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210704115623_UserAddDoctorsPatientsTwo")]
-    partial class UserAddDoctorsPatientsTwo
+    [Migration("20210704162515_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,6 +74,15 @@ namespace MedEx.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -81,11 +90,17 @@ namespace MedEx.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -97,6 +112,9 @@ namespace MedEx.Data.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +134,10 @@ namespace MedEx.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -123,6 +145,8 @@ namespace MedEx.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -258,7 +282,10 @@ namespace MedEx.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<int?>("SpecializationId")
+                    b.Property<int>("PictureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecializationId")
                         .HasColumnType("int");
 
                     b.Property<int>("TownId")
@@ -270,6 +297,8 @@ namespace MedEx.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PictureId");
 
                     b.HasIndex("SpecializationId");
 
@@ -341,12 +370,6 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -357,8 +380,6 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
 
                     b.HasIndex("IsDeleted");
 
@@ -569,6 +590,21 @@ namespace MedEx.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MedEx.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("MedEx.Data.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("MedEx.Data.Models.Appointment", b =>
                 {
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
@@ -607,9 +643,17 @@ namespace MedEx.Data.Migrations
 
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
+                    b.HasOne("MedEx.Data.Models.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MedEx.Data.Models.Specialization", "Specialization")
                         .WithMany("Doctors")
-                        .HasForeignKey("SpecializationId");
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Town", "Town")
                         .WithMany()
@@ -618,8 +662,10 @@ namespace MedEx.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
-                        .WithMany("Doctors")
+                        .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Picture");
 
                     b.Navigation("Specialization");
 
@@ -637,19 +683,12 @@ namespace MedEx.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
-                        .WithMany("Patients")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Town");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MedEx.Data.Models.Picture", b =>
-                {
-                    b.HasOne("MedEx.Data.Models.Doctor", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("DoctorId");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Review", b =>
@@ -728,11 +767,7 @@ namespace MedEx.Data.Migrations
                 {
                     b.Navigation("Claims");
 
-                    b.Navigation("Doctors");
-
                     b.Navigation("Logins");
-
-                    b.Navigation("Patients");
 
                     b.Navigation("Roles");
                 });
@@ -740,8 +775,6 @@ namespace MedEx.Data.Migrations
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("Pictures");
 
                     b.Navigation("Reviews");
                 });

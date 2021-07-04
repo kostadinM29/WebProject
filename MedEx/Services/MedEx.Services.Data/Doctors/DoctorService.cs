@@ -9,6 +9,7 @@ namespace MedEx.Services.Data.Doctors
     {
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
 
+
         public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository)
         {
             _doctorRepository = doctorRepository;
@@ -43,10 +44,15 @@ namespace MedEx.Services.Data.Doctors
          */
         public async Task CreateAsync(DoctorApplyInputModel model)
         {
+
             var doctor = new Doctor()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Picture = new Picture()
+                {
+                    ImagePath = model.PictureUrl
+                },
                 Age = model.Age,
                 PhoneNumber = model.PhoneNumber,
                 Experience = model.Experience,
@@ -62,22 +68,5 @@ namespace MedEx.Services.Data.Doctors
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();
         }
-
-        /* public string Address { get; set; }
-
-        [Display(Name = "Town")]
-        public string TownId { get; set; }
-
-        public IEnumerable<KeyValuePair<string, string>> TownItems { get; set; }
-
-        public string Biography { get; set; }
-
-        [Display(Name = "Specialization")]
-        public string SpecializationId { get; set; }
-
-        public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
-
-        public string UserId { get; set; } // not sure if needed
-        */
     }
 }

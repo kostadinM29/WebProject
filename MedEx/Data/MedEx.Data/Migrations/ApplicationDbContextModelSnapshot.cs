@@ -280,6 +280,9 @@ namespace MedEx.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<int>("PictureId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SpecializationId")
                         .HasColumnType("int");
 
@@ -292,6 +295,8 @@ namespace MedEx.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PictureId");
 
                     b.HasIndex("SpecializationId");
 
@@ -363,12 +368,6 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -379,8 +378,6 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
 
                     b.HasIndex("IsDeleted");
 
@@ -644,6 +641,12 @@ namespace MedEx.Data.Migrations
 
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
+                    b.HasOne("MedEx.Data.Models.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MedEx.Data.Models.Specialization", "Specialization")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecializationId")
@@ -659,6 +662,8 @@ namespace MedEx.Data.Migrations
                     b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Picture");
 
                     b.Navigation("Specialization");
 
@@ -682,13 +687,6 @@ namespace MedEx.Data.Migrations
                     b.Navigation("Town");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MedEx.Data.Models.Picture", b =>
-                {
-                    b.HasOne("MedEx.Data.Models.Doctor", null)
-                        .WithMany("Pictures")
-                        .HasForeignKey("DoctorId");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Review", b =>
@@ -775,8 +773,6 @@ namespace MedEx.Data.Migrations
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("Pictures");
 
                     b.Navigation("Reviews");
                 });

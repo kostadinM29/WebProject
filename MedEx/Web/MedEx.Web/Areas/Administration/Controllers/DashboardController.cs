@@ -11,12 +11,14 @@ namespace MedEx.Web.Areas.Administration.Controllers
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
         private readonly IDeletableEntityRepository<Specialization> _specializationRepository;
         private readonly IRepository<Town> _townRepository;
+        private readonly IDeletableEntityRepository<Picture> _pictureRepository;
 
-        public DashboardController(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<Specialization> specializationRepository, IRepository<Town> townRepository)
+        public DashboardController(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<Specialization> specializationRepository, IRepository<Town> townRepository, IDeletableEntityRepository<Picture> pictureRepository)
         {
             _doctorRepository = doctorRepository;
             _specializationRepository = specializationRepository;
             _townRepository = townRepository;
+            _pictureRepository = pictureRepository;
         }
 
         public IActionResult Index()
@@ -29,7 +31,8 @@ namespace MedEx.Web.Areas.Administration.Controllers
             var model = _doctorRepository.All()
                 .Select(d => new AllDoctorsViewModel
                 {
-                    FullName = d.FirstName + d.LastName,
+                    FullName = d.FirstName + " " + d.LastName,
+                    PictureUrl = _pictureRepository.AllAsNoTracking().FirstOrDefault(p => p.Id == d.PictureId).ImagePath,
                     Age = d.Age,
                     PhoneNumber = d.PhoneNumber,
                     Experience = d.Experience,

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MedEx.Data.Migrations
 {
@@ -23,6 +23,23 @@ namespace MedEx.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,27 +113,6 @@ namespace MedEx.Data.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Appointments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VisitingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorId = table.Column<int>(type: "int", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Appointments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,8 +190,9 @@ namespace MedEx.Data.Migrations
                     Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     TownId = table.Column<int>(type: "int", nullable: false),
-                    SpecializationId = table.Column<int>(type: "int", nullable: true),
+                    SpecializationId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PictureId = table.Column<int>(type: "int", nullable: false),
                     HasApplied = table.Column<bool>(type: "bit", nullable: false),
                     IsValidated = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -207,6 +204,12 @@ namespace MedEx.Data.Migrations
                 {
                     table.PrimaryKey("PK_Doctors", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Doctors_Pictures_PictureId",
+                        column: x => x.PictureId,
+                        principalTable: "Pictures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Doctors_Specializations_SpecializationId",
                         column: x => x.SpecializationId,
                         principalTable: "Specializations",
@@ -216,70 +219,6 @@ namespace MedEx.Data.Migrations
                         name: "FK_Doctors_Towns_TownId",
                         column: x => x.TownId,
                         principalTable: "Towns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pictures",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorId = table.Column<int>(type: "int", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pictures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pictures_Doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PictureId = table.Column<int>(type: "int", nullable: false),
-                    DoctorId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Pictures_PictureId",
-                        column: x => x.PictureId,
-                        principalTable: "Pictures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -305,15 +244,84 @@ namespace MedEx.Data.Migrations
                 {
                     table.PrimaryKey("PK_Patients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Patients_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Patients_Towns_TownId",
                         column: x => x.TownId,
                         principalTable: "Towns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VisitingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: true),
+                    DoctorId = table.Column<int>(type: "int", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -355,11 +363,6 @@ namespace MedEx.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointments_ApplicationUserId",
-                table: "Appointments",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId",
@@ -419,9 +422,14 @@ namespace MedEx.Data.Migrations
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_PictureId",
+                name: "IX_AspNetUsers_IsDeleted",
                 table: "AspNetUsers",
-                column: "PictureId");
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_PatientId",
+                table: "AspNetUsers",
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -444,6 +452,11 @@ namespace MedEx.Data.Migrations
                 name: "IX_Doctors_IsDeleted",
                 table: "Doctors",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Doctors_PictureId",
+                table: "Doctors",
+                column: "PictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_SpecializationId",
@@ -474,11 +487,6 @@ namespace MedEx.Data.Migrations
                 name: "IX_Patients_UserId",
                 table: "Patients",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pictures_DoctorId",
-                table: "Pictures",
-                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_IsDeleted",
@@ -515,30 +523,6 @@ namespace MedEx.Data.Migrations
                 table: "AspNetUserRoles",
                 column: "UserId",
                 principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Appointments_AspNetUsers_ApplicationUserId",
-                table: "Appointments",
-                column: "ApplicationUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Appointments_Doctors_DoctorId",
-                table: "Appointments",
-                column: "DoctorId",
-                principalTable: "Doctors",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Appointments_Patients_PatientId",
-                table: "Appointments",
-                column: "PatientId",
-                principalTable: "Patients",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -589,13 +573,25 @@ namespace MedEx.Data.Migrations
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Patients_AspNetUsers_UserId",
+                table: "Patients",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Doctors_AspNetUsers_UserId",
-                table: "Doctors");
+                name: "FK_AspNetUsers_Doctors_DoctorId",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUsers_Patients_PatientId",
+                table: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Appointments");
@@ -625,19 +621,19 @@ namespace MedEx.Data.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Patients");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Pictures");
 
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "Specializations");
 
             migrationBuilder.DropTable(
-                name: "Specializations");
+                name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Towns");

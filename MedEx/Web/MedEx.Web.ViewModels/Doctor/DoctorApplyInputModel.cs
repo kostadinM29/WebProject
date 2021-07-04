@@ -13,6 +13,10 @@ namespace MedEx.Web.ViewModels.Doctor
         [MinLength(3)]
         public string LastName { get; set; }
 
+        [Required]
+        [Url]
+        public string PictureUrl { get; set; }
+
         [Range(18, 99)]
         public int Age { get; set; }
 
