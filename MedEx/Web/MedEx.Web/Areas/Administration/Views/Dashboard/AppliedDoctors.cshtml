@@ -38,17 +38,14 @@
 <hr />
 <nav>
     <ul class="pagination justify-content-center">
-        <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
+        <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>}">
             <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@Model.PreviousPageNumber">Previous</a>
         </li>
-        @{
-        var potentialBackPage = Model.PageNumber - 1;
-        if (potentialBackPage > 0)
+        @if (Model.PageNumber - 1 > 0)
         {
-        <li class="page-item">
-            <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@potentialBackPage">@potentialBackPage</a>
-        </li>
-        }
+            <li class="page-item">
+                <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@(Model.PageNumber -1)">@(Model.PageNumber - 1)</a>
+            </li>
         }
         <li class="page-item active">
             <span class="page-link">
@@ -56,17 +53,14 @@
                 <span class="sr-only">(current)</span>
             </span>
         </li>
-        @{
-        var potentialForwardPage = Model.PageNumber + 1;
 
-        if (potentialForwardPage <= Model.PagesCount)
+        @if (Model.PageNumber + 1 <= Model.PagesCount)
         {
-        <li class="page-item">
-            <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@potentialForwardPage">@potentialForwardPage</a>
-        </li>
+            <li class="page-item">
+                <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@(Model.PageNumber + 1)">@(Model.PageNumber + 1)</a>
+            </li>
         }
-        }
-        <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> }">
+        <li class="page-item @if (!Model.HasNextPage) {<text>disabled</text>}">
             <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@Model.NextPageNumber">Next</a>
         </li>
     </ul>
