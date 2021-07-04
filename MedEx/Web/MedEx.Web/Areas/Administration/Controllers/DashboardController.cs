@@ -18,12 +18,15 @@ namespace MedEx.Web.Areas.Administration.Controllers
             return View();
         }
 
-        public IActionResult AllDoctors(int id)
+        public IActionResult AppliedDoctors(int id)
         {
+            const int itemsPerPage = 6;
             var viewModel = new DoctorsListViewModel
             {
-                Doctors = _doctorService.GetAllAppliedDoctors(id, 3),
-                PageNumber = id
+                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, itemsPerPage),
+                PageNumber = id,
+                ItemsPerPage = itemsPerPage,
+                DoctorsCount = _doctorService.GetAppliedDoctorsCount()
             };
 
             return View(viewModel);

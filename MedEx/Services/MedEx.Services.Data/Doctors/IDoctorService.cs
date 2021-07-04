@@ -9,6 +9,8 @@ namespace MedEx.Services.Data.Doctors
     {
         Task CreateAsync(DoctorApplyInputModel model);
 
-        IEnumerable<DoctorsInListViewModel> GetAllAppliedDoctors(int page, int itemsPerPage);
+        IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
+
+        int GetAppliedDoctorsCount();
     }
 }
