@@ -15,14 +15,10 @@ namespace MedEx.Web.Controllers
     {
 
         private readonly ISpecializationService _specializationService;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _dbContext;
 
-        public DoctorController(ISpecializationService specializationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
+        public DoctorController(ISpecializationService specializationService)
         {
             _specializationService = specializationService;
-            _userManager = userManager;
-            _dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -64,8 +60,5 @@ namespace MedEx.Web.Controllers
             // TODO Redirect to your doctor profile
             //return Redirect("/");
         }
-
-        private string GetCurrentUserId() => _userManager.GetUserId(HttpContext.User);
-
     }
 }
