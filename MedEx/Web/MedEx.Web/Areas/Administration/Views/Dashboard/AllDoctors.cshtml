@@ -1,0 +1,88 @@
+﻿@model List<MedEx.Web.ViewModels.Administration.Dashboard.AllDoctorsViewModel>
+
+@for (int i = 0; i < @Model.Count; i++)
+{
+    <article id="doctor-3872" class="search-result bookable" data-id="3872">
+
+        <a class="search-result-link" href="https://superdoc.bg/lekar/silvia-valcheva-dm" title="Запази час за преглед при @Model[i].FullName"></a>
+
+        <div class="row">
+
+            <div class="col-sm-3 col-3">
+                <img class="img-fluid search-result-thumb" src="https://superdoc.bg/photos/doctors/small/Qwq8CWkt9LqaF52FOS7Lhn2WNTeuqE5sfsjpbUVD.jpg" alt="@Model[i].FullName">
+            </div>
+
+            <div class="col-sm-9 col-9">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="search-result-content">
+
+                            <div>
+                                <h3>Д-р Силвия Вълчева, дм</h3>
+                                <div class="rating rated">
+
+                                    <i class="fal fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                </div>
+
+                                <p>УНГ, Отоневролог · София</p>
+                            </div>
+
+
+
+                            <div class="search-result-actions">
+
+
+                                <div class="next-appointment">
+                                    <i class="fal fa-calendar-alt"></i>
+
+                                    <div>
+                                        <small>Най-ранен час:</small>
+                                        <span>Утре в 10:45</span>
+                                    </div>
+
+                                </div>
+
+
+                                <a href="https://superdoc.bg/lekar/silvia-valcheva-dm" title="Запази час за преглед при Д-р Силвия Вълчева, дм" class="btn btn-primary btn-doctor-book">
+                                    Запази час
+                                </a>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="search-result-attributes">
+
+                            <span class="badge badge-primary" title="Работи с НЗОК">
+                                <img src="https://superdoc.bg/img/nhp.png">
+                                <span>Работи с НЗОК</span>
+                            </span>
+                            <span class="badge badge-purple" title="Работи с деца">
+                                <i class="fas fa-child"></i>
+                                <span>Работи с деца</span>
+                            </span>
+                            <span class="badge badge-warning" title="Обявени цени">
+                                <i class="fas fa-usd-circle"></i>
+                                <span>Обявени цени</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="search-result-mobile-actions">
+            <a href="https://superdoc.bg/lekar/silvia-valcheva-dm" title="Запази час за преглед при Д-р Силвия Вълчева, дм" class="btn btn-link btn-doctor-book">
+                Запази час
+            </a>
+
+        </div>
+    </article>
+}   
