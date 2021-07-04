@@ -1,10 +1,13 @@
-﻿namespace MedEx.Web.ViewModels.Administration.Dashboard
+﻿using MedEx.Data.Models;
+using MedEx.Services.Mapping;
+
+namespace MedEx.Web.ViewModels.Administration.Dashboard
 {
-    public class AllDoctorsViewModel
+    public class DoctorsInListViewModel : IMapFrom<Doctor>
     {
         public string FullName { get; set; }
 
-        public string PictureUrl { get; set; }
+        public string PictureImagePath { get; set; }
 
         public int Age { get; set; }
 
@@ -18,9 +21,9 @@
 
         public string Biography { get; set; }
 
-        public string Town { get; set; }
+        public string TownName { get; set; }
 
-        public string Specialization { get; set; }
+        public string SpecializationName { get; set; }
 
         public bool HasApplied { get; set; }
 

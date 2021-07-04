@@ -1,4 +1,4 @@
-﻿@model MedEx.Web.ViewModels.Doctor.DoctorApplyInputModel
+﻿@model MedEx.Web.ViewModels.DoctorViewModels.DoctorApplyInputModel
 @{
     ViewData["Title"] = "Apply for a doctor account";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value,s.Key));

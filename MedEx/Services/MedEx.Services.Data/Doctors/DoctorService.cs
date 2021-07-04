@@ -1,7 +1,11 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
-using MedEx.Web.ViewModels.Doctor;
+using MedEx.Web.ViewModels.Administration.Dashboard;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MedEx.Services.Mapping;
+using MedEx.Web.ViewModels.DoctorViewModels;
 
 namespace MedEx.Services.Data.Doctors
 {
@@ -67,6 +71,18 @@ namespace MedEx.Services.Data.Doctors
 
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<DoctorsInListViewModel> GetAllAppliedDoctors(int page, int itemsPerPage = 12)
+        {
+            var model = _doctorRepository.AllAsNoTracking()
+                .OrderBy(d => d.Id)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<DoctorsInListViewModel>()
+                .ToList();
+
+            return model;
         }
     }
 }

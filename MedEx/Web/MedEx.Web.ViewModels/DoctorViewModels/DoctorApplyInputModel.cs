@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MedEx.Web.ViewModels.Doctor
+namespace MedEx.Web.ViewModels.DoctorViewModels
 {
     public class DoctorApplyInputModel
     {
