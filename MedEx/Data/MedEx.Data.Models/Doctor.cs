@@ -18,7 +18,7 @@ namespace MedEx.Data.Models
         public int Age { get; set; }
 
         [MaxLength(15)]
-        public int Phone { get; set; } // potentially stationary/telephone
+        public string PhoneNumber { get; set; } // potentially stationary/telephone
 
         public int? Experience { get; set; } // years
 
@@ -53,5 +53,9 @@ namespace MedEx.Data.Models
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
         public virtual ICollection<ApplicationUser> Clients { get; set; } = new List<ApplicationUser>();
+
+        public bool HasApplied { get; set; }
+
+        public bool IsValidated { get; set; }
     }
 }

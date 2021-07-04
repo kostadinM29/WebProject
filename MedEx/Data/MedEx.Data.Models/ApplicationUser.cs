@@ -7,12 +7,6 @@ namespace MedEx.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Location { get; set; }
-
-        public string Gender { get; set; }
-
-        public DateTime RegisteredOn { get; set; }
-
         [ForeignKey(nameof(Picture))]
         public int PictureId { get; set; }
 
