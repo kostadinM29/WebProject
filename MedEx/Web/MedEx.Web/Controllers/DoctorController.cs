@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MedEx.Services.Data.Doctors;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace MedEx.Web.Controllers
@@ -37,7 +38,7 @@ namespace MedEx.Web.Controllers
              */
             return View();
         }
-
+        [Authorize]
         public IActionResult Apply()
         {
             var viewModel = new DoctorApplyInputModel
@@ -48,6 +49,7 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Apply(DoctorApplyInputModel model)
         {

@@ -45,4 +45,10 @@
     <ProjectReference Include="..\MedEx.Web.Infrastructure\MedEx.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MedEx.Web.ViewModels\MedEx.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

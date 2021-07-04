@@ -14,6 +14,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Sandbox
 {
@@ -47,6 +48,12 @@ namespace Sandbox
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
             var sw = Stopwatch.StartNew();
+
+            var ph = new PasswordHasher();
+            var hp = ph.HashPassword("admin");
+            Console.WriteLine(hp);
+            Console.WriteLine(ph.VerifyHashedPassword(hp, "admin"));
+
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
         }

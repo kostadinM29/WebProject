@@ -1,4 +1,5 @@
-﻿using MedEx.Data.Seeding.CustomSeeders;
+﻿using MedEx.Data.Models;
+using MedEx.Data.Seeding.CustomSeeders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,7 +28,8 @@ namespace MedEx.Data.Seeding
                           {
                               new RolesSeeder(),
                               new SpecializationsSeeder(),
-                              new TownsSeeder()
+                              new TownsSeeder(),
+                              new AdminAccountSeeder()
                           };
 
             foreach (var seeder in seeders)
