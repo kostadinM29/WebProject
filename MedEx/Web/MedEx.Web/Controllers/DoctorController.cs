@@ -2,6 +2,7 @@
 using MedEx.Web.ViewModels.Doctor;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using MedEx.Services.Data.Towns;
 
 
 namespace MedEx.Web.Controllers
@@ -10,10 +11,12 @@ namespace MedEx.Web.Controllers
     {
 
         private readonly ISpecializationService _specializationService;
+        private readonly ITownService _townService;
 
-        public DoctorController(ISpecializationService specializationService)
+        public DoctorController(ISpecializationService specializationService, ITownService townService)
         {
             _specializationService = specializationService;
+            _townService = townService;
         }
 
         public IActionResult Index()
@@ -35,6 +38,7 @@ namespace MedEx.Web.Controllers
         {
             var viewModel = new DoctorApplyInputModel
             {
+                TownItems = _townService.GetAllAsKeyValuePairs(),
                 SpecializationItems = _specializationService.GetAllAsKeyValuePairs()
             };
             return View(viewModel);
@@ -45,6 +49,7 @@ namespace MedEx.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.TownItems = _townService.GetAllAsKeyValuePairs();
                 model.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
                 return View(model);
             }

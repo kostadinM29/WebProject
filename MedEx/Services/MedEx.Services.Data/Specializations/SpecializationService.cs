@@ -7,16 +7,16 @@ namespace MedEx.Services.Data.Specializations
 {
     public class SpecializationService : ISpecializationService
     {
-        private readonly IDeletableEntityRepository<Specialization> _specializations;
+        private readonly IDeletableEntityRepository<Specialization> _specializationsRepository;
 
-        public SpecializationService(IDeletableEntityRepository<Specialization> specializations)
+        public SpecializationService(IDeletableEntityRepository<Specialization> specializationsRepository)
         {
-            _specializations = specializations;
+            _specializationsRepository = specializationsRepository;
         }
 
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
         {
-             return _specializations.AllAsNoTracking() // better to use AsNoTracking to save some memory
+             return _specializationsRepository.AllAsNoTracking() // better to use AsNoTracking to save some memory
                  .Select(s => new
                 {
                     s.Id,

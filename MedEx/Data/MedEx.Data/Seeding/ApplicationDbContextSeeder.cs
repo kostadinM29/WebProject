@@ -26,7 +26,8 @@ namespace MedEx.Data.Seeding
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
-                              new SpecializationsSeeder()
+                              new SpecializationsSeeder(),
+                              new TownsSeeder()
                           };
 
             foreach (var seeder in seeders)
