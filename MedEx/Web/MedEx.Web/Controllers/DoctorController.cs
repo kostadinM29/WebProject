@@ -1,10 +1,30 @@
-﻿using MedEx.Web.ViewModels.Doctor;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using MedEx.Data;
+using MedEx.Data.Models;
+using MedEx.Services.Data.Specializations;
+using MedEx.Web.ViewModels.Doctor;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace MedEx.Web.Controllers
 {
     public class DoctorController : BaseController
     {
+
+        private readonly ISpecializationService _specializationService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _dbContext;
+
+        public DoctorController(ISpecializationService specializationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
+        {
+            _specializationService = specializationService;
+            _userManager = userManager;
+            _dbContext = dbContext;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,7 +42,11 @@ namespace MedEx.Web.Controllers
 
         public IActionResult Apply()
         {
-            return View();
+            var viewModel = new DoctorApplyInputModel
+            {
+                SpecializationItems = _specializationService.GetAllAsKeyValuePairs()
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -30,12 +54,18 @@ namespace MedEx.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                model.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
+                return View(model);
             }
 
+            model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //TODO Redirect to your doctor profile
-            return Redirect("/");
+            return Json(model);
+            // TODO Redirect to your doctor profile
+            //return Redirect("/");
         }
+
+        private string GetCurrentUserId() => _userManager.GetUserId(HttpContext.User);
+
     }
 }

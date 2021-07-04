@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MedEx.Data.Seeding.CustomSeeders;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace MedEx.Data.Seeding
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
+                              new SpecializationsSeeder()
                           };
 
             foreach (var seeder in seeders)

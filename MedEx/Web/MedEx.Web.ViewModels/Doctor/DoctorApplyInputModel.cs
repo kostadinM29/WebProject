@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.Doctor
 {
@@ -18,6 +19,7 @@ namespace MedEx.Web.ViewModels.Doctor
         [MinLength(6)]
         public string PhoneNumber { get; set; } // potentially stationary/telephone
 
+        [Display(Name = "Experience (in years)")]
         public int? Experience { get; set; } // years
 
         [Required]
@@ -33,7 +35,10 @@ namespace MedEx.Web.ViewModels.Doctor
 
         public string Biography { get; set; }
 
-        public string Specialization { get; set; }
+        [Display(Name = "Specialization")]
+        public string SpecializationId { get; set; }
+
+        public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
 
         public string UserId { get; set; } // not sure if needed
     }

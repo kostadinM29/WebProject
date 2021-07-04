@@ -8,6 +8,7 @@ using MedEx.Services.Data.Appointments;
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Home;
 using MedEx.Services.Data.Patients;
+using MedEx.Services.Data.Specializations;
 using MedEx.Services.Mapping;
 using MedEx.Services.Messaging;
 using MedEx.Web.ViewModels;
@@ -69,6 +70,7 @@ namespace MedEx.Web
             services.AddTransient<IDoctorService, DoctorService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IPatientService, PatientService>();
+            services.AddTransient<ISpecializationService, SpecializationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

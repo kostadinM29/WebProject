@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedEx.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210704080823_DoctorPhoneToString")]
-    partial class DoctorPhoneToString
+    [Migration("20210704104418_UserRemovePictureAndAppointments")]
+    partial class UserRemovePictureAndAppointments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,9 +107,6 @@ namespace MedEx.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PictureId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -132,8 +129,6 @@ namespace MedEx.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("PictureId");
-
                     b.ToTable("AspNetUsers");
                 });
 
@@ -143,9 +138,6 @@ namespace MedEx.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -172,8 +164,6 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DoctorId");
 
@@ -437,6 +427,9 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -586,22 +579,10 @@ namespace MedEx.Data.Migrations
                     b.HasOne("MedEx.Data.Models.Doctor", null)
                         .WithMany("Clients")
                         .HasForeignKey("DoctorId");
-
-                    b.HasOne("MedEx.Data.Models.Picture", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Picture");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Appointment", b =>
                 {
-                    b.HasOne("MedEx.Data.Models.ApplicationUser", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
@@ -609,7 +590,7 @@ namespace MedEx.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Appointments")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -757,8 +738,6 @@ namespace MedEx.Data.Migrations
 
             modelBuilder.Entity("MedEx.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Claims");
 
                     b.Navigation("Logins");
@@ -775,6 +754,11 @@ namespace MedEx.Data.Migrations
                     b.Navigation("Pictures");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("MedEx.Data.Models.Patient", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Specialization", b =>

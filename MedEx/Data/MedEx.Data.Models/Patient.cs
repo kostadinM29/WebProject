@@ -1,4 +1,5 @@
-﻿using MedEx.Data.Common.Models;
+﻿using System.Collections.Generic;
+using MedEx.Data.Common.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEx.Data.Models
@@ -22,5 +23,7 @@ namespace MedEx.Data.Models
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
