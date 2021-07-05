@@ -21,7 +21,6 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 return;
             }
 
-
             var user = new ApplicationUser()
             {
                 Id = GlobalConstants.AccountsSeeding.AdminGuid,

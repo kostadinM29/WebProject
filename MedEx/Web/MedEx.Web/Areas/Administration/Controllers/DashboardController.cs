@@ -1,4 +1,5 @@
-﻿using MedEx.Services.Data.Doctors;
+﻿using MedEx.Common;
+using MedEx.Services.Data.Doctors;
 using MedEx.Web.ViewModels.Administration.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,12 +21,11 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         public IActionResult AppliedDoctors(int id)
         {
-            const int itemsPerPage = 1;
             var viewModel = new DoctorsListViewModel
             {
-                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, itemsPerPage),
+                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, GlobalConstants.AppliedDoctorItemsPerPageCount),
                 PageNumber = id,
-                ItemsPerPage = itemsPerPage,
+                ItemsPerPage = GlobalConstants.AppliedDoctorItemsPerPageCount,
                 DoctorsCount = _doctorService.GetAppliedDoctorsCount()
             };
 

@@ -45,9 +45,9 @@ namespace MedEx.Services.Data.Doctors
          * searchsimilardoctors?
          *
          */
+
         public async Task CreateAsync(DoctorApplyInputModel model)
         {
-
             var doctor = new Doctor()
             {
                 FirstName = model.FirstName,

@@ -5,7 +5,7 @@
     var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value,s.Key));
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 
 <form method="post" class="col-md-6 offset-md-3">
     <div asp-validation-summary="All" class="text-danger"></div>

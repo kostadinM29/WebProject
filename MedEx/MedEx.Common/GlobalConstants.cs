@@ -8,10 +8,11 @@
 
         public const string DoctorRoleName = "Doctor";
 
+        public const int AppliedDoctorItemsPerPageCount = 6;
+
         public static class AccountsSeeding
         {
             public const string AdminGuid = "2a048ae6-70d8-4924-9f43-6d1c44bd1df3";
-
 
             public const string AdminUserName = "admin@admin.com";
 

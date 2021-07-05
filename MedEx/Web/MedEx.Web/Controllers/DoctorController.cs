@@ -17,7 +17,7 @@ namespace MedEx.Web.Controllers
         private readonly ITownService _townService;
         private readonly IDoctorService _doctorService;
 
-        public DoctorController(ISpecializationService specializationService, ITownService townService,IDoctorService doctorService)
+        public DoctorController(ISpecializationService specializationService, ITownService townService, IDoctorService doctorService)
         {
             _specializationService = specializationService;
             _townService = townService;
@@ -38,6 +38,7 @@ namespace MedEx.Web.Controllers
              */
             return View();
         }
+
         [Authorize]
         public IActionResult Apply()
         {
@@ -51,18 +52,18 @@ namespace MedEx.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Apply(DoctorApplyInputModel model)
+        public async Task<IActionResult> Apply(DoctorApplyInputModel input)
         {
             if (!ModelState.IsValid)
             {
-                model.TownItems = _townService.GetAllAsKeyValuePairs();
-                model.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
-                return View(model);
+                input.TownItems = _townService.GetAllAsKeyValuePairs();
+                input.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
+                return View(input);
             }
 
-            model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            input.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _doctorService.CreateAsync(model);
+            await _doctorService.CreateAsync(input);
 
             // TODO Redirect to your doctor profile
             return Redirect("/");
