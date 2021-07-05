@@ -5,6 +5,8 @@ namespace MedEx.Web.ViewModels.Administration.Dashboard
 {
     public class DoctorsInListViewModel : IMapFrom<Doctor>
     {
+        public int Id { get; set; }
+
         public string FullName { get; set; }
 
         public string PictureImagePath { get; set; }

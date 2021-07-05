@@ -12,5 +12,9 @@ namespace MedEx.Services.Data.Doctors
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 
         int GetAppliedDoctorsCount();
+
+        Task<bool> VerifyAsync(int doctorId);
+
+        Task<bool> DeleteAsync(int doctorId);
     }
 }

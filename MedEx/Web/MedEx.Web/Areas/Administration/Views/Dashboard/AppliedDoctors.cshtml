@@ -25,9 +25,9 @@
                         {
                             <p>Experience: @doctor.Experience years</p>
                         }
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-success">Verify</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success" asp-area="Administration" asp-controller="Dashboard" asp-action="Verify" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Verify</button>
+                            <button type="button" class="btn btn-danger" asp-area="Administration" asp-controller="Dashboard" asp-action="Delete" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
         <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>}">
             <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@Model.PreviousPageNumber">Previous</a>
         </li>
-        @for (int i = Model.PageNumber -2; i < Model.PageNumber; i++)
+        @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
         {
             if (i > 0)
             {

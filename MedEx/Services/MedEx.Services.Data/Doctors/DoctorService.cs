@@ -85,5 +85,35 @@ namespace MedEx.Services.Data.Doctors
         }
 
         public int GetAppliedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied);
+
+        public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId);
+
+        public async Task<bool> VerifyAsync(int doctorId)
+        {
+            var doctor = GetDoctorById(doctorId);
+            if (doctor == null)
+            {
+                return false;
+            }
+
+            doctor.IsValidated = true;
+
+            await _doctorRepository.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int doctorId) // potential spaghetti code
+        {
+            var doctor = GetDoctorById(doctorId);
+            
+            if (doctor == null)
+            {
+                return false;
+            }
+
+            _doctorRepository.Delete(doctor);
+            await _doctorRepository.SaveChangesAsync();
+            return true;
+        }
     }
 }
