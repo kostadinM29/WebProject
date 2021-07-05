@@ -89,3 +89,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.about_text_highlight {
+    font-size: 16px;
+    font-weight: 700;
+    color: #404040;
+    margin-top: 28px;
+}
