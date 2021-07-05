@@ -20,7 +20,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         public IActionResult AppliedDoctors(int id)
         {
-            const int itemsPerPage = 6;
+            const int itemsPerPage = 1;
             var viewModel = new DoctorsListViewModel
             {
                 Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, itemsPerPage),

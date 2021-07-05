@@ -41,11 +41,14 @@
         <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>}">
             <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@Model.PreviousPageNumber">Previous</a>
         </li>
-        @if (Model.PageNumber - 1 > 0)
+        @for (int i = Model.PageNumber -2; i < Model.PageNumber; i++)
         {
-            <li class="page-item">
-                <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@(Model.PageNumber -1)">@(Model.PageNumber - 1)</a>
-            </li>
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@i">@i</a>
+                </li>
+            }
         }
         <li class="page-item active">
             <span class="page-link">
@@ -54,11 +57,14 @@
             </span>
         </li>
 
-        @if (Model.PageNumber + 1 <= Model.PagesCount)
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
         {
-            <li class="page-item">
-                <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@(Model.PageNumber + 1)">@(Model.PageNumber + 1)</a>
-            </li>
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@i">@i</a>
+                </li>
+            }
         }
         <li class="page-item @if (!Model.HasNextPage) {<text>disabled</text>}">
             <a class="page-link" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="@Model.NextPageNumber">Next</a>
