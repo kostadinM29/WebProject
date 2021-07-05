@@ -25,9 +25,9 @@
                         {
                             <p>Experience: @doctor.Experience years</p>
                         }
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success" asp-area="Administration" asp-controller="Dashboard" asp-action="Verify" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Verify</button>
-                            <button type="button" class="btn btn-danger" asp-area="Administration" asp-controller="Dashboard" asp-action="Delete" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Delete</button>
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-success" asp-area="Administration" asp-controller="Dashboard" asp-action="Verify" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Verify</a>
+                            <a type="button" class="btn btn-danger" asp-area="Administration" asp-controller="Dashboard" asp-action="Delete" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Delete</a>
                         </div>
                     </div>
                 </div>
