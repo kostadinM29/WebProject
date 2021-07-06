@@ -12,7 +12,12 @@
             <div class="col-md-6">
                 <div class="card flex-md-row mb-4 box-shadow">
                     <div class="col-md-7">
-                        <img src="@doctor.PictureImagePath" alt="" class="card-img-top mb-2 w-100 rounded-circle">
+                        <div class="slideshow-container">
+                            @foreach (var image in doctor.Images)
+                            {
+                                <img src="@image." alt="" class="img-fluid">
+                            }
+                        </div>
                         <h4 class="text-center container-fluid">@doctor.FullName</h4>
                         <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
                     </div>
@@ -36,4 +41,4 @@
     </div>
 </div>
 <hr />
-<partial name="_PagingPartial" model="@Model"/>
+<partial name="_PagingPartial" model="@Model" />

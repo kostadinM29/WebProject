@@ -32,7 +32,7 @@ namespace MedEx.Data
 
         public DbSet<Patient> Patients { get; set; }
 
-        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.DoctorViewModels
@@ -13,9 +14,8 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
         [MinLength(3)]
         public string LastName { get; set; }
 
-        [Required]
-        [Url]
-        public string PictureUrl { get; set; }
+        [Display(Name = "Images(can upload multiple)")]
+        public IEnumerable<IFormFile> Images { get; set; }
 
         [Range(18, 99)]
         public int Age { get; set; }

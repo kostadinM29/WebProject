@@ -2,7 +2,9 @@
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 using MedEx.Web.ViewModels.DoctorViewModels;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +12,7 @@ namespace MedEx.Services.Data.Doctors
 {
     public class DoctorService : IDoctorService
     {
+        private readonly List<string> _allowedExtensions = new List<string> { "jpg", "jpeg", "png" };
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
 
         public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository)
@@ -45,16 +48,12 @@ namespace MedEx.Services.Data.Doctors
          *
          */
 
-        public async Task CreateAsync(DoctorApplyInputModel model)
+        public async Task CreateAsync(DoctorApplyInputModel model, string imagePath)
         {
             var doctor = new Doctor()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Picture = new Picture()
-                {
-                    ImagePath = model.PictureUrl
-                },
                 Age = model.Age,
                 PhoneNumber = model.PhoneNumber,
                 Experience = model.Experience,
@@ -66,6 +65,26 @@ namespace MedEx.Services.Data.Doctors
                 UserId = model.UserId,
                 HasApplied = true
             };
+            Directory.CreateDirectory($"{imagePath}/doctors/");
+            foreach (var image in model.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!_allowedExtensions.Any(e => extension.EndsWith(e)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    Extension = extension
+                };
+                doctor.Images.Add(dbImage);
+
+                var physicalPath = $"{imagePath}/doctors/{dbImage.Id}.{extension}";
+                await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
+            }
+
 
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();

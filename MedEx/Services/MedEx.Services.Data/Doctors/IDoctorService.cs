@@ -6,7 +6,7 @@ namespace MedEx.Services.Data.Doctors
 {
     public interface IDoctorService
     {
-        Task CreateAsync(DoctorApplyInputModel model);
+        Task CreateAsync(DoctorApplyInputModel model, string imagePath);
 
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 

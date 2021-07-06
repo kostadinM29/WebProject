@@ -3,7 +3,9 @@ using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -14,12 +16,14 @@ namespace MedEx.Web.Controllers
         private readonly ISpecializationService _specializationService;
         private readonly ITownService _townService;
         private readonly IDoctorService _doctorService;
+        private readonly IWebHostEnvironment _environment;
 
-        public DoctorController(ISpecializationService specializationService, ITownService townService, IDoctorService doctorService)
+        public DoctorController(ISpecializationService specializationService, ITownService townService, IDoctorService doctorService, IWebHostEnvironment environment)
         {
             _specializationService = specializationService;
             _townService = townService;
             _doctorService = doctorService;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -60,8 +64,17 @@ namespace MedEx.Web.Controllers
             }
 
             input.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await _doctorService.CreateAsync(input);
+            try
+            {
+                await _doctorService.CreateAsync(input, $"{this._environment.WebRootPath}/img");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                input.TownItems = _townService.GetAllAsKeyValuePairs();
+                input.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
+                return View(input);
+            }
 
             // TODO Redirect to your doctor profile
             return Redirect("/");

@@ -1,4 +1,6 @@
-﻿namespace MedEx.Common
+﻿using System.Collections.Generic;
+
+namespace MedEx.Common
 {
     public static class GlobalConstants
     {
