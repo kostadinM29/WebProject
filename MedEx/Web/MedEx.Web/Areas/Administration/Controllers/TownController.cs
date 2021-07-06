@@ -31,7 +31,6 @@ namespace MedEx.Web.Areas.Administration.Controllers
                 return View(input);
             }
 
-
             await _townService.CreateAsync(input);
 
             // TODO Redirect to your profile

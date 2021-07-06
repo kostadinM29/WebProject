@@ -19,8 +19,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
         {
             var viewModel = new DoctorsListViewModel
             {
-                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id,
-                    GlobalConstants.AppliedDoctorItemsPerPageCount),
+                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, GlobalConstants.AppliedDoctorItemsPerPageCount),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.AppliedDoctorItemsPerPageCount,
                 ItemCount = _doctorService.GetAppliedAndNotValidatedDoctorsCount()
@@ -38,7 +37,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("AppliedDoctors", new {id = pageNumber});
+            return RedirectToAction("AppliedDoctors", new { id = pageNumber });
         }
 
         public async Task<IActionResult> Delete(int doctorId, int pageNumber) // id is pageNumber
@@ -50,7 +49,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("AppliedDoctors", new {id = pageNumber});
+            return RedirectToAction("AppliedDoctors", new { id = pageNumber });
         }
     }
 }

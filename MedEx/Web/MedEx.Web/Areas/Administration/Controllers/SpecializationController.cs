@@ -1,12 +1,8 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Data.Common.Repositories;
-using MedEx.Data.Models;
-using MedEx.Services.Data.Specializations;
+﻿using MedEx.Services.Data.Specializations;
 using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
-using MedEx.Web.ViewModels.PatientViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.Administration.Controllers
 {
@@ -33,7 +29,6 @@ namespace MedEx.Web.Areas.Administration.Controllers
             {
                 return View(input);
             }
-
 
             await _specializationService.CreateAsync(input);
 

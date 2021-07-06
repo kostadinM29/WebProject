@@ -12,7 +12,6 @@ namespace MedEx.Services.Data.Doctors
     {
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
 
-
         public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository)
         {
             _doctorRepository = doctorRepository;

@@ -1,18 +1,16 @@
-﻿using MedEx.Services.Data.Specializations;
+﻿using MedEx.Services.Data.Doctors;
+using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
+using MedEx.Web.ViewModels.DoctorViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Services.Data.Doctors;
-using MedEx.Web.ViewModels.DoctorViewModels;
-using Microsoft.AspNetCore.Authorization;
-
 
 namespace MedEx.Web.Controllers
 {
     public class DoctorController : BaseController
     {
-
         private readonly ISpecializationService _specializationService;
         private readonly ITownService _townService;
         private readonly IDoctorService _doctorService;
