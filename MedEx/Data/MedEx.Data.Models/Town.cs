@@ -6,6 +6,6 @@ namespace MedEx.Data.Models
     {
         public string Name { get; set; }
 
-        public int ZipCode { get; set; }
+        public int? ZipCode { get; set; }
     }
 }

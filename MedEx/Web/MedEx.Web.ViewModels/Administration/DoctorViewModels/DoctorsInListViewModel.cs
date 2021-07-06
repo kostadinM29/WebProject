@@ -1,9 +1,9 @@
 ﻿using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 
-namespace MedEx.Web.ViewModels.Administration.Dashboard
+namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 {
-    public class DoctorsInListViewModel : IMapFrom<Doctor>
+    public class DoctorsInListViewModel : IMapFrom<Doctor> // because of folder name
     {
         public int Id { get; set; }
 

@@ -1,0 +1,39 @@
+﻿@model MedEx.Web.ViewModels.Administration.DoctorViewModels.DoctorsListViewModel
+@{
+    ViewData["Title"] = $"All Recipes, Page {Model.PageNumber}";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (var doctor in Model.Doctors)
+        {
+            <div class="col-md-6">
+                <div class="card flex-md-row mb-4 box-shadow">
+                    <div class="col-md-7">
+                        <img src="@doctor.PictureImagePath" alt="" class="card-img-top mb-2 w-100 rounded-circle">
+                        <h4 class="text-center container-fluid">@doctor.FullName</h4>
+                        <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
+                    </div>
+                    <div class="col-md-9 card-body">
+                        <p class="card-text mb-auto">Age: @doctor.Age</p>
+                        <p>Address: @doctor.Address</p>
+                        <p>Email address: @doctor.Email</p>
+                        <p>Phone: @doctor.PhoneNumber</p>
+                        @if (@doctor.Experience != null)
+                        {
+                            <p>Experience: @doctor.Experience years</p>
+                        }
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-success" asp-area="Administration" asp-controller="Doctor" asp-action="Verify" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Verify</a>
+                            <a type="button" class="btn btn-danger" asp-area="Administration" asp-controller="Doctor" asp-action="Delete" asp-route-doctorId="@doctor.Id" asp-route-pageNumber="@Model.PageNumber">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<partial name="_PagingPartial" model="@Model"/>

@@ -1,0 +1,21 @@
+﻿@model MedEx.Web.ViewModels.Administration.TownViewModels.TownCreateInputModel
+@{
+    ViewData["Title"] = "Create a new town";
+}
+<h1>@ViewData["Title"]</h1>
+<hr />
+<form method="post" class="col-md-6 offset-md-3">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ZipCode"></label>
+        <input asp-for="ZipCode" class="form-control" />
+        <span asp-validation-for="ZipCode" class="text-danger"></span>
+    </div>
+    <div class="col-md-12 text-center">
+        <input type="submit" class="btn btn-primary" />
+    </div>
+</form>

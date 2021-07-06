@@ -1,7 +1,9 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
+using MedEx.Web.ViewModels.Administration.TownViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Towns
 {
@@ -24,6 +26,18 @@ namespace MedEx.Services.Data.Towns
                 })
                 .ToList()
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
+        }
+
+        public async Task CreateAsync(TownCreateInputModel model)
+        {
+            var specialization = new Town
+            {
+                Name = model.Name,
+                ZipCode = model.ZipCode
+            };
+
+            await _townRepository.AddAsync(specialization);
+            await _townRepository.SaveChangesAsync();
         }
     }
 }

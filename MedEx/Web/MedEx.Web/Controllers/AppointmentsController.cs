@@ -1,6 +1,6 @@
 ﻿namespace MedEx.Web.Controllers
 {
-    public class AppointmentsController
+    public class AppointmentsController : BaseController
     {
         /*
          *  index

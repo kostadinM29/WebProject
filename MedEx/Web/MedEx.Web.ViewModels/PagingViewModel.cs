@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MedEx.Web.ViewModels.Administration.Dashboard
+namespace MedEx.Web.ViewModels
 {
-    public class DoctorsListViewModel
+    public class PagingViewModel
     {
-        public IEnumerable<DoctorsInListViewModel> Doctors { get; set; }
-
         public bool HasPreviousPage => PageNumber > 1;
 
         public bool HasNextPage => PageNumber < PagesCount;
@@ -18,9 +14,9 @@ namespace MedEx.Web.ViewModels.Administration.Dashboard
 
         public int PageNumber { get; set; }
 
-        public int PagesCount => (int)Math.Ceiling((double)DoctorsCount / ItemsPerPage);
+        public int PagesCount => (int)Math.Ceiling((double)ItemCount / ItemsPerPage);
 
-        public int DoctorsCount { get; set; }
+        public int ItemCount { get; set; }
 
         public int ItemsPerPage { get; set; }
     }

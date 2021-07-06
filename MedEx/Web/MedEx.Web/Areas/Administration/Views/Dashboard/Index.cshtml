@@ -5,6 +5,16 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="AppliedDoctors" asp-route-id="1">View All Doctors</a>
-</li>
+<hr />
+
+<div class="media-body"> @*TODO beautify buttons*@ 
+    <a class="btn-toolbar" asp-area="Administration" asp-controller="Doctor" asp-action="AppliedDoctors" asp-route-id="1">View All Doctors here</a>
+</div>
+
+<div class="media-body">
+    <a class="btn-toolbar" asp-area="Administration" asp-controller="Specialization" asp-action="Create">Create new specialization here</a>
+</div>
+
+<div class="media-body">
+    <a class="btn-toolbar" asp-area="Administration" asp-controller="Town" asp-action="Create">Create new town here</a>
+</div>

@@ -85,7 +85,7 @@ namespace MedEx.Services.Data.Doctors
             return model;
         }
 
-        public int GetAppliedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied);
+        public int GetAppliedAndNotValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied && d.IsValidated == false);
 
         public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId);
 

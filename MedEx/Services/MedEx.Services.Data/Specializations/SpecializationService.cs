@@ -2,6 +2,9 @@
 using MedEx.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
+using MedEx.Web.ViewModels.PatientViewModels;
 
 namespace MedEx.Services.Data.Specializations
 {
@@ -24,6 +27,18 @@ namespace MedEx.Services.Data.Specializations
                 })
                 .ToList()
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
+        }
+
+        public async Task CreateAsync(SpecializationCreateInputModel model)
+        {
+            var specialization = new Specialization
+            {
+                Name = model.Name,
+                Description = model.Description
+            };
+
+            await _specializationsRepository.AddAsync(specialization);
+            await _specializationsRepository.SaveChangesAsync();
         }
     }
 }

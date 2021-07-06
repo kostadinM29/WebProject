@@ -11,7 +11,7 @@ namespace MedEx.Services.Data.Doctors
 
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 
-        int GetAppliedDoctorsCount();
+        int GetAppliedAndNotValidatedDoctorsCount();
 
         Task<bool> VerifyAsync(int doctorId);
 
