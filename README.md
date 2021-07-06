@@ -11,6 +11,17 @@ Things i'd like to add:
 - add header with drop down menus(doctors , towns etc)
 
 
+DOCTOR STUFF:
+set up and see their schedule,
+add appointment from phone/cabinet visits,
+possibly have notes on appointments,
+see previous appointments with client,
+***printable appointment schedule for office***??????????????,
+online-consultations with SignalR ??????
+
+
+
+
 
 VIEWS
 --upper footer?? search pulldown tab with doctors and towns and user profile
