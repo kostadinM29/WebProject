@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MedEx.Web.ViewModels.DoctorViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.Administration.Dashboard;
-using MedEx.Web.ViewModels.DoctorViewModels;
 
 namespace MedEx.Services.Data.Doctors
 {

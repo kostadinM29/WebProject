@@ -6,6 +6,7 @@ using MedEx.Data.Models;
 using MedEx.Data.Repositories;
 using MedEx.Data.Seeding;
 using MedEx.Services.Messaging;
+using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 
 namespace Sandbox
 {

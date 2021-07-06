@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MedEx.Data.Common.Repositories;
+﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Web.ViewModels.PatientViewModels;
 using System.Threading.Tasks;

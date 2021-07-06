@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using MedEx.Services.Data.Towns;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
+﻿using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.Administration.TownViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.Administration.Controllers
 {

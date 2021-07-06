@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
 
 namespace MedEx.Services.Data.Specializations
 {

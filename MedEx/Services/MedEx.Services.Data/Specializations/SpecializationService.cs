@@ -1,10 +1,9 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
+using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
-using MedEx.Web.ViewModels.PatientViewModels;
 
 namespace MedEx.Services.Data.Specializations
 {
