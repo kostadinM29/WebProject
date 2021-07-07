@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MedEx.Common
+﻿namespace MedEx.Common
 {
     public static class GlobalConstants
     {
@@ -11,6 +9,8 @@ namespace MedEx.Common
         public const string DoctorRoleName = "Doctor";
 
         public const int AppliedDoctorItemsPerPageCount = 6;
+
+        public const int VerifiedDoctorItemsPerPageCount = 12;
 
         public static class AccountsSeeding
         {

@@ -1,1 +1,36 @@
-﻿
+﻿@model MedEx.Web.ViewModels.Administration.DoctorViewModels.DoctorsListViewModel
+@{
+    ViewData["Title"] = $"All Doctors, Page {@Model.PageNumber}";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        @foreach (var doctor in Model.Doctors)
+        {
+            <div class="col-md-6">
+                <div class="card flex-md-row mb-5 box-shadow">
+                    <div class="col-md-7">
+                        <img src="@doctor.ImageUrl" alt="@doctor.FullName" class="img-fluid rounded ">
+                        <h4 class="text-center">@doctor.FullName</h4>
+                        <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
+                    </div>
+                    <div class="col-md-9 card-body">
+                        <p class="card-text mb-auto">Age: @doctor.Age</p>
+                        <p>Address: @doctor.Address</p>
+                        <p>Email address: @doctor.Email</p>
+                        <p>Phone: @doctor.PhoneNumber</p>
+                        @if (@doctor.Experience != null)
+                        {
+                            <p>Experience: @doctor.Experience years</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<partial name="_PagingPartial" model="@Model" />

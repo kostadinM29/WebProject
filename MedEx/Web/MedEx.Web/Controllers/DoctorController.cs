@@ -1,6 +1,8 @@
-﻿using MedEx.Services.Data.Doctors;
+﻿using MedEx.Common;
+using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
+using MedEx.Web.ViewModels.Administration.DoctorViewModels;
 using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -31,14 +33,17 @@ namespace MedEx.Web.Controllers
             return View();
         }
 
-        public IActionResult All()
+        public IActionResult All(int id)
         {
-            /*
-             * possibly add pages?
-             *
-             * search by town/specialization
-             */
-            return View();
+            var viewModel = new DoctorsListViewModel
+            {
+                Doctors = _doctorService.GetAllValidatedDoctors<DoctorsInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount),
+                PageNumber = id,
+                ItemsPerPage = GlobalConstants.VerifiedDoctorItemsPerPageCount,
+                ItemCount = _doctorService.GetAppliedAndNotValidatedDoctorsCount()
+            };
+
+            return View(viewModel);
         }
 
         [Authorize]

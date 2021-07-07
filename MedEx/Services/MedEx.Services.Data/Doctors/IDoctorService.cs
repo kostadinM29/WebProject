@@ -8,6 +8,8 @@ namespace MedEx.Services.Data.Doctors
     {
         Task CreateAsync(DoctorApplyInputModel model, string imagePath);
 
+        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);
+
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 
         int GetAppliedAndNotValidatedDoctorsCount();
