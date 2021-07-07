@@ -4,7 +4,8 @@
     var townItems = Model.TownItems.Select(t => new SelectListItem(t.Value, t.Key));
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr/>
 <form method="post" class="col-md-6 offset-md-3">
     <div class="form-group">
         <label asp-for="FirstName"></label>
