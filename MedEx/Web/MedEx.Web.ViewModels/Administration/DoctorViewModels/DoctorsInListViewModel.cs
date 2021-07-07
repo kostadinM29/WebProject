@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 {
-    public class DoctorsInListViewModel : IMapFrom<Doctor>, IHaveCustomMappings // because of folder name
+    public class DoctorsInListViewModel : IMapFrom<Doctor>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
         public string FullName { get; set; }
 
-        public IEnumerable<Image> Images { get; set; } // TODO fix
+        public string ImageUrl { get; set; } // TODO really wanted multiple images, but implementing will take too long
 
         public int Age { get; set; }
 
@@ -36,12 +36,16 @@ namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Doctor, DoctorsInListViewModel>() // TODO fix
-                .ForMember(x => x.Images, opt =>
-                    opt.MapFrom(x =>
-                        x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                            x.Images.FirstOrDefault().RemoteImageUrl :
-                            "/img/doctors/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+            configuration.CreateMap<Doctor, DoctorsInListViewModel>()
+                .ForMember(vm => vm.ImageUrl, opt =>
+                    opt.MapFrom(d =>
+                        d.Images.FirstOrDefault().RemoteImageUrl != null
+                            ? d.Images.FirstOrDefault().RemoteImageUrl
+                            : "/img/doctors/" + d.Images.FirstOrDefault().Id + "." +
+                              d.Images.FirstOrDefault().Extension))
+                .ForMember(vm => vm.FullName, opt =>
+                    opt.MapFrom(d => d.FirstName + " " + d.LastName));
+
         }
     }
 }

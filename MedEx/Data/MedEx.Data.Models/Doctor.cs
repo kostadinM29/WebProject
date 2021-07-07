@@ -44,6 +44,11 @@ namespace MedEx.Data.Models
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
+        //[ForeignKey(nameof(Image))]
+        //public string ImageId { get; set; }
+
+        //public virtual Image Image { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Image> Images { get; set; } = new List<Image>();

@@ -66,25 +66,26 @@ namespace MedEx.Services.Data.Doctors
                 HasApplied = true
             };
             Directory.CreateDirectory($"{imagePath}/doctors/");
+
             foreach (var image in model.Images)
             {
                 var extension = Path.GetExtension(image.FileName).TrimStart('.');
-                if (!_allowedExtensions.Any(e => extension.EndsWith(e)))
+                if (!this._allowedExtensions.Any(x => extension.EndsWith(x)))
                 {
                     throw new Exception($"Invalid image extension {extension}");
                 }
 
                 var dbImage = new Image
                 {
-                    Extension = extension
+                    Extension = extension,
                 };
                 doctor.Images.Add(dbImage);
 
                 var physicalPath = $"{imagePath}/doctors/{dbImage.Id}.{extension}";
+
                 await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
                 await image.CopyToAsync(fileStream);
             }
-
 
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();

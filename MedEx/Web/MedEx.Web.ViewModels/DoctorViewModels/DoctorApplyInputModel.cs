@@ -14,7 +14,6 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
         [MinLength(3)]
         public string LastName { get; set; }
 
-        [Display(Name = "Images(can upload multiple)")]
         public IEnumerable<IFormFile> Images { get; set; }
 
         [Range(18, 99)]
