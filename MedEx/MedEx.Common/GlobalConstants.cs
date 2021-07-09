@@ -20,7 +20,7 @@
 
             public const string AdminPassword = "admin@admin.com";
 
-            public const string AdminPasswordHash = "AQAAAAEAACcQAAAAELUqq4vrK6SuHtrNFff0oVWqVWUXOoHagukgSlZppUUMtnIt2lW6xRvuZVGJ98U1+w==";
+            public const string AdminPasswordHash = "AQAAAAEAACcQAAAAELUqq4vrK6SuHtrNFff0oVWqVWUXOoHagukgSlZppUUMtnIt2lW6xRvuZVGJ98U1+w=="; // admin@admin.com
 
             public const string AdminEmail = "admin@admin.com";
         }

@@ -1,4 +1,4 @@
-﻿@model MedEx.Web.ViewModels.PatientViewModels.PatientCreateInputModel
+﻿@model PatientCreateInputModel
 @{
     ViewData["Title"] = "Finish your patient account";
     var townItems = Model.TownItems.Select(t => new SelectListItem(t.Value, t.Key));

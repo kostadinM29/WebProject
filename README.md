@@ -20,7 +20,7 @@ see previous appointments with client,
 online-consultations with SignalR ??????
 
 
-
+use status code pages?
 
 
 VIEWS
