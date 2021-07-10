@@ -8,5 +8,6 @@ namespace MedEx.Services.Data.Patients
     {
         public Task CreateAsync(PatientCreateInputModel model);
 
+        int GetPatientId(string userId);
     }
 }

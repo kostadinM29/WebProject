@@ -94,7 +94,7 @@ namespace MedEx.Services.Data.Doctors
         public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage = 12)
         {
             var model = _doctorRepository.AllAsNoTracking()
-                .Where(d=>d.IsValidated)
+                .Where(d => d.IsValidated)
                 .OrderBy(d => d.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -103,7 +103,6 @@ namespace MedEx.Services.Data.Doctors
 
             return model;
         }
-
 
         public IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage = 12) // can possibly use this for the doctor pagination for patients
         {

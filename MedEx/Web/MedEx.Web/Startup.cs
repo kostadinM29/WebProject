@@ -22,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using MedEx.Services.DateTimeParser;
 
 namespace MedEx.Web
 {
@@ -73,6 +74,7 @@ namespace MedEx.Web
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<ISpecializationService, SpecializationService>();
             services.AddTransient<ITownService, TownService>();
+            services.AddTransient<IDateTimeParserService, DateTimeParserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

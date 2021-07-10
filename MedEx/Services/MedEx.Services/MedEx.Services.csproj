@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MedEx.Common\MedEx.Common.csproj" />
+  </ItemGroup>
+
 </Project>

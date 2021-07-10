@@ -26,6 +26,11 @@
                         {
                             <p>Experience: @doctor.Experience years</p>
                         }
+                        <div class="col-md-12 text-center">
+                            <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id" >
+                                Make An Appointment
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

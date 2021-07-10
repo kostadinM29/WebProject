@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
@@ -45,7 +44,6 @@ namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
                               d.Images.FirstOrDefault().Extension))
                 .ForMember(vm => vm.FullName, opt =>
                     opt.MapFrom(d => d.FirstName + " " + d.LastName));
-
         }
     }
 }

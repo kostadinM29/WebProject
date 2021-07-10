@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MedEx.Data.Models\MedEx.Data.Models.csproj" />
+    <ProjectReference Include="..\..\MedEx.Common\MedEx.Common.csproj" />
     <ProjectReference Include="..\..\Services\MedEx.Services.Mapping\MedEx.Services.Mapping.csproj" />
   </ItemGroup>
 

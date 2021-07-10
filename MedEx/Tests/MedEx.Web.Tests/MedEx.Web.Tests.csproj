@@ -31,4 +31,8 @@
     <ProjectReference Include="..\..\Web\MedEx.Web\MedEx.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
 </Project>
