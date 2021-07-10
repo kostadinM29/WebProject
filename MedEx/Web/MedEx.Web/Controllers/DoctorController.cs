@@ -71,7 +71,7 @@ namespace MedEx.Web.Controllers
             input.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                await _doctorService.CreateAsync(input, $"{this._environment.WebRootPath}/img");
+                await _doctorService.CreateAsync(input, $"{_environment.WebRootPath}/img");
             }
             catch (Exception ex)
             {

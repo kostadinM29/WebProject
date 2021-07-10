@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Microsoft.AspNetCore.Http;
 
 namespace MedEx.Web.ViewModels.Common
 {
@@ -13,7 +10,9 @@ namespace MedEx.Web.ViewModels.Common
         public override bool IsValid(object value)
         {
             // Represents the file sent with the HttpRequest
-            if (!(value is IFormFile file))
+            var file = value as IFormFile;
+
+            if (file == null)
             {
                 return false;
             }
@@ -24,7 +23,14 @@ namespace MedEx.Web.ViewModels.Common
             }
 
             // Check the image mime types
-            return file.ContentType.ToLower() == "image/jpg" || file.ContentType.ToLower() == "image/jpeg" || file.ContentType.ToLower() == "image/png";
+            if (file.ContentType.ToLower() != "image/jpg"
+                && file.ContentType.ToLower() != "image/jpeg"
+                && file.ContentType.ToLower() != "image/png")
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

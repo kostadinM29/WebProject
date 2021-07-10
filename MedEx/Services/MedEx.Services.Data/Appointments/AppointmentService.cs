@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MedEx.Services.Mapping;
 
 namespace MedEx.Services.Data.Appointments
 {
@@ -59,6 +60,16 @@ namespace MedEx.Services.Data.Appointments
                     .FirstOrDefaultAsync();
             appointment.Confirmed = false;
             await _appointmentsRepository.SaveChangesAsync();
+        }
+
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            var appointment =
+                await _appointmentsRepository
+                    .All()
+                    .Where(x => x.Id == id)
+                    .To<T>().FirstOrDefaultAsync();
+            return appointment;
         }
 
         /*

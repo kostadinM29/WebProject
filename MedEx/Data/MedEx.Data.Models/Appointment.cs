@@ -20,6 +20,8 @@ namespace MedEx.Data.Models
 
         public virtual Patient Patient { get; set; }
 
+        public bool IsCancelled { get; set; }
+
         public bool? Confirmed { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
         public string LastName { get; set; }
 
         [ValidateImageFile]
-        public IEnumerable<IFormFile> Images { get; set; }
+        public IFormFile Image { get; set; }
 
         [Range(18, 99)]
         public int Age { get; set; }

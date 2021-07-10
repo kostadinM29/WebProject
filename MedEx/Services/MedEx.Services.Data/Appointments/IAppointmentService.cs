@@ -12,5 +12,7 @@ namespace MedEx.Services.Data.Appointments
         Task ConfirmAsync(int appointmentId);
 
         Task DeclineAsync(int appointmentId);
+
+        Task<T> GetByIdAsync<T>(int id);
     }
 }

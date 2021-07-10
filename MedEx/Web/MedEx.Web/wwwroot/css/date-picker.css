@@ -11,9 +11,6 @@
     padding-bottom: 10px !important
 }
 
-.card {
-    box-shadow: 0px 4px 8px 0px #7986CB
-}
 
 input {
     padding: 10px 20px !important;
@@ -21,7 +18,7 @@ input {
     border-radius: 10px;
     box-sizing: border-box;
     background-color: #fff !important;
-    color: #BA55D3 !important;
+    color: #60dad6 !important;
     font-size: 16px;
     letter-spacing: 1px;
     width: 180px
@@ -31,7 +28,7 @@ input {
         -moz-box-shadow: none !important;
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
-        border: 1px solid #512DA8;
+        border: 1px solid #60dad6;
         outline-width: 0
     }
 
@@ -47,8 +44,9 @@ button:focus {
 }
 
 .datepicker {
-    background-color: rgba(186, 85, 211, 0.7) !important;
-    color: #fff !important;
+    background-color: rgba(96, 218, 214, 0.7) !important;
+    color: #000000 !important;
+    text-align: center;
     border: none;
     padding: 10px !important
 }
@@ -120,11 +118,11 @@ thead tr:nth-child(3) th {
 }
 
     .cell:hover {
-        border: 1px solid #BA55D3
+        border: 1px solid #60dad6
     }
 
     .cell.select {
-        background-color: #BA55D3;
+        background-color: #60dad6;
         color: #fff
     }
 

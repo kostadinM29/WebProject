@@ -71,5 +71,24 @@ namespace MedEx.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            await _appointmentService.DeleteAsync(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult CancelAppointment(int id)
+        {
+            var viewModel = _appointmentService.GetByIdAsync<AppointmentViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return new StatusCodeResult(404);
+            }
+
+            return View(viewModel);
+        }
     }
 }
