@@ -12,9 +12,16 @@
         </li>
         if (User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-            </li>
+            <div class="dropdown show">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-area="Administration" asp-controller="Doctor" asp-action="AppliedDoctors" asp-route-id="1">View All Doctors</a>
+                    <a class="dropdown-item" asp-area="Administration" asp-controller="Specialization" asp-action="Create">Create new specialization</a>
+                    <a class="dropdown-item" asp-area="Administration" asp-controller="Town" asp-action="Create">Create new town</a>
+                </div>
+            </div>
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = string.Empty })">

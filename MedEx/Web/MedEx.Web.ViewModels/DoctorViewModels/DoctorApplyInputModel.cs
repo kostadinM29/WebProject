@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MedEx.Common;
 using MedEx.Web.ViewModels.Common;
 
 namespace MedEx.Web.ViewModels.DoctorViewModels
@@ -15,7 +16,8 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
         [MinLength(3)]
         public string LastName { get; set; }
 
-        [ValidateImageFile]
+        [DataType(DataType.Upload)]
+        [ValidateImageFile(ErrorMessage = GlobalConstants.ErrorMessages.Image)]
         public IFormFile Image { get; set; }
 
         [Range(18, 99)]
