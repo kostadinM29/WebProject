@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.Index
 {
-   public class IndexViewModel
+    public class IndexViewModel
     {
-        public int DoctorCount { get; set; }
+        public string DoctorName { get; set; }
 
-        public int TownCount { get; set; }
+        [Display(Name = "Town")]
+        public int TownId { get; set; }
 
-        public int PositiveReviews { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> TownItems { get; set; }
 
-        public int TotalReviews { get; set; }
+        [Display(Name = "Specialization")]
+        public int SpecializationId { get; set; }
+
+        public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
     }
 }

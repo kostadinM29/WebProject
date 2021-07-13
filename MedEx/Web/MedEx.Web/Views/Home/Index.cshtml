@@ -1,20 +1,46 @@
-﻿@using MedEx.Common
-@model IndexViewModel
+﻿@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
+    var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
+    var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
 
-<div class="bg">
-    <div class="text-center">
-        <h1 class="col-md-6">Welcome to @GlobalConstants.SystemName!</h1>
-        <p>We have</p>
-        <div class="col-md-4 offset-md-4">
-            <ul class="list-group">
-                <li class="list-group-item">@Model.DoctorCount Doctors</li>
-                <li class="list-group-item">In @Model.TownCount Towns</li>
-                <li class="list-group-item">With @Model.PositiveReviews Positive Reviews </li>
-                <li class="list-group-item">Out of @Model.TotalReviews Total Reviews</li>
-            </ul>
-        </div>
-    </div>
+<div class="text-center">
+    <h1 class="col-md-6">Welcome to @GlobalConstants.SystemName!</h1>
 </div>
+<section class="search-sec">
+    <div class="container">
+        <form action="#" method="post" novalidate="novalidate">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <div class="form-group">
+                                <label asp-for="DoctorName"></label>
+                                <input asp-for="DoctorName" class="form-control" />
+                                <span asp-validation-for="DoctorName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <div class="form-group">
+                                <label asp-for="TownId"></label>
+                                <select asp-for="TownId" class="form-control" asp-items="townItems"></select>
+                                <span asp-validation-for="TownId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <div class="form-group">
+                                <label asp-for="SpecializationId"></label>
+                                <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems"></select>
+                                <span asp-validation-for="SpecializationId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <button type="button" class="btn-danger wrn-btn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

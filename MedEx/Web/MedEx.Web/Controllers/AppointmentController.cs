@@ -89,7 +89,7 @@ namespace MedEx.Web.Controllers
 
         public async Task<IActionResult> CancelAppointment(int id)
         {
-            var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewPatientModel>(id);
+            var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewDoctorModel>(id);
 
             if (viewModel == null)
             {

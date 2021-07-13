@@ -1,5 +1,7 @@
-﻿using MedEx.Services.Data.Home;
+﻿using MedEx.Services.Data.Specializations;
+using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels;
+using MedEx.Web.ViewModels.Index;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,16 +9,22 @@ namespace MedEx.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly IHomeService _homeService;
+        private readonly ITownService _townService;
+        private readonly ISpecializationService _specializationService;
 
-        public HomeController(IHomeService homeService)
+        public HomeController(ITownService townService, ISpecializationService specializationService)
         {
-            _homeService = homeService;
+            _townService = townService;
+            _specializationService = specializationService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = _homeService.GetAllCounts();
+            var viewModel = new IndexViewModel()
+            {
+                TownItems = _townService.GetAllAsKeyValuePairs(),
+                SpecializationItems = _specializationService.GetAllAsKeyValuePairs()
+            };
             return View(viewModel);
         }
 
