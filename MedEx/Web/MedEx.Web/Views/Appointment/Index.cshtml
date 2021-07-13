@@ -1,4 +1,4 @@
-﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentsListViewModel
+﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentsListDoctorViewModel
 
 @if (!@Model.Appointments.Any())
 {
@@ -92,7 +92,7 @@
                 <ol>
                     <li>
                         <span class="badge badge-secondary">Pending</span>
-                        - Waiting for the Salon's reply.
+                        - Waiting for the Doctor's reply.
                     </li>
                     <li>
                         <span class="badge badge-success">Confirmed</span>
@@ -102,12 +102,12 @@
                     <li>
                         <span class="badge badge-danger">Declined</span>
                         - Sorry, the appointment can't happen on the set date and time.
-                        Check your email for rescheduling options from the Salon.
+                        Check your email for rescheduling options from the Doctor.
                     </li>
                 </ol>
                 <a>Or you can just <strong>book again.</strong> Remember the steps, right?</a>
                 <br />
-                <a>Go find a salon, choose a service and pick date and time.</a>
+                <a>Go find a doctor and make an appointment.</a>
                 <br />
                 <a>
                     <div class="btn btn-light btn-lg btn-outline-primary">

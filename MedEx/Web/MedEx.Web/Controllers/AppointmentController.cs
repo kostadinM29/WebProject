@@ -33,10 +33,10 @@ namespace MedEx.Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = new AppointmentsListViewModel
+            var viewModel = new AppointmentsListDoctorViewModel
             {
                 Appointments =
-                        await _appointmentService.GetUpcomingByUserAsync<AppointmentViewModel>(patientId.Value),
+                        await _appointmentService.GetUpcomingByUserAsync<AppointmentViewDoctorModel>(patientId.Value),
             };
             return View(viewModel);
         }
@@ -89,7 +89,7 @@ namespace MedEx.Web.Controllers
 
         public async Task<IActionResult> CancelAppointment(int id)
         {
-            var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewModel>(id);
+            var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewPatientModel>(id);
 
             if (viewModel == null)
             {
