@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using MedEx.Data.Common.Repositories;
+﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Web.ViewModels.PatientViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Patients
@@ -29,9 +29,9 @@ namespace MedEx.Services.Data.Patients
          *
          *
          */
-        public int GetPatientId(string userId)
+        public int? GetPatientId(string userId)
         {
-            return _patientRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId).Id;
+            return _patientRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
         }
 
         public async Task CreateAsync(PatientCreateInputModel model)

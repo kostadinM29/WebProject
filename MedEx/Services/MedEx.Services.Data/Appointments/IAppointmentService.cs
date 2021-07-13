@@ -5,7 +5,7 @@ namespace MedEx.Services.Data.Appointments
 {
     public interface IAppointmentService
     {
-        Task AddAsync(int doctorId, int patientId, DateTime date);
+        Task<bool> AddAsync(int doctorId, int patientId, DateTime date);
 
         Task DeleteAsync(int appointmentId);
 

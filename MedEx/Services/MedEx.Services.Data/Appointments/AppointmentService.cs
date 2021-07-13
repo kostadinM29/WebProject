@@ -11,14 +11,24 @@ namespace MedEx.Services.Data.Appointments
     public class AppointmentService : IAppointmentService
     {
         private readonly IDeletableEntityRepository<Appointment> _appointmentsRepository;
+        private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
 
-        public AppointmentService(IDeletableEntityRepository<Appointment> appointmentsRepository)
+        public AppointmentService(IDeletableEntityRepository<Appointment> appointmentsRepository, IDeletableEntityRepository<Doctor> doctorRepository)
         {
             _appointmentsRepository = appointmentsRepository;
+            _doctorRepository = doctorRepository;
         }
 
-        public async Task AddAsync(int doctorId, int patientId, DateTime date)
+        public async Task<bool> AddAsync(int doctorId, int patientId, DateTime date)
         {
+            var doctorAppointment = _doctorRepository.AllAsNoTracking()
+                .FirstOrDefault(d => d.Id == doctorId && d.Appointments.Any(a => a.DateTime == date));
+
+            if (doctorAppointment != null)
+            {
+                return false;
+            }
+
             await _appointmentsRepository.AddAsync(new Appointment
             {
                 DateTime = date,
@@ -27,6 +37,7 @@ namespace MedEx.Services.Data.Appointments
             });
 
             await _appointmentsRepository.SaveChangesAsync();
+            return true;
         }
 
         public async Task DeleteAsync(int appointmentId)

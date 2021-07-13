@@ -40,7 +40,7 @@ namespace MedEx.Web.Controllers
         {
             var viewModel = new AppointmentInputModel
             {
-               DoctorId = doctorId
+                DoctorId = doctorId
             };
             return View(viewModel);
         }
@@ -53,22 +53,25 @@ namespace MedEx.Web.Controllers
                 return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var patientId = _patientService.GetPatientId(userId); // add error if user is not a patient
+            if (patientId == null)
+            {
+                return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
+            }
+
             DateTime dateTime;
             try
             {
                 dateTime = _dateTimeParserService.ConvertStrings(input.Date, input.Time);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
             }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var patientId = _patientService.GetPatientId(userId); // add error if user is not a patient
-
-            await _appointmentService.AddAsync(input.DoctorId, patientId, dateTime);
-
-            return RedirectToAction("Index");
+            return await _appointmentService.AddAsync(input.DoctorId, patientId.Value, dateTime) == false ? RedirectToAction("MakeAnAppointment", new { input.DoctorId }) : RedirectToAction("Index");
         }
 
         [HttpPost]
