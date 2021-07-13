@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MedEx.Web.Areas.Administration.Controllers
+namespace MedEx.Web.Areas.DoctorRole.Controllers
 {
-    public class DashboardController : AdministrationController
+    public class DashboardController : DoctorRoleController
     {
         public IActionResult Index()
         {

@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Services\MedEx.Services.Mapping\MedEx.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DoctorRole\" />
+  </ItemGroup>
+
 </Project>

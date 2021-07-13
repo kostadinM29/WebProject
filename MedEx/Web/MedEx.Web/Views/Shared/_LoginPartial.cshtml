@@ -23,6 +23,12 @@
                 </div>
             </div>
         }
+        if (User.IsInRole(GlobalConstants.DoctorRoleName))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="DoctorRole" asp-controller="Dashboard" asp-action="Index" >Doctor</a>
+            </li>
+        }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = string.Empty })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
