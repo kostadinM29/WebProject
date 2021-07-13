@@ -22,18 +22,23 @@ namespace MedEx.Web.Controllers
             _patientService = patientService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //var user = await this.userManager.GetUserAsync(this.HttpContext.User);
-            //var userId = await this.userManager.GetUserIdAsync(user);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //var viewModel = new AppointmentsListViewModel
-            //{
-            //    Appointments =
-            //        await this.appointmentsService.GetUpcomingByUserAsync<AppointmentViewModel>(userId),
-            //};
-            //return this.View(viewModel);
-            return View();
+            var patientId = _patientService.GetPatientId(userId);
+
+            if (patientId == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AppointmentsListViewModel
+            {
+                Appointments =
+                        await _appointmentService.GetUpcomingByUserAsync<AppointmentViewModel>(patientId.Value),
+            };
+            return View(viewModel);
         }
 
         public IActionResult MakeAnAppointment(int doctorId)
@@ -58,7 +63,7 @@ namespace MedEx.Web.Controllers
             var patientId = _patientService.GetPatientId(userId); // add error if user is not a patient
             if (patientId == null)
             {
-                return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
+                return NotFound();
             }
 
             DateTime dateTime;
@@ -82,9 +87,9 @@ namespace MedEx.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult CancelAppointment(int id)
+        public async Task<IActionResult> CancelAppointment(int id)
         {
-            var viewModel = _appointmentService.GetByIdAsync<AppointmentViewModel>(id);
+            var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewModel>(id);
 
             if (viewModel == null)
             {

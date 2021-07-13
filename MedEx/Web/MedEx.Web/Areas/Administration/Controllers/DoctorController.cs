@@ -24,7 +24,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
         {
             var viewModel = new DoctorsListViewModel
             {
-                Doctors = _doctorService.GetAllAppliedDoctors<DoctorsInListViewModel>(id, GlobalConstants.AppliedDoctorItemsPerPageCount),
+                Doctors = _doctorService.GetAllAppliedDoctors<DoctorInListViewModel>(id, GlobalConstants.AppliedDoctorItemsPerPageCount),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.AppliedDoctorItemsPerPageCount,
                 ItemCount = _doctorService.GetAppliedAndNotValidatedDoctorsCount()

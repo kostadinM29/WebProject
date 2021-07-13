@@ -12,6 +12,38 @@ a {
     color: #0366d6;
 }
 
+.button-large {
+    width: 254px !important;
+    height: 54px;
+    background: #60dad6;
+    overflow: hidden;
+}
+
+.button {
+    width: 137px;
+    height: 54px;
+    background: #60dad6;
+    overflow: hidden;
+}
+
+.button_2 {
+    background: #404040;
+}
+
+    .button_2 a span {
+        color: #FFFFFF;
+    }
+
+.button_3 {
+    background: transparent;
+    border: solid 2px #60dad6;
+}
+
+.elements_button {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -89,9 +121,14 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .about_text_highlight {
     font-size: 16px;
     font-weight: 700;
     color: #404040;
     margin-top: 28px;
+}
+
+.about_text_2 {
+    margin-top: 12px;
 }

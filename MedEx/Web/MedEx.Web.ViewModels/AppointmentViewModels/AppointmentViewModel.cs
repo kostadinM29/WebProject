@@ -1,13 +1,13 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
+using System;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {
     public class AppointmentViewModel : IMapFrom<Appointment>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime DateTime { get; set; }
 

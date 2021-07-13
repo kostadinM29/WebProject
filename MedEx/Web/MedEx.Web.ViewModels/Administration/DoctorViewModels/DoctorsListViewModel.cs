@@ -4,6 +4,6 @@ namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 {
     public class DoctorsListViewModel : PagingViewModel
     {
-        public IEnumerable<DoctorsInListViewModel> Doctors { get; set; }
+        public IEnumerable<DoctorInListViewModel> Doctors { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using MedEx.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MedEx.Services.Mapping;
@@ -17,6 +18,18 @@ namespace MedEx.Services.Data.Appointments
         {
             _appointmentsRepository = appointmentsRepository;
             _doctorRepository = doctorRepository;
+        }
+
+        public async Task<IEnumerable<T>> GetUpcomingByUserAsync<T>(int patientId)
+        {
+            var appointments =
+                await _appointmentsRepository
+                    .AllAsNoTracking()
+                    .Where(x => x.PatientId == patientId
+                                && x.DateTime.Date > DateTime.UtcNow.Date)
+                    .OrderBy(x => x.DateTime)
+                    .To<T>().ToListAsync();
+            return appointments;
         }
 
         public async Task<bool> AddAsync(int doctorId, int patientId, DateTime date)
@@ -77,7 +90,7 @@ namespace MedEx.Services.Data.Appointments
         {
             var appointment =
                 await _appointmentsRepository
-                    .All()
+                    .AllAsNoTracking()
                     .Where(x => x.Id == id)
                     .To<T>().FirstOrDefaultAsync();
             return appointment;

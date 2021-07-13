@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 {
-    public class DoctorsInListViewModel : IMapFrom<Doctor>, IHaveCustomMappings
+    public class DoctorInListViewModel : IMapFrom<Doctor>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -35,7 +35,7 @@ namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Doctor, DoctorsInListViewModel>()
+            configuration.CreateMap<Doctor, DoctorInListViewModel>()
                 .ForMember(vm => vm.ImageUrl, opt =>
                     opt.MapFrom(d =>
                         d.Images.FirstOrDefault().RemoteImageUrl != null

@@ -1,9 +1,9 @@
 ﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentViewModel
 @{
-    this.ViewData["Title"] = "Cancel Appointment";
+    ViewData["Title"] = "Cancel Appointment";
 }
 
-<h3><strong>Are you sure you want to cancel this appointment?</strong></h3>
+<h3 class="text-center"><strong>Are you sure you want to cancel this appointment?</strong></h3>
 <form class="col-6 mt-5">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Date and Time</label>
@@ -34,7 +34,10 @@
             </button>
         </form>
         <div class="ml-5">
-            <a class="btn btn-danger" asp-area="" asp-controller="Appointment" asp-action="Index">No! Go Back</a>
+            <button type="submit" class="btn btn-outline-danger"
+                    asp-area="" asp-controller="Appointment" asp-action="Index">
+                No! Go Back
+            </button>
         </div>
     </div>
 </div>

@@ -37,7 +37,7 @@ namespace MedEx.Web.Controllers
         {
             var viewModel = new DoctorsListViewModel
             {
-                Doctors = _doctorService.GetAllValidatedDoctors<DoctorsInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount),
+                Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.VerifiedDoctorItemsPerPageCount,
                 ItemCount = _doctorService.GetAppliedAndNotValidatedDoctorsCount()
