@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MedEx.Web.Controllers
 {
@@ -22,6 +23,7 @@ namespace MedEx.Web.Controllers
             _patientService = patientService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -41,6 +43,7 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public IActionResult MakeAnAppointment(int doctorId)
         {
             var viewModel = new AppointmentInputModel
@@ -50,6 +53,7 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> MakeAnAppointment(AppointmentInputModel input)
         {
@@ -79,6 +83,7 @@ namespace MedEx.Web.Controllers
             return await _appointmentService.AddAsync(input.DoctorId, patientId.Value, dateTime) == false ? RedirectToAction("MakeAnAppointment", new { input.DoctorId }) : RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
@@ -87,6 +92,8 @@ namespace MedEx.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> CancelAppointment(int id)
         {
             var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewDoctorModel>(id);

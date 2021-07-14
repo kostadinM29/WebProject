@@ -2,7 +2,6 @@
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
-using MedEx.Web.ViewModels.Administration.DoctorViewModels;
 using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -28,15 +27,19 @@ namespace MedEx.Web.Controllers
             _environment = environment;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult All(int id)
         {
             var viewModel = new DoctorsListViewModel
             {
+                TownItems = _townService.GetAllAsKeyValuePairs(),
+                SpecializationItems = _specializationService.GetAllAsKeyValuePairs(),
                 Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.VerifiedDoctorItemsPerPageCount,

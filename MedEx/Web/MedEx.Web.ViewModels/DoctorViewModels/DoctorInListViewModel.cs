@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
-using System.Linq;
 
-namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
+namespace MedEx.Web.ViewModels.DoctorViewModels
 {
     public class DoctorInListViewModel : IMapFrom<Doctor>, IHaveCustomMappings
     {

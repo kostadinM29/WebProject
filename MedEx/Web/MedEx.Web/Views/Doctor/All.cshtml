@@ -1,10 +1,30 @@
 ﻿@model DoctorsListViewModel
 @{
     ViewData["Title"] = $"All Doctors, Page {@Model.PageNumber}";
+    var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
+    var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
+<div class="form-group col-md-3">
+    <label asp-for="SearchTerm"></label>
+    <input asp-for="SearchTerm" class="form-control" placeholder="Daniela Spasova..">
+</div>
+
+<div class="form-group col-md-3">
+    <div class="form-group">
+        <label asp-for="TownId"></label>
+        <select asp-for="TownId" class="form-control" asp-items="townItems"></select>
+        <span asp-validation-for="TownId" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group col-md-3">
+    <div class="form-group">
+        <label asp-for="SpecializationId"></label>
+        <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems"></select>
+        <span asp-validation-for="SpecializationId" class="text-danger"></span>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -27,7 +47,7 @@
                             <p>Experience: @doctor.Experience years</p>
                         }
                         <div class="col-md-12 text-center">
-                            <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id" >
+                            <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
                                 Make An Appointment
                             </a>
                         </div>
