@@ -10,7 +10,7 @@
 
         public const int AppliedDoctorItemsPerPageCount = 6;
 
-        public const int VerifiedDoctorItemsPerPageCount = 12;
+        public const int VerifiedDoctorItemsPerPageCount = 6;
 
         public static class AccountsSeeding
         {

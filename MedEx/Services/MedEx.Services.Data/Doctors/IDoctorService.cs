@@ -1,7 +1,7 @@
-﻿using MedEx.Web.ViewModels.DoctorViewModels;
+﻿using MedEx.Data.Models;
+using MedEx.Web.ViewModels.DoctorViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedEx.Data.Models;
 
 namespace MedEx.Services.Data.Doctors
 {
@@ -11,7 +11,13 @@ namespace MedEx.Services.Data.Doctors
 
         IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);
 
+        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm);
+
+        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int townId, int specializationId);
+
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
+
+        int GetValidatedDoctorsCount();
 
         int GetAppliedAndNotValidatedDoctorsCount();
 

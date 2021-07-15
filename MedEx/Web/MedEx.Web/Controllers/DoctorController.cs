@@ -34,17 +34,25 @@ namespace MedEx.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult All(int id)
+        public IActionResult All(int id, [FromQuery] string searchTerm, int townId, int specializationId)
         {
             var viewModel = new DoctorsListViewModel
             {
                 TownItems = _townService.GetAllAsKeyValuePairs(),
                 SpecializationItems = _specializationService.GetAllAsKeyValuePairs(),
-                Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.VerifiedDoctorItemsPerPageCount,
-                ItemCount = _doctorService.GetAppliedAndNotValidatedDoctorsCount()
+                ItemCount = _doctorService.GetValidatedDoctorsCount()
             };
+            if (searchTerm == null && townId == 0 && specializationId == 0)
+            {
+                viewModel.Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                viewModel.Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount, searchTerm);
+            }
 
             return View(viewModel);
         }

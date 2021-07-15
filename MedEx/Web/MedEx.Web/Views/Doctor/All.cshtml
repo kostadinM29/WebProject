@@ -4,27 +4,33 @@
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
     var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
-
-<div class="form-group col-md-3">
-    <label asp-for="SearchTerm"></label>
-    <input asp-for="SearchTerm" class="form-control" placeholder="Daniela Spasova..">
-</div>
-
-<div class="form-group col-md-3">
-    <div class="form-group">
-        <label asp-for="TownId"></label>
-        <select asp-for="TownId" class="form-control" asp-items="townItems"></select>
-        <span asp-validation-for="TownId" class="text-danger"></span>
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Daniela Spasova..">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="TownId"></label>
+            <select asp-for="TownId" class="form-control" asp-items="townItems">
+                <option value="0" selected>Pick A Town</option>
+            </select>
+            <span asp-validation-for="TownId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="SpecializationId"></label>
+            <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems">
+                <option value="0" selected>Pick A Specialization</option>
+            </select>
+            <span asp-validation-for="SpecializationId" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary d-none" />
+        </div>
     </div>
-</div>
-<div class="form-group col-md-3">
-    <div class="form-group">
-        <label asp-for="SpecializationId"></label>
-        <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems"></select>
-        <span asp-validation-for="SpecializationId" class="text-danger"></span>
-    </div>
-</div>
+</form>
 
+<hr />
 
 <div class="container">
     <div class="row">
@@ -58,4 +64,38 @@
     </div>
 </div>
 <hr />
-<partial name="_PagingPartial" model="@Model" />
+
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.HasPreviousPage ? "disabled" : string.Empty)">
+            <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.PreviousPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Previous</a>
+        </li>
+        @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item active">
+            <span class="page-link">
+                @Model.PageNumber
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item @(!Model.HasNextPage ? "disabled" : string.Empty)">
+            <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.NextPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Next</a>
+        </li>
+    </ul>
+</nav>

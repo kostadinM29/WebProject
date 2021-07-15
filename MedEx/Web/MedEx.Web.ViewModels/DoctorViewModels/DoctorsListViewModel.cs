@@ -5,6 +5,7 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
 {
     public class DoctorsListViewModel : PagingViewModel
     {
+        [Display(Name = "Search by text")]
         public string SearchTerm { get; set; }
 
         [Display(Name = "Town")]

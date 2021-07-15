@@ -84,10 +84,38 @@ namespace MedEx.Services.Data.Doctors
             await _doctorRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage = 12)
+        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage)
         {
             var model = _doctorRepository.AllAsNoTracking()
                 .Where(d => d.IsValidated)
+                .OrderBy(d => d.Id)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToList();
+
+            return model;
+        }
+
+        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm) // can possibly use this for the doctor pagination for patients
+        {
+
+            var model = _doctorRepository.AllAsNoTracking()
+                .Where(d => d.IsValidated && (d.FirstName + " " + d.LastName).Contains(searchTerm))
+                .OrderBy(d => d.Id)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToList();
+
+            return model;
+        }
+
+        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int townId, int specializationId) // can possibly use this for the doctor pagination for patients
+        {
+
+            var model = _doctorRepository.AllAsNoTracking()
+                .Where(d => d.IsValidated && (d.FirstName + " " + d.LastName).Contains(searchTerm))
                 .OrderBy(d => d.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -109,6 +137,8 @@ namespace MedEx.Services.Data.Doctors
 
             return model;
         }
+
+        public int GetValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.IsValidated);
 
         public int GetAppliedAndNotValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied && d.IsValidated == false);
 
