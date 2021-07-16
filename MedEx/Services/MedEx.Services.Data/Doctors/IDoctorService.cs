@@ -11,9 +11,7 @@ namespace MedEx.Services.Data.Doctors
 
         IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);
 
-        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm);
-
-        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int townId, int specializationId);
+        IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int? townId, int? specializationId);
 
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 

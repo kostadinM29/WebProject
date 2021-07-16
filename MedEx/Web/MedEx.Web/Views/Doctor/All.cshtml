@@ -4,6 +4,28 @@
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
     var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
+<div class="row">
+    <div class="about_text_2">
+        You can search:
+        <ul>
+            <li>
+                Doctor Name
+            </li>
+            <li>
+                Specific Town
+            </li>
+            <li>
+                Specific Specialization
+            </li>
+            <li>
+                Or all of the above at once
+            </li>
+        </ul>
+    </div>
+</div>
+
+<hr/>
+
 <form method="get">
     <div class="row">
         <div class="form-group col-md-4">
@@ -13,14 +35,14 @@
         <div class="form-group col-md-4">
             <label asp-for="TownId"></label>
             <select asp-for="TownId" class="form-control" asp-items="townItems">
-                <option value="0" selected>Pick A Town</option>
+                <option value="0" selected>Any Town</option>
             </select>
             <span asp-validation-for="TownId" class="text-danger"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="SpecializationId"></label>
             <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems">
-                <option value="0" selected>Pick A Specialization</option>
+                <option value="0" selected>Any Specialization</option>
             </select>
             <span asp-validation-for="SpecializationId" class="text-danger"></span>
         </div>
@@ -40,7 +62,7 @@
                 <div class="card flex-md-row mb-5 box-shadow">
                     <div class="col-md-7">
                         <img src="@doctor.ImageUrl" alt="@doctor.FullName" class="img-fluid rounded ">
-                        <h4 class="text-center">@doctor.FullName</h4>
+                        <h4 class="text-center">Dr. @doctor.FullName</h4>
                         <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
                     </div>
                     <div class="col-md-9 card-body">

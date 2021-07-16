@@ -97,30 +97,70 @@ namespace MedEx.Services.Data.Doctors
             return model;
         }
 
-        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm) // can possibly use this for the doctor pagination for patients
+        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int? townId, int? specializationId) // i'm sorry
         {
+            IEnumerable<T> model = null;
 
-            var model = _doctorRepository.AllAsNoTracking()
-                .Where(d => d.IsValidated && (d.FirstName + " " + d.LastName).Contains(searchTerm))
-                .OrderBy(d => d.Id)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .To<T>()
-                .ToList();
-
-            return model;
-        }
-
-        public IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int townId, int specializationId) // can possibly use this for the doctor pagination for patients
-        {
-
-            var model = _doctorRepository.AllAsNoTracking()
-                .Where(d => d.IsValidated && (d.FirstName + " " + d.LastName).Contains(searchTerm))
-                .OrderBy(d => d.Id)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .To<T>()
-                .ToList();
+            if (!string.IsNullOrWhiteSpace(searchTerm) && townId > 0 && specializationId > 0)
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                    .Where(d => (d.FirstName + " " + d.LastName).Contains(searchTerm) && d.TownId == townId && d.SpecializationId == specializationId)
+                    .OrderBy(d => d.Id)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(searchTerm) && townId > 0)
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                    .Where(d => (d.FirstName + " " + d.LastName).Contains(searchTerm) && d.TownId == townId)
+                    .OrderBy(d => d.Id)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToList();
+            }
+            else if (townId > 0)
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                    .Where(d => d.TownId == townId)
+                    .OrderBy(d => d.Id)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToList();
+            }
+            else if (specializationId > 0)
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                    .Where(d => d.SpecializationId == specializationId)
+                    .OrderBy(d => d.Id)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(searchTerm) && specializationId > 0)
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                    .Where(d => d.IsValidated && (d.FirstName + " " + d.LastName).Contains(searchTerm) && d.SpecializationId == specializationId)
+                    .OrderBy(d => d.Id)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                model = _doctorRepository.AllAsNoTracking()
+                     .Where(d => (d.FirstName + " " + d.LastName).Contains(searchTerm))
+                     .OrderBy(d => d.Id)
+                     .Skip((page - 1) * itemsPerPage)
+                     .Take(itemsPerPage)
+                     .To<T>()
+                     .ToList();
+            }
 
             return model;
         }

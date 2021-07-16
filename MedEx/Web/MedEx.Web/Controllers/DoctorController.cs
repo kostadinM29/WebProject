@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace MedEx.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult All(int id, [FromQuery] string searchTerm, int townId, int specializationId)
+        public IActionResult All(int id, [FromQuery] string searchTerm, int? townId, int? specializationId)
         {
             var viewModel = new DoctorsListViewModel
             {
@@ -42,17 +43,21 @@ namespace MedEx.Web.Controllers
                 SpecializationItems = _specializationService.GetAllAsKeyValuePairs(),
                 PageNumber = id,
                 ItemsPerPage = GlobalConstants.VerifiedDoctorItemsPerPageCount,
-                ItemCount = _doctorService.GetValidatedDoctorsCount()
+                SearchTerm = searchTerm,
+                TownId = townId,
+                SpecializationId = specializationId
             };
-            if (searchTerm == null && townId == 0 && specializationId == 0)
+
+            if (searchTerm != null || townId != null || specializationId != null)
+            {
+                viewModel.Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount, searchTerm, townId, specializationId);
+            }
+            else
             {
                 viewModel.Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount);
             }
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                viewModel.Doctors = _doctorService.GetAllValidatedDoctors<DoctorInListViewModel>(id, GlobalConstants.VerifiedDoctorItemsPerPageCount, searchTerm);
-            }
+            viewModel.ItemCount = viewModel.Doctors.Count();
 
             return View(viewModel);
         }
