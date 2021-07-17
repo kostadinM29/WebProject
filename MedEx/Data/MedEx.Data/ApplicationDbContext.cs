@@ -34,7 +34,7 @@ namespace MedEx.Data
 
         public DbSet<Image> Images { get; set; }
 
-        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Rating> Reviews { get; set; }
 
         public DbSet<Specialization> Specializations { get; set; }
 

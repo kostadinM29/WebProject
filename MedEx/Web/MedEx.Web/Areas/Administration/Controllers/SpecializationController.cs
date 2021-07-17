@@ -23,7 +23,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(SpecializationCreateInputModel input)
+        public async Task<IActionResult> Create(SpecializationCreateFormModel input)
         {
             if (!ModelState.IsValid)
             {

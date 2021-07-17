@@ -2,11 +2,11 @@
 using MedEx.Services.Data.Patients;
 using MedEx.Services.DateTimeParser;
 using MedEx.Web.ViewModels.AppointmentViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MedEx.Web.Controllers
 {
@@ -28,17 +28,17 @@ namespace MedEx.Web.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var patientId = _patientService.GetPatientId(userId);
+            var patientId = _patientService.GetPatientIdByUserId(userId);
 
             if (patientId == null)
             {
-                return NotFound();
+                return NotFound("patient id not found"); // ?? idk bout that
             }
 
             var viewModel = new AppointmentsListDoctorViewModel
             {
-                Appointments =
-                        await _appointmentService.GetUpcomingByUserAsync<AppointmentViewDoctorModel>(patientId.Value),
+                PastAppointments = await _appointmentService.GetPastByPatientAsync<AppointmentViewDoctorModel>(patientId.Value),
+                Appointments = await _appointmentService.GetUpcomingByPatientAsync<AppointmentViewDoctorModel>(patientId.Value),
             };
             return View(viewModel);
         }
@@ -46,7 +46,7 @@ namespace MedEx.Web.Controllers
         [Authorize]
         public IActionResult MakeAnAppointment(int doctorId)
         {
-            var viewModel = new AppointmentInputModel
+            var viewModel = new AppointmentMakeFormModel
             {
                 DoctorId = doctorId
             };
@@ -55,7 +55,7 @@ namespace MedEx.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> MakeAnAppointment(AppointmentInputModel input)
+        public async Task<IActionResult> MakeAnAppointment(AppointmentMakeFormModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace MedEx.Web.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var patientId = _patientService.GetPatientId(userId); // add error if user is not a patient
+            var patientId = _patientService.GetPatientIdByUserId(userId); // add error if user is not a patient
             if (patientId == null)
             {
                 return NotFound();
@@ -104,6 +104,19 @@ namespace MedEx.Web.Controllers
             }
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> RateAppointment(int id)
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RateAppointment(AppointmentRateFormModel model)
+        {
+            return View();
         }
     }
 }

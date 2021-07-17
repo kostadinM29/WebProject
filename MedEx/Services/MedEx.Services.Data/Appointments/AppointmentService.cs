@@ -1,11 +1,11 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
+using MedEx.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Services.Mapping;
 
 namespace MedEx.Services.Data.Appointments
 {
@@ -20,15 +20,59 @@ namespace MedEx.Services.Data.Appointments
             _doctorRepository = doctorRepository;
         }
 
-        public async Task<IEnumerable<T>> GetUpcomingByUserAsync<T>(int patientId)
+        public async Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId)
         {
             var appointments =
                 await _appointmentsRepository
                     .AllAsNoTracking()
-                    .Where(x => x.PatientId == patientId
-                                && x.DateTime.Date > DateTime.UtcNow.Date)
-                    .OrderBy(x => x.DateTime)
-                    .To<T>().ToListAsync();
+                    .Where(a => a.DoctorId == doctorId
+                                && a.DateTime.Date < DateTime.UtcNow.Date)
+                    .OrderBy(a => a.DateTime)
+                    .To<T>()
+                    .ToListAsync();
+
+            return appointments;
+        }
+
+        public async Task<IEnumerable<T>> GetUpcomingByDoctorAsync<T>(int doctorId)
+        {
+            var appointments =
+                await _appointmentsRepository
+                    .AllAsNoTracking()
+                    .Where(a => a.DoctorId == doctorId
+                                && a.DateTime.Date > DateTime.UtcNow.Date)
+                    .OrderBy(a => a.DateTime)
+                    .To<T>()
+                    .ToListAsync();
+
+            return appointments;
+        }
+
+        public async Task<IEnumerable<T>> GetPastByPatientAsync<T>(int patientId)
+        {
+            var appointments =
+                await _appointmentsRepository
+                    .AllAsNoTracking()
+                    .Where(a => a.PatientId == patientId
+                                && a.DateTime.Date < DateTime.UtcNow.Date)
+                    .OrderBy(a => a.DateTime)
+                    .To<T>()
+                    .ToListAsync();
+
+            return appointments;
+        }
+
+        public async Task<IEnumerable<T>> GetUpcomingByPatientAsync<T>(int patientId)
+        {
+            var appointments =
+                await _appointmentsRepository
+                    .AllAsNoTracking()
+                    .Where(a => a.PatientId == patientId
+                                && a.DateTime.Date > DateTime.UtcNow.Date)
+                    .OrderBy(a => a.DateTime)
+                    .To<T>()
+                    .ToListAsync();
+
             return appointments;
         }
 

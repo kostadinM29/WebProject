@@ -1,4 +1,4 @@
-﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentInputModel
+﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentMakeFormModel
 @{
     this.ViewData["Title"] = "Make An Appointment";
 }
@@ -125,7 +125,7 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         <button type="submit"
-                                asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment">
+                                asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@Model.DoctorId">
                             Make An Appointment
                         </button>
                     </div>
@@ -142,10 +142,6 @@
     </div>
 </div>
 
-<!--
-<div id="selectedDate"></div>
-<div id="selectedTime"></div>
--->
 
 @section Scripts {
     <script src="~/js/bootstrap-datepicker.js" asp-append-version="true"></script>

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MedEx.Common;
+using MedEx.Web.ViewModels.Common;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MedEx.Common;
-using MedEx.Web.ViewModels.Common;
 
 namespace MedEx.Web.ViewModels.DoctorViewModels
 {
-    public class DoctorApplyInputModel
+    public class DoctorApplyFormModel
     {
         [Required]
         [MinLength(3)]

@@ -47,7 +47,7 @@ namespace MedEx.Services.Data.Doctors
          *
          */
 
-        public async Task CreateAsync(DoctorApplyInputModel model, string imagePath)
+        public async Task CreateAsync(DoctorApplyFormModel model, string imagePath)
         {
             var doctor = new Doctor()
             {
@@ -181,6 +181,8 @@ namespace MedEx.Services.Data.Doctors
         public int GetValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.IsValidated);
 
         public int GetAppliedAndNotValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied && d.IsValidated == false);
+
+        public int? GetDoctorIdByUserId(string userId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
 
         public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId);
 

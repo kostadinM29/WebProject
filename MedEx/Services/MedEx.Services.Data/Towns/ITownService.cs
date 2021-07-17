@@ -8,6 +8,6 @@ namespace MedEx.Services.Data.Towns
     {
         IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
 
-        Task CreateAsync(TownCreateInputModel model);
+        Task CreateAsync(TownCreateFormModel model);
     }
 }

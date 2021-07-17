@@ -2,7 +2,7 @@
 
 namespace MedEx.Web.ViewModels.Administration.TownViewModels
 {
-    public class TownCreateInputModel
+    public class TownCreateFormModel
     {
         [Required]
         [StringLength(30, MinimumLength = 3)] // Lom only?

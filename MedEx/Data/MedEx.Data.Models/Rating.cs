@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedEx.Data.Models
 {
-    public class Review : BaseDeletableModel<int>
+    public class Rating : BaseModel<int>
     {
         [Required]
-        public int Rating { get; set; } // 0-10
+        public int Number { get; set; } // 0-10
 
         [ForeignKey(nameof(Comment))]
         public int? CommentId { get; set; }
@@ -15,12 +15,12 @@ namespace MedEx.Data.Models
         public Comment Comment { get; set; }
 
         [ForeignKey(nameof(Doctor))]
-        public int? DoctorId { get; set; }
+        public int DoctorId { get; set; }
 
         public virtual Doctor Doctor { get; set; }
 
         [ForeignKey(nameof(Patient))]
-        public int? PatientId { get; set; }
+        public int PatientId { get; set; }
 
         public virtual Patient Patient { get; set; }
     }

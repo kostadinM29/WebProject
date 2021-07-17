@@ -2,7 +2,7 @@
 
 namespace MedEx.Web.ViewModels.Administration.SpecializationViewModels
 {
-    public class SpecializationCreateInputModel
+    public class SpecializationCreateFormModel
     {
         [Required]
         [StringLength(40, MinimumLength = 3)]

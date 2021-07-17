@@ -1,4 +1,4 @@
-﻿@model DoctorApplyInputModel
+﻿@model DoctorApplyFormModel
 @{
     ViewData["Title"] = "Apply for a doctor account";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));

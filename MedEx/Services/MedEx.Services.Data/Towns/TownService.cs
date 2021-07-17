@@ -9,9 +9,9 @@ namespace MedEx.Services.Data.Towns
 {
     public class TownService : ITownService
     {
-        private readonly IRepository<Town> _townRepository;
+        private readonly IDeletableEntityRepository<Town> _townRepository;
 
-        public TownService(IRepository<Town> townRepository)
+        public TownService(IDeletableEntityRepository<Town> townRepository)
         {
             _townRepository = townRepository;
         }
@@ -28,7 +28,7 @@ namespace MedEx.Services.Data.Towns
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
         }
 
-        public async Task CreateAsync(TownCreateInputModel model)
+        public async Task CreateAsync(TownCreateFormModel model)
         {
             var specialization = new Town
             {

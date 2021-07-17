@@ -8,8 +8,6 @@ namespace MedEx.Data.Models
     {
         public DateTime DateTime { get; set; }
 
-        public string Date { get; set; }
-
         [ForeignKey(nameof(Doctor))]
         public int DoctorId { get; set; }
 

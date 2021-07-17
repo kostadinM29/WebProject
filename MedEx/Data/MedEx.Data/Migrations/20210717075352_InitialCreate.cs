@@ -52,7 +52,9 @@ namespace MedEx.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ZipCode = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,10 +260,12 @@ namespace MedEx.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VisitingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
+                    IsCancelled = table.Column<bool>(type: "bit", nullable: false),
+                    Confirmed = table.Column<bool>(type: "bit", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -517,6 +521,11 @@ namespace MedEx.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Specializations_IsDeleted",
                 table: "Specializations",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Towns_IsDeleted",
+                table: "Towns",
                 column: "IsDeleted");
 
             migrationBuilder.AddForeignKey(

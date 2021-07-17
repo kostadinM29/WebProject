@@ -1,5 +1,31 @@
 ﻿@model AppointmentsListDoctorViewModel
 
+<div class="row">
+    <div class="col-lg-10 ml-lg-5">
+        <div class="about_text_highlight">
+            <span class="text-info">*</span> Status
+        </div>
+        <div class="about_text_2">
+            <ol>
+                <li>
+                    <span class="badge badge-secondary">Pending</span>
+                    - Waiting for the Doctor's reply.
+                </li>
+                <li>
+                    <span class="badge badge-success">Confirmed</span>
+                    - Good! Your appointment is confirmed.
+                    They are expecting you on the set date and time.
+                </li>
+                <li>
+                    <span class="badge badge-danger">Declined</span>
+                    - Sorry, the appointment can't happen on the set date and time.
+                    Check your email for rescheduling options from the Doctor.
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+
 @if (!@Model.Appointments.Any())
 {
     <div class="row">
@@ -10,12 +36,11 @@
                 </p>
             </div>
             <div class="about_text_highlight">
-                Book an appointment in 3 easy steps:
+                Book an appointment in 2 easy steps:
             </div>
             <div class="about_text_highlight">
                 <ol>
-                    <li>Find a salon.</li>
-                    <li>Choose a beauty service.</li>
+                    <li>Find a doctor.</li>
                     <li>Pick date and time.</li>
                 </ol>
             </div>
@@ -82,42 +107,52 @@
             }
         </tbody>
     </table>
+}
 
-    <div class="row">
-        <div class="col-lg-10 ml-lg-5">
-            <div class="about_text_highlight">
-                <span class="text-info">*</span> Status
-            </div>
-            <div class="about_text_2">
-                <ol>
-                    <li>
-                        <span class="badge badge-secondary">Pending</span>
-                        - Waiting for the Doctor's reply.
-                    </li>
-                    <li>
-                        <span class="badge badge-success">Confirmed</span>
-                        - Good! Your appointment is confirmed.
-                        They are expecting you on the set date and time.
-                    </li>
-                    <li>
-                        <span class="badge badge-danger">Declined</span>
-                        - Sorry, the appointment can't happen on the set date and time.
-                        Check your email for rescheduling options from the Doctor.
-                    </li>
-                </ol>
-                <a>Or you can just <strong>book again.</strong> Remember the steps, right?</a>
-                <br />
-                <a>Go find a doctor and make an appointment.</a>
-                <br />
-                <br />
-                <a>
-                    <div class="btn btn-light btn-lg btn-outline-primary">
-                        <a asp-area="" asp-controller="Doctor" asp-action="All" asp-route-id="1">
-                            <span>Find Doctors</span>
+
+@if (@Model.PastAppointments.Any())
+{
+    <h2>Past (@Model.PastAppointments.Count())</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Status <span class="text-info">*</span></th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Address</th>
+                <th scope="col">Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in this.Model.PastAppointments)
+            {
+                <tr>
+                    <th scope="row">@appointment.DateTime.ToString("f")</th>
+                    <td>
+                        @if (appointment.Confirmed == true)
+                        {
+                            <span class="badge badge-success">Confirmed</span>
+                        }
+                        else if (appointment.Confirmed == false)
+                        {
+                            <span class="badge badge-danger">Declined</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Pending</span>
+                        }
+                    </td>
+                    <td>@appointment.DoctorFullName</td>
+                    <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
+                    <td>
+                        <a class="btn btn-outline-danger btn-sm"
+                           asp-area="" asp-controller="Appointment" asp-action="RateAppointment" asp-route-id="@appointment.Id">
+                            Rate
                         </a>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

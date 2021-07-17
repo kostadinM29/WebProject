@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.PatientViewModels
 {
-    public class PatientCreateInputModel
+    public class PatientCreateFormModel
     {
         [Required]
         [MinLength(3)]

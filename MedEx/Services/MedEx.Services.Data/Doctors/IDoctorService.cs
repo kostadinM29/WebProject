@@ -7,7 +7,7 @@ namespace MedEx.Services.Data.Doctors
 {
     public interface IDoctorService
     {
-        Task CreateAsync(DoctorApplyInputModel model, string imagePath);
+        Task CreateAsync(DoctorApplyFormModel model, string imagePath);
 
         IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);
 
@@ -18,6 +18,8 @@ namespace MedEx.Services.Data.Doctors
         int GetValidatedDoctorsCount();
 
         int GetAppliedAndNotValidatedDoctorsCount();
+
+        int? GetDoctorIdByUserId(string userId);
 
         Doctor GetDoctorById(int doctorId);
 

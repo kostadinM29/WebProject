@@ -29,12 +29,12 @@ namespace MedEx.Services.Data.Patients
          *
          *
          */
-        public int? GetPatientId(string userId)
+        public int? GetPatientIdByUserId(string userId)
         {
             return _patientRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
         }
 
-        public async Task CreateAsync(PatientCreateInputModel model)
+        public async Task CreateAsync(PatientCreateFormModel model)
         {
             var patient = new Patient()
             {

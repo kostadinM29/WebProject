@@ -65,7 +65,7 @@ namespace MedEx.Web.Controllers
         [Authorize]
         public IActionResult Apply()
         {
-            var viewModel = new DoctorApplyInputModel
+            var viewModel = new DoctorApplyFormModel
             {
                 TownItems = _townService.GetAllAsKeyValuePairs(),
                 SpecializationItems = _specializationService.GetAllAsKeyValuePairs()
@@ -75,7 +75,7 @@ namespace MedEx.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Apply(DoctorApplyInputModel input)
+        public async Task<IActionResult> Apply(DoctorApplyFormModel input)
         {
             if (!ModelState.IsValid)
             {

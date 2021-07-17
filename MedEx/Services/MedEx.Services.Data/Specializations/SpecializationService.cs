@@ -28,7 +28,7 @@ namespace MedEx.Services.Data.Specializations
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
         }
 
-        public async Task CreateAsync(SpecializationCreateInputModel model)
+        public async Task CreateAsync(SpecializationCreateFormModel model)
         {
             var specialization = new Specialization
             {

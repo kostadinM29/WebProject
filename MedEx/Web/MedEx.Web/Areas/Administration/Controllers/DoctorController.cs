@@ -1,11 +1,11 @@
 ﻿using MedEx.Common;
 using MedEx.Data.Models;
 using MedEx.Services.Data.Doctors;
+using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.DoctorViewModels;
 
 namespace MedEx.Web.Areas.Administration.Controllers
 {

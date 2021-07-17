@@ -1,20 +1,20 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Services.Data.Appointments;
-using MedEx.Services.Data.Patients;
+﻿using MedEx.Services.Data.Appointments;
+using MedEx.Services.Data.Doctors;
 using MedEx.Web.ViewModels.AppointmentViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.DoctorRole.Controllers
 {
     public class DashboardController : DoctorRoleController
     {
-        private readonly IPatientService _patientService;
+        private readonly IDoctorService _doctorService;
         private readonly IAppointmentService _appointmentService;
 
-        public DashboardController(IPatientService patientService, IAppointmentService appointmentService)
+        public DashboardController(IDoctorService doctorService, IAppointmentService appointmentService)
         {
-            _patientService = patientService;
+            _doctorService = doctorService;
             _appointmentService = appointmentService;
         }
 
@@ -22,17 +22,11 @@ namespace MedEx.Web.Areas.DoctorRole.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var patientId = _patientService.GetPatientId(userId);
-
-            if (patientId == null)
-            {
-                return NotFound();
-            }
+            var doctorId = _doctorService.GetDoctorIdByUserId(userId);
 
             var viewModel = new AppointmentsListPatientViewModel
             {
-                Appointments =
-                    await _appointmentService.GetUpcomingByUserAsync<AppointmentViewPatientModel>(patientId.Value),
+                Appointments = await _appointmentService.GetUpcomingByPatientAsync<AppointmentViewPatientModel>(doctorId.Value),
             };
             return View(viewModel);
         }
@@ -41,14 +35,14 @@ namespace MedEx.Web.Areas.DoctorRole.Controllers
         public async Task<IActionResult> ConfirmAppointment(int appointmentId)
         {
             await _appointmentService.ConfirmAsync(appointmentId);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         public async Task<IActionResult> DeclineAppointment(int appointmentId)
         {
             await _appointmentService.DeclineAsync(appointmentId);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

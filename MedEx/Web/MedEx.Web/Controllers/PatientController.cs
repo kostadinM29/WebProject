@@ -22,7 +22,7 @@ namespace MedEx.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var viewModel = new PatientCreateInputModel
+            var viewModel = new PatientCreateFormModel
             {
                 TownItems = _townService.GetAllAsKeyValuePairs()
             };
@@ -31,7 +31,7 @@ namespace MedEx.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(PatientCreateInputModel input)
+        public async Task<IActionResult> Create(PatientCreateFormModel input)
         {
             if (!ModelState.IsValid)
             {

@@ -48,7 +48,7 @@ namespace MedEx.Data.Models
 
         public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public virtual ICollection<Rating> Reviews { get; set; } = new List<Rating>();
 
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

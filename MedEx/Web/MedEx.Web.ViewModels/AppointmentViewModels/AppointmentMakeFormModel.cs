@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {
-    public class AppointmentInputModel
+    public class AppointmentMakeFormModel
     {
         [Required]
         [ValidateDateString]

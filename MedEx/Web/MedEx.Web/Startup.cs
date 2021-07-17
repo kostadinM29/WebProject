@@ -10,6 +10,7 @@ using MedEx.Services.Data.Home;
 using MedEx.Services.Data.Patients;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
+using MedEx.Services.DateTimeParser;
 using MedEx.Services.Mapping;
 using MedEx.Services.Messaging;
 using MedEx.Web.ViewModels;
@@ -22,7 +23,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using MedEx.Services.DateTimeParser;
 
 namespace MedEx.Web
 {

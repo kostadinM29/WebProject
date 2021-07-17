@@ -162,9 +162,6 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -398,7 +395,7 @@ namespace MedEx.Data.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("MedEx.Data.Models.Review", b =>
+            modelBuilder.Entity("MedEx.Data.Models.Rating", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -411,22 +408,16 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DoctorId")
+                    b.Property<int>("DoctorId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PatientId")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -434,8 +425,6 @@ namespace MedEx.Data.Migrations
                     b.HasIndex("CommentId");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("PatientId");
 
@@ -484,6 +473,12 @@ namespace MedEx.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -494,6 +489,8 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("Towns");
                 });
@@ -706,7 +703,7 @@ namespace MedEx.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MedEx.Data.Models.Review", b =>
+            modelBuilder.Entity("MedEx.Data.Models.Rating", b =>
                 {
                     b.HasOne("MedEx.Data.Models.Comment", "Comment")
                         .WithMany()
@@ -714,11 +711,15 @@ namespace MedEx.Data.Migrations
 
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
                         .WithMany("Reviews")
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Comment");
 

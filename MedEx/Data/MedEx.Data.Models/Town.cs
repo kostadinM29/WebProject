@@ -2,7 +2,7 @@
 
 namespace MedEx.Data.Models
 {
-    public class Town : BaseModel<int>
+    public class Town : BaseDeletableModel<int>
     {
         public string Name { get; set; }
 
