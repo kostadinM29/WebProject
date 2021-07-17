@@ -194,38 +194,6 @@ namespace MedEx.Data.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("MedEx.Data.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -402,8 +370,11 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommentId")
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -422,13 +393,13 @@ namespace MedEx.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Specialization", b =>
@@ -633,23 +604,6 @@ namespace MedEx.Data.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("MedEx.Data.Models.Comment", b =>
-                {
-                    b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MedEx.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>
                 {
                     b.HasOne("MedEx.Data.Models.Specialization", "Specialization")
@@ -705,23 +659,25 @@ namespace MedEx.Data.Migrations
 
             modelBuilder.Entity("MedEx.Data.Models.Rating", b =>
                 {
-                    b.HasOne("MedEx.Data.Models.Comment", "Comment")
+                    b.HasOne("MedEx.Data.Models.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Doctor", "Doctor")
-                        .WithMany("Reviews")
+                        .WithMany("Ratings")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MedEx.Data.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Comment");
+                    b.Navigation("Appointment");
 
                     b.Navigation("Doctor");
 
@@ -794,12 +750,14 @@ namespace MedEx.Data.Migrations
 
                     b.Navigation("Images");
 
-                    b.Navigation("Reviews");
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Patient", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Specialization", b =>

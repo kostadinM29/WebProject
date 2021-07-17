@@ -20,6 +20,11 @@ namespace MedEx.Services.Data.Appointments
             _doctorRepository = doctorRepository;
         }
 
+        public int? GetDoctorIdByAppointmentId(int appointmentId)
+        {
+            return _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Appointments.Any(a => a.Id == appointmentId))?.Id;
+        }
+
         public async Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId)
         {
             var appointments =

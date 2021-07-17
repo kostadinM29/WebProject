@@ -23,6 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using MedEx.Services.Data.Ratings;
 
 namespace MedEx.Web
 {
@@ -74,6 +75,7 @@ namespace MedEx.Web
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<ISpecializationService, SpecializationService>();
             services.AddTransient<ITownService, TownService>();
+            services.AddTransient<IRatingService, RatingService>();
             services.AddTransient<IDateTimeParserService, DateTimeParserService>();
         }
 

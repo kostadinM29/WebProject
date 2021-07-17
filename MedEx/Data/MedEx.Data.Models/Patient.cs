@@ -31,6 +31,8 @@ namespace MedEx.Data.Models
 
         public virtual ApplicationUser User { get; set; }
 
+        public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
         public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

@@ -2,3 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+$(function () {
+    function ratingEnable() {
+        $('#rating').barrating('show', {
+            theme: 'bars-1to10'
+        });
+
+
+    }
+
+    ratingEnable();
+});

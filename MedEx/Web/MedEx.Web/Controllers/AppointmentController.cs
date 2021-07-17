@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MedEx.Services.Data.Ratings;
 
 namespace MedEx.Web.Controllers
 {
@@ -15,12 +16,14 @@ namespace MedEx.Web.Controllers
         private readonly IAppointmentService _appointmentService;
         private readonly IDateTimeParserService _dateTimeParserService;
         private readonly IPatientService _patientService;
+        private readonly IRatingService _ratingService;
 
-        public AppointmentController(IAppointmentService appointmentService, IDateTimeParserService dateTimeParserService, IPatientService patientService)
+        public AppointmentController(IAppointmentService appointmentService, IDateTimeParserService dateTimeParserService, IPatientService patientService, IRatingService ratingService)
         {
             _appointmentService = appointmentService;
             _dateTimeParserService = dateTimeParserService;
             _patientService = patientService;
+            _ratingService = ratingService;
         }
 
         [Authorize]
@@ -107,16 +110,43 @@ namespace MedEx.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> RateAppointment(int id)
+        public IActionResult RateAppointment(int appointmentId)
         {
-            return View();
+            var viewModel = new AppointmentRateFormModel
+            {
+                AppointmentId = appointmentId
+            };
+
+            return View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> RateAppointment(AppointmentRateFormModel model)
+        public async Task<IActionResult> RateAppointment(AppointmentRateFormModel input)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(RateAppointment), new { input.DoctorId });
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var patientId = _patientService.GetPatientIdByUserId(userId);
+            if (patientId == null)
+            {
+                return NotFound();
+            }
+
+            var doctorId = _appointmentService.GetDoctorIdByAppointmentId(input.AppointmentId);
+            if (doctorId == null)
+            {
+                return NotFound();
+            }
+
+
+            await _ratingService.AddAsync(input.AppointmentId, doctorId.Value, patientId.Value, input.Number, input.Comment);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

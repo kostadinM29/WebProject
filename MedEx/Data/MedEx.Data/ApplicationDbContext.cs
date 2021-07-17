@@ -26,15 +26,13 @@ namespace MedEx.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
-        public DbSet<Comment> Comments { get; set; }
-
         public DbSet<Doctor> Doctors { get; set; }
 
         public DbSet<Patient> Patients { get; set; }
 
         public DbSet<Image> Images { get; set; }
 
-        public DbSet<Rating> Reviews { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         public DbSet<Specialization> Specializations { get; set; }
 

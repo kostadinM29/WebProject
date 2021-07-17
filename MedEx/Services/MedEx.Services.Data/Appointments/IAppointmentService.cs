@@ -6,6 +6,8 @@ namespace MedEx.Services.Data.Appointments
 {
     public interface IAppointmentService
     {
+        int? GetDoctorIdByAppointmentId(int appointmentId);
+
         Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId);
 
         Task<IEnumerable<T>> GetUpcomingByDoctorAsync<T>(int doctorId);

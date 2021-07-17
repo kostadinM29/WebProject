@@ -9,10 +9,12 @@ namespace MedEx.Data.Models
         [Required]
         public int Number { get; set; } // 0-10
 
-        [ForeignKey(nameof(Comment))]
-        public int? CommentId { get; set; }
+        public string Comment { get; set; }
 
-        public Comment Comment { get; set; }
+        [ForeignKey(nameof(Appointment))]
+        public int AppointmentId { get; set; }
+
+        public virtual Appointment Appointment { get; set; }
 
         [ForeignKey(nameof(Doctor))]
         public int DoctorId { get; set; }
