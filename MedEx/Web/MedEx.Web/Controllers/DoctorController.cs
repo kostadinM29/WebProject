@@ -1,5 +1,6 @@
 ﻿using MedEx.Common;
 using MedEx.Services.Data.Doctors;
+using MedEx.Services.Data.Ratings;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.DoctorViewModels;
@@ -10,6 +11,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MedEx.Web.ViewModels.RatingViewModels;
 
 namespace MedEx.Web.Controllers
 {
@@ -18,13 +20,15 @@ namespace MedEx.Web.Controllers
         private readonly ISpecializationService _specializationService;
         private readonly ITownService _townService;
         private readonly IDoctorService _doctorService;
+        private readonly IRatingService _ratingService;
         private readonly IWebHostEnvironment _environment;
 
-        public DoctorController(ISpecializationService specializationService, ITownService townService, IDoctorService doctorService, IWebHostEnvironment environment)
+        public DoctorController(ISpecializationService specializationService, ITownService townService, IDoctorService doctorService, IRatingService ratingService, IWebHostEnvironment environment)
         {
             _specializationService = specializationService;
             _townService = townService;
             _doctorService = doctorService;
+            _ratingService = ratingService;
             _environment = environment;
         }
 
@@ -32,6 +36,16 @@ namespace MedEx.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Profile(int doctorId)
+        {
+            var viewModel = new DoctorProfileViewModel()
+            {
+                Ratings = _ratingService.GetAllRatingsByDoctorId<RatingViewModel>(doctorId, GlobalConstants.DoctorRatingsPerPageCount),
+                Doctor = _doctorService.GetDoctorById<DoctorInListViewModel>(doctorId)
+            };
+            return View(viewModel);
         }
 
         [Authorize]

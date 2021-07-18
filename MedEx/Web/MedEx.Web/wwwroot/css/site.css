@@ -114,6 +114,10 @@ body {
     padding-top: 70px;
 }
 
+.bottom-padding-rating {
+    padding-bottom: 20px;
+}
+
 .bg {
     /* The image used */
     background-image: url("/img/banner-img-doctor.jpg");
@@ -207,29 +211,49 @@ body {
     opacity: 0.4
 }
 
-.starrating > input {
+.starrating1 > input {
     display: none;
 }
 /* Remove radio buttons */
 
-.starrating > label:before {
+.starrating1 > label:before {
     content: "\f005"; /* Star */
     margin: 2px;
     font-size: 5em;
     font-family: FontAwesome;
     display: inline-block;
 }
+.starrating2 > label:before {
+    content: "\f005"; /* Star */
+    margin: 2px;
+    font-size: 1em;
+    font-family: FontAwesome;
+    display: inline-block;
+}
 
-.starrating > label {
+.starrating1 > label {
     color: #222222; /* Start color when not clicked */
 }
 
-.starrating > input:checked ~ label {
+.starrating2 > label {
+    color: #ffca08; /* Start color when not clicked */
+}
+
+.starrating1 > input:checked ~ label {
     color: #ffca08;
 }
 /* Set yellow color when star checked */
 
-.starrating > input:hover ~ label {
+.starrating1 > input:hover ~ label {
     color: #ffca08;
 }
 /* Set yellow color when star hover */
+
+
+.text-black {
+    color: #000000;
+}
+
+.container-outline {
+    border: 1px solid #a7e4e8;
+}

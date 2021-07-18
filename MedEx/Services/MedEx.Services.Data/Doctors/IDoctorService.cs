@@ -23,6 +23,8 @@ namespace MedEx.Services.Data.Doctors
 
         T GetDoctorByAppointmentId<T>(int appointmentId);
 
+        T GetDoctorById<T>(int doctorId);
+
         Doctor GetDoctorById(int doctorId);
 
         Task<bool> VerifyAsync(int doctorId);

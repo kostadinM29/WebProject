@@ -1,0 +1,85 @@
+﻿@model DoctorProfileViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-6">
+            <div class="mb-2">
+                <img class="w-100" src="@Model.Doctor.ImageUrl" alt="@Model.Doctor.FullName">
+            </div>
+            <div class="mb-2 d-flex">
+                <h2 class="font-weight-normal">@Model.Doctor.FullName</h2>
+            </div>
+            <div class="mb-2">
+                <ul class="list-unstyled">
+                    <li class="media">
+                        <span class="w-25 text-black font-weight-normal">Specialization: </span>
+                        <label class="media-body">@Model.Doctor.SpecializationName</label>
+                    </li>
+                    <li class="media">
+                        <span class="w-25 text-black font-weight-normal">Experience: </span>
+                        <label class="media-body">@(Model.Doctor.Experience == null ? "No experience" : $"{Model.Doctor.Experience} years")</label>
+                    </li>
+                    <li class="media">
+                        <span class="w-25 text-black font-weight-normal">Phone: </span>
+                        <label class="media-body">@Model.Doctor.PhoneNumber</label>
+                    </li>
+                    <li class="media">
+                        <span class="w-25 text-black font-weight-normal">Email: </span>
+                        <label class="media-body">@Model.Doctor.Email</label>
+                    </li>
+                    <li class="media">
+                        <span class="w-25 text-black font-weight-normal">Location: </span>
+                        <label class="media-body">@Model.Doctor.Address, @Model.Doctor.TownName</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-center row">
+                <div class="col-6">
+
+                    <a type="submit" class="btn btn-info " asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@Model.Doctor.Id">
+                        Make an appointment
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a type="submit" class="btn btn-success" asp-area="" asp-controller="" asp-action="">
+                        Online consultation
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-7 col-md-6 pl-xl-3">
+            <h3 class="font-weight-normal">Biography of @Model.Doctor.FullName</h3>
+            <p>@(Model.Doctor.Biography ?? "No biography")</p>
+
+            <br />
+            <h3 class="font-weight-normal text-center">Reviews</h3>
+            <div class="container-fluid">
+                @foreach (var rating in @Model.Ratings)
+                {
+                    <div class="card bottom-padding-rating">
+                        <div class="card-group">
+                            <h6 class="card-title col-3">@rating.PatientFullName</h6>
+                            <div class="col-6 starrating2 d-flex justify-content-center flex-row-reverse">
+                                @for (var i = 1; i <= rating.Number; i++)
+                                {
+                                    // <i class="fas fa-star" id="star@i"></i>
+                                    <i id="star@i"></i> <label for="star@i"></label>
+                                }
+                            </div>
+                            <div class="col-3 ">@rating.CreatedOn</div>
+                            <div class="container ">
+                                <div class="card bottom-padding-rating container-outline">
+                                    <div class="container ">
+                                        <p class="card-text ">@rating.Comment</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+</div>
