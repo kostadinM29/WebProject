@@ -165,10 +165,10 @@ namespace MedEx.Services.Data.Doctors
             return model;
         }
 
-        public IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage = 12) // can possibly use this for the doctor pagination for patients
+        public IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage) // can possibly use this for the doctor pagination for patients
         {
             var model = _doctorRepository.AllAsNoTracking()
-                .Where(d => d.IsValidated == false)
+                .Where(d => d.HasApplied && d.IsValidated == false)
                 .OrderBy(d => d.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -186,11 +186,12 @@ namespace MedEx.Services.Data.Doctors
 
         public T GetDoctorByAppointmentId<T>(int appointmentId) => _doctorRepository.AllAsNoTracking().Where(d => d.Appointments.Any(a => a.Id == appointmentId)).To<T>().FirstOrDefault();
 
-        public Doctor GetDoctorById(int doctorId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Id == doctorId);
+        public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId); // has to track
 
         public async Task<bool> VerifyAsync(int doctorId)
         {
             var doctor = GetDoctorById(doctorId);
+
             if (doctor == null)
             {
                 return false;
@@ -212,6 +213,7 @@ namespace MedEx.Services.Data.Doctors
             }
 
             _doctorRepository.Delete(doctor);
+
             await _doctorRepository.SaveChangesAsync();
             return true;
         }

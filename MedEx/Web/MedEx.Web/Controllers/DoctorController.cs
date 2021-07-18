@@ -37,6 +37,11 @@ namespace MedEx.Web.Controllers
         [Authorize]
         public IActionResult All(int id, [FromQuery] string searchTerm, int? townId, int? specializationId)
         {
+            if (id == 0)
+            {
+                return NotFound("there is no page 0");
+            }
+
             var viewModel = new DoctorsListViewModel
             {
                 TownItems = _townService.GetAllAsKeyValuePairs(),

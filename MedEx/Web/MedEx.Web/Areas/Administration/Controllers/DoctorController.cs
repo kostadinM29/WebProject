@@ -45,10 +45,10 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfDocExists == false)
             {
-                return NotFound();
+                return NotFound("doctor not found");
             }
 
-            return RedirectToAction("AppliedDoctors", new { id = pageNumber });
+            return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }
 
         public async Task<IActionResult> Delete(int doctorId, int pageNumber) // id is pageNumber
@@ -57,10 +57,10 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfDocExists == false)
             {
-                return NotFound();
+                return NotFound("doctor not found");
             }
 
-            return RedirectToAction("AppliedDoctors", new { id = pageNumber });
+            return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }
     }
 }

@@ -17,6 +17,8 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
 
         public string PhoneNumber { get; set; }
 
+        public double? AverageRating { get; set; }
+
         public int? Experience { get; set; }
 
         public string Email { get; set; }
@@ -43,7 +45,9 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
                             : "/img/doctors/" + d.Images.FirstOrDefault().Id + "." +
                               d.Images.FirstOrDefault().Extension))
                 .ForMember(vm => vm.FullName, opt =>
-                    opt.MapFrom(d => d.FirstName + " " + d.LastName));
+                    opt.MapFrom(d => d.FirstName + " " + d.LastName))
+                .ForMember(vm => vm.AverageRating, opt =>
+                    opt.MapFrom(d => d.Ratings.Average(r => r.Number)));
         }
     }
 }
