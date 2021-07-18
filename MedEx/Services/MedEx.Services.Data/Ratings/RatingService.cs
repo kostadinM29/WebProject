@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MedEx.Data.Common.Repositories;
@@ -9,10 +10,12 @@ namespace MedEx.Services.Data.Ratings
     public class RatingService : IRatingService
     {
         private readonly IRepository<Rating> _ratingRepository;
+        private readonly IDeletableEntityRepository<Appointment> _appointmentRepository;
 
-        public RatingService(IRepository<Rating> ratingRepository)
+        public RatingService(IRepository<Rating> ratingRepository, IDeletableEntityRepository<Appointment> appointmentRepository)
         {
             _ratingRepository = ratingRepository;
+            _appointmentRepository = appointmentRepository;
         }
 
         public async Task AddAsync(int appointmentId, int doctorId, int patientId, int number, string comment)
@@ -25,6 +28,8 @@ namespace MedEx.Services.Data.Ratings
                 DoctorId = doctorId,
                 PatientId = patientId
             });
+
+            _appointmentRepository.All().First(a => a.Id == appointmentId).IsRated = true;
 
             await _ratingRepository.SaveChangesAsync();
         }

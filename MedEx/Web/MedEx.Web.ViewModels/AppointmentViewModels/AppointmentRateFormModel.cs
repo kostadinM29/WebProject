@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MedEx.Web.ViewModels.DoctorViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {
@@ -12,6 +13,8 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
         public string Comment { get; set; }
 
         public int AppointmentId { get; set; }
+
+        public DoctorSimplifiedViewModel Doctor { get; set; }
 
         public int DoctorId { get; set; }
 

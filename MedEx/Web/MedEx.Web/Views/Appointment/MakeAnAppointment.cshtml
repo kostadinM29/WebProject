@@ -1,11 +1,13 @@
 ﻿@model MedEx.Web.ViewModels.AppointmentViewModels.AppointmentMakeFormModel
 @{
-    this.ViewData["Title"] = "Make An Appointment";
+    ViewBag.Title = "Make An Appointment";
 }
 
 @section Styles {
     <link href="~/css/date-picker.css" rel="stylesheet" asp-append-version="true" />
 }
+
+<h3 class="text-center">@ViewBag.Title</h3>
 
 <div class="container-fluid ">
     <div class="row justify-content-center mx-0">

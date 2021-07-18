@@ -184,7 +184,9 @@ namespace MedEx.Services.Data.Doctors
 
         public int? GetDoctorIdByUserId(string userId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
 
-        public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId);
+        public T GetDoctorByAppointmentId<T>(int appointmentId) => _doctorRepository.AllAsNoTracking().Where(d => d.Appointments.Any(a => a.Id == appointmentId)).To<T>().FirstOrDefault();
+
+        public Doctor GetDoctorById(int doctorId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Id == doctorId);
 
         public async Task<bool> VerifyAsync(int doctorId)
         {

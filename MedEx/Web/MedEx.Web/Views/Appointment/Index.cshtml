@@ -1,5 +1,7 @@
 ﻿@model AppointmentsListDoctorViewModel
 
+
+
 <div class="row">
     <div class="col-lg-10 ml-lg-5">
         <div class="about_text_highlight">
@@ -146,9 +148,9 @@
                     <td>@appointment.DoctorFullName</td>
                     <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
                     <td>
-                        <a class="btn btn-outline-danger btn-sm"
+                        <a class="btn btn-outline-info btn-sm @(appointment.IsRated ? "disabled" : string.Empty)"
                            asp-area="" asp-controller="Appointment" asp-action="RateAppointment" asp-route-appointmentId="@appointment.Id">
-                            Rate
+                            @(appointment.IsRated ? "Already Rated" : "Rate")
                         </a>
                     </td>
                 </tr>

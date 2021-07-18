@@ -21,5 +21,7 @@ namespace MedEx.Data.Models
         public bool IsCancelled { get; set; }
 
         public bool? Confirmed { get; set; }
+
+        public bool IsRated { get; set; }
     }
 }

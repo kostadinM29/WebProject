@@ -1,13 +1,15 @@
 ﻿using MedEx.Services.Data.Appointments;
+using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Patients;
+using MedEx.Services.Data.Ratings;
 using MedEx.Services.DateTimeParser;
 using MedEx.Web.ViewModels.AppointmentViewModels;
+using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Services.Data.Ratings;
 
 namespace MedEx.Web.Controllers
 {
@@ -17,13 +19,15 @@ namespace MedEx.Web.Controllers
         private readonly IDateTimeParserService _dateTimeParserService;
         private readonly IPatientService _patientService;
         private readonly IRatingService _ratingService;
+        private readonly IDoctorService _doctorService;
 
-        public AppointmentController(IAppointmentService appointmentService, IDateTimeParserService dateTimeParserService, IPatientService patientService, IRatingService ratingService)
+        public AppointmentController(IAppointmentService appointmentService, IDateTimeParserService dateTimeParserService, IPatientService patientService, IRatingService ratingService, IDoctorService doctorService)
         {
             _appointmentService = appointmentService;
             _dateTimeParserService = dateTimeParserService;
             _patientService = patientService;
             _ratingService = ratingService;
+            _doctorService = doctorService;
         }
 
         [Authorize]
@@ -35,7 +39,7 @@ namespace MedEx.Web.Controllers
 
             if (patientId == null)
             {
-                return NotFound("patient id not found"); // ?? idk bout that
+                return NotFound("patient not found"); // ?? idk bout that
             }
 
             var viewModel = new AppointmentsListDoctorViewModel
@@ -62,7 +66,7 @@ namespace MedEx.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
+                return RedirectToAction(nameof(MakeAnAppointment), new { input.DoctorId });
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -80,7 +84,7 @@ namespace MedEx.Web.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("MakeAnAppointment", new { input.DoctorId });
+                return RedirectToAction(nameof(MakeAnAppointment), new { input.DoctorId });
             }
 
             return await _appointmentService.AddAsync(input.DoctorId, patientId.Value, dateTime) == false ? RedirectToAction("MakeAnAppointment", new { input.DoctorId }) : RedirectToAction("Index");
@@ -92,7 +96,7 @@ namespace MedEx.Web.Controllers
         {
             await _appointmentService.DeleteAsync(id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [Authorize]
@@ -114,6 +118,7 @@ namespace MedEx.Web.Controllers
         {
             var viewModel = new AppointmentRateFormModel
             {
+                Doctor = _doctorService.GetDoctorByAppointmentId<DoctorSimplifiedViewModel>(appointmentId),
                 AppointmentId = appointmentId
             };
 
@@ -126,7 +131,7 @@ namespace MedEx.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(RateAppointment), new { input.DoctorId });
+                return RedirectToAction(nameof(RateAppointment), new { input.AppointmentId });
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -134,15 +139,15 @@ namespace MedEx.Web.Controllers
             var patientId = _patientService.GetPatientIdByUserId(userId);
             if (patientId == null)
             {
-                return NotFound();
+                return NotFound("patient not found");
             }
 
             var doctorId = _appointmentService.GetDoctorIdByAppointmentId(input.AppointmentId);
+
             if (doctorId == null)
             {
-                return NotFound();
+                return NotFound("doctor not found");
             }
-
 
             await _ratingService.AddAsync(input.AppointmentId, doctorId.Value, patientId.Value, input.Number, input.Comment);
 

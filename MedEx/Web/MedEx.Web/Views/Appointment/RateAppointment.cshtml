@@ -1,13 +1,21 @@
 ﻿@model AppointmentRateFormModel
 @{
-    this.ViewData["Title"] = "Rate your appointment";
+    ViewBag.Title = $"Rate your appointment with Dr. {@Model.Doctor.FullName}";
 }
+
+<h3 class="text-center">@ViewBag.Title</h3>
+
+<br/>
+
+<div class="justify-content-center col-4 offset-4">
+<img src="@Model.Doctor.ImageUrl" alt="@Model.Doctor..FullName" class="img-fluid card-img border-light ">
+</div>
 
 <form method="post" class="col-md-6 offset-md-3">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <label asp-for="Number">Rating</label>
-    <select asp-for="Number" id="rating" class="form-control">
+    <select asp-for="Number" class="form-control">
         <option value="1">1 - Won't visit again.</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -20,7 +28,7 @@
         <option value="10">10</option>
     </select>
     <div class="form-group">
-        <label asp-for="Comment">Comment</label>
+        <label asp-for="Comment">Comment (Max. 50 characters)</label>
         <textarea asp-for="Comment" class="form-control" rows="2"></textarea>
         <span asp-validation-for="Comment" class="text-danger"></span>
     </div>

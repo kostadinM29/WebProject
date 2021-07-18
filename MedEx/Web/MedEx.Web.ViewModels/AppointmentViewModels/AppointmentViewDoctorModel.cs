@@ -21,6 +21,8 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
 
         public bool? Confirmed { get; set; }
 
+        public bool IsRated { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Appointment, AppointmentViewDoctorModel>()
