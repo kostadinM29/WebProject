@@ -59,59 +59,59 @@
         @foreach (var doctor in Model.Doctors)
         {
             <div class="col-4">
-            <div class="card" >
-                <img src="@doctor.ImageUrl" class="card-img-top" alt="@doctor.FullName">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Dr. @doctor.FullName</h5>
-                    <p class="card-text text-center">@doctor.SpecializationName - @doctor.TownName</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Age: @doctor.Age</li>
-                    <li class="list-group-item">Average rating: @doctor.AverageRating</li>
-                    <li class="list-group-item">Email address: @doctor.Email</li>
-                    <li class="list-group-item">Phone: @doctor.PhoneNumber</li>
-                </ul>
-                <div class="card-body row">
-                    <div class="col-md-6 text-center">
-                        <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
-                            Make An Appointment
-                        </a>
+                <div class="card">
+                    <img src="@doctor.ImageUrl" class="card-img-top" alt="@doctor.FullName">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Dr. @doctor.FullName</h5>
+                        <p class="card-text text-center">@doctor.SpecializationName - @doctor.TownName</p>
                     </div>
-                    <div class="col-md-6 text-center">
-                        <a type="submit" class="btn-light" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
-                            View Doctor Profile
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-            @*<div class="col-md-6">
-                <div class="card flex-md-row mb-5 box-shadow">
-                    <div class="col-md-7">
-                        <img src="@doctor.ImageUrl" alt="@doctor.FullName" class="img-fluid rounded ">
-                        <h4 class="text-center">Dr. @doctor.FullName</h4>
-                        <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
-                    </div>
-                    <div class="col-md-9 card-body">
-                        <p class="card-text mb-auto">Age: @doctor.Age</p>
-                        <p>Average rating: @doctor.AverageRating</p>
-                        <p>Address: @doctor.Address</p>
-                        <p>Email address: @doctor.Email</p>
-                        <p>Phone: @doctor.PhoneNumber</p>
-                        @if (@doctor.Experience != null)
-                        {
-                            <p>Experience: @doctor.Experience years</p>
-                        }
-                        <div class="col-md-12 text-center">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Age: @doctor.Age</li>
+                        <li class="list-group-item">Average rating: @(doctor.AverageRating == null ?  (object) "Not rated" : doctor.AverageRating)</li> @* idk bro *@
+                        <li class="list-group-item">Email address: @doctor.Email</li>
+                        <li class="list-group-item">Phone: @doctor.PhoneNumber</li>
+                    </ul>
+                    <div class="card-body row">
+                        <div class="col-md-6 text-center">
                             <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
-                                Make An Appointment
+                                Make an appointment
                             </a>
                         </div>
+                        <div class="col-md-6 text-center">
+                            <a type="submit" class="btn-light" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
+                                View doctor profile
+                            </a>
+                        </div>
+
                     </div>
                 </div>
-            </div>*@
+            </div>
+
+            @*<div class="col-md-6">
+                    <div class="card flex-md-row mb-5 box-shadow">
+                        <div class="col-md-7">
+                            <img src="@doctor.ImageUrl" alt="@doctor.FullName" class="img-fluid rounded ">
+                            <h4 class="text-center">Dr. @doctor.FullName</h4>
+                            <p class="text-center">@doctor.SpecializationName - @doctor.TownName</p>
+                        </div>
+                        <div class="col-md-9 card-body">
+                            <p class="card-text mb-auto">Age: @doctor.Age</p>
+                            <p>Average rating: @doctor.AverageRating</p>
+                            <p>Address: @doctor.Address</p>
+                            <p>Email address: @doctor.Email</p>
+                            <p>Phone: @doctor.PhoneNumber</p>
+                            @if (@doctor.Experience != null)
+                            {
+                                <p>Experience: @doctor.Experience years</p>
+                            }
+                            <div class="col-md-12 text-center">
+                                <a type="submit" class="btn-info" asp-area="" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
+                                    Make An Appointment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
         }
     </div>
 </div>

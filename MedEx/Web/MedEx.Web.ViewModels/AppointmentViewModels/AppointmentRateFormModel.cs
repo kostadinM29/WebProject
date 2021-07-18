@@ -6,7 +6,8 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
     public class AppointmentRateFormModel
     {
         [Required]
-        [Range(1, 10)]
+        [Range(1, 5)]
+        [Display(Name = "Rating")]
         public int Number { get; set; }
 
         [MaxLength(50)]

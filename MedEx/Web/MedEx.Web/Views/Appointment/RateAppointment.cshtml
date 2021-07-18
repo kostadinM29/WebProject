@@ -5,31 +5,29 @@
 
 <h3 class="text-center">@ViewBag.Title</h3>
 
-<br/>
+<br />
 
 <div class="justify-content-center col-4 offset-4">
-<img src="@Model.Doctor.ImageUrl" alt="@Model.Doctor..FullName" class="img-fluid card-img border-light ">
+    <img src="@Model.Doctor.ImageUrl" alt="@Model.Doctor..FullName" class="img-fluid card-img border-light ">
 </div>
 
-<form method="post" class="col-md-6 offset-md-3">
+<hr />
+<form method="post" class="col-md-4 offset-md-4">
     <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="container">
+        <div class="starrating d-flex justify-content-center flex-row-reverse">
+            <input type="radio" id="star5" asp-for="Number" value="5" /><label for="star5" title="5 star">5</label>
+            <input type="radio" id="star4" asp-for="Number" value="4" /><label for="star4" title="4 star">4</label>
+            <input type="radio" id="star3" asp-for="Number" value="3" /><label for="star3" title="3 star">3</label>
+            <input type="radio" id="star2" asp-for="Number" value="2" /><label for="star2" title="2 star">2</label>
+            <input type="radio" id="star1" asp-for="Number" value="1" /><label for="star1" title="1 star">1</label>
+        </div>
+    </div>
 
-    <label asp-for="Number">Rating</label>
-    <select asp-for="Number" class="form-control">
-        <option value="1">1 - Won't visit again.</option>
-        <option value="2">2</option>
-        <option value="3">3 - Meh.</option>
-        <option value="4">4</option>
-        <option value="5" selected>5 - Not bad, not terrible.</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8 - Nice.</option>
-        <option value="9">9</option>
-        <option value="10">10 - Would visit again.</option>
-    </select>
+    <br />
+
     <div class="form-group">
-        <label asp-for="Comment">Comment (Max. 50 characters)</label>
-        <textarea asp-for="Comment" class="form-control" rows="2"></textarea>
+        <textarea asp-for="Comment" class="form-control" rows="2" placeholder="Enter your comment here..."></textarea>
         <span asp-validation-for="Comment" class="text-danger"></span>
     </div>
 
