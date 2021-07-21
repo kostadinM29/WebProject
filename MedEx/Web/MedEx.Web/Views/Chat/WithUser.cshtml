@@ -4,57 +4,52 @@
 }
 
 <div class="container">
-        <div class="row no-gutters">
-            <div class="col-md-4" id="js-aside">
-                <a asp-area=""
-                   asp-controller="Chat"
-                   asp-action="SendMessage"
-                   class="tt-title-aside">
-                    <h2 class="tt-title">
-                        @ViewData["Title"]
-                    </h2>
-                </a>
+    <div class="row no-gutters">
+        <div class="col-md-4" id="js-aside">
+            <a asp-area=""
+               asp-controller="Chat"
+               asp-action="SendMessage"
+               class="tt-title-aside">
+                <h2 class="tt-title">
+                    @ViewData["Title"]
+                </h2>
+            </a>
 
-                <vc:chat-conversations></vc:chat-conversations>
+            <vc:chat-conversations></vc:chat-conversations>
 
+        </div>
+        <div class="col-md-8">
+            <div class="tt-title-content">
+                <h2 class="tt-title">
+                    @Model.User.UserName
+                </h2>
             </div>
-            <div class="col-md-8">
-                <div class="tt-title-content">
-                    <h2 class="tt-title">
-                        @Model.User.UserName
-                    </h2>
-                </div>
-                <div id="messagesList"
-                     class="tt-list-time-topic"
-                     style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
+            <div id="messagesList"
+                 class="tt-list-time-topic"
+                 style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
 
-                    @foreach (var message in Model.Messages)
-                    {
-                    <div class="tt-item">
-                        <div class="tt-col-description">
-                            <h4 class="tt-title">
-                                <span>
-                                    @message.SenderUserName
-                                </span>
-                                <span class="time">@message.CreatedOn</span>
-                            </h4>
-                            @message.Content
+                @foreach (var message in Model.Messages)
+                {
+                    <div class="card">
+                        <h4>@message.SenderUserName</h4>
+                        <div class="container ">
+                            <p class="card-text">@message.Content</p>
+                            <span class="time-date">@message.CreatedOn</span>
                         </div>
                     </div>
-                    }
+                }
 
-                </div>
-                <div id="whoIsTyping"></div>
-                <div class="tt-wrapper-inner">
-                    <div class="pt-editor form-default">
-                        <div id="addMessageForm">
-                            <div class="form-group">
-                                <textarea id="messageInput" class="form-control" placeholder="Type a message..."></textarea>
-                            </div>
-                            <div class="pt-row">
-                                <div class="col-auto ml-auto">
-                                    <button id="sendButton" class="btn btn-secondary btn-custom">Send</button>
-                                </div>
+            </div>
+            <div id="whoIsTyping"></div>
+            <div class="tt-wrapper-inner">
+                <div class="pt-editor form-default">
+                    <div id="addMessageForm">
+                        <div class="form-group">
+                            <textarea id="messageInput" class="form-control" placeholder="Type a message..."></textarea>
+                        </div>
+                        <div class="pt-row">
+                            <div class="col-auto ml-auto">
+                                <button id="sendButton" class="btn btn-secondary btn-custom">Send</button>
                             </div>
                         </div>
                     </div>
@@ -62,71 +57,77 @@
             </div>
         </div>
     </div>
+</div>
 @section Scripts {
-<script>
-    $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
-    $('#messageInput').on('keypress',
-        function (e) {
-            if (e.which === 13 && !e.shiftKey) {
-                e.preventDefault();
-                $('#sendButton').click();
-            }
-        });
-    $("#messageInput").on('change keyup copy paste cut',
-        function () {
-            if (!this.value) {
-                connection.invoke("WhoIsTyping", '');
-            } else {
-                connection.invoke("WhoIsTyping", '@User.Identity?.Name');
-            }
-        });
-    var connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chat")
-        .build();
-    connection.on("SayWhoIsTyping",
-        function (name) {
-            if (name === null || name === "") {
-                $("#whoIsTyping").html('');
-            } else {
-                var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
-                $("#whoIsTyping").html(whoIsTypingInfo);
-            }
-        });
-    connection.on("ReceiveMessage",
-        function (message) {
-            var chatInfo = `
+    <script>
+        $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+        $('#messageInput').on('keypress',
+            function(e) {
+                if (e.which === 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#sendButton').click();
+                }
+            });
+        $("#messageInput").on('change keyup copy paste cut',
+            function() {
+                if (!this.value) {
+                    connection.invoke("WhoIsTyping", '');
+                } else {
+                    connection.invoke("WhoIsTyping", '@User.Identity?.Name');
+                }
+            });
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+        connection.on("SayWhoIsTyping",
+            function(name) {
+                if (name === null || name === "") {
+                    $("#whoIsTyping").html('');
+                } else {
+                    var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
+                    $("#whoIsTyping").html(whoIsTypingInfo);
+                }
+            });
+        connection.on("ReceiveMessage",
+            function(message) {
+                var date = new Date();
+                date.setMonth(date.getMonth() + 1);
+                var timeOfDay = date.getHours() < 12 ? 'AM' : 'PM';
+                var hours = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
+                var chatInfo = `
 <div class="card">
     <h4>${message.senderUserName}</h4>
         <div class="container ">
             <p class="card-text">${escapeHtml(message.content)}</p>
-        <span class="time-date">${new Date().toLocaleString('en-AU')}</span>
+        <span class="time-date">${date.getDate() + '/' + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + '/' + date.getFullYear() + ' ' + hours + ':' + (date.getMinutes() < 10 ? `0${date.getMinutes()}` :date.getMinutes())  + timeOfDay}</span>
+        </div>
 </div>`;
-            $("#messagesList").append(chatInfo);
-            $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+                $("#messagesList").append(chatInfo);
+                $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+            });
+        $("#sendButton").click(function() {
+            var message = $.trim($('#messageInput').val());
+            $('#messageInput').val('');
+            connection.invoke("SendMessage", escapeHtml(message), '@Model.User.Id');
         });
-    $("#sendButton").click(function () {
-        var message = $.trim($('#messageInput').val());
-        $('#messageInput').val('');
-        connection.invoke("SendMessage", escapeHtml(message), '@Model.User.Id');
-    });
-    connection.start().catch(function (err) {
-        return console.error(err.toString());
-    });
+        connection.start().catch(function(err) {
+            return console.error(err.toString());
+        });
 
-    function escapeHtml(unsafe) {
-        return unsafe
-            .replace(':)', "🙂")
-            .replace(':(', "🙁")
-            .replace(';)', "😉")
-            .replace(':*', "😘")
-            .replace(/<3/g, "❤")
-            .replace(/:D/g, "😀")
-            .replace(/:P/g, "😜")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-</script>
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(':)', "🙂")
+                .replace(':(', "🙁")
+                .replace(';)', "😉")
+                .replace(':*', "😘")
+                .replace(/<3/g, "❤")
+                .replace(/:D/g, "😀")
+                .replace(/:P/g, "😜")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
 }
