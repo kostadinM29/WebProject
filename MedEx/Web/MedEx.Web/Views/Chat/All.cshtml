@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+}
+
+<div class="container">
+    <br />
+    <div class="tt-messages-layout">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <a asp-area=""
+                   asp-controller="Chat"
+                   asp-action="SendMessage"
+                   class="tt-title">
+                    <h2 class="tt-title">
+                        @ViewData["Title"]
+                    </h2>
+                </a>
+                <hr />
+
+                <vc:chat-conversations></vc:chat-conversations>
+
+            </div>
+        </div>
+    </div>
+</div>

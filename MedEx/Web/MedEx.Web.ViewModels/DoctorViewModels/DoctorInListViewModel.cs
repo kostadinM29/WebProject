@@ -9,6 +9,8 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
     {
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
         public string FullName { get; set; }
 
         public string ImageUrl { get; set; } // TODO really wanted multiple images, but implementing will take too long

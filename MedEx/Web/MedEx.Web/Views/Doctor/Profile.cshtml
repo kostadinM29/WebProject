@@ -1,5 +1,8 @@
-﻿@model DoctorProfileViewModel
+﻿@using MedEx.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model DoctorProfileViewModel
 
+@inject UserManager<ApplicationUser> UserManager
 <div class="container">
     <div class="row">
         <div class="col-lg-5 col-md-6">
@@ -41,7 +44,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a type="submit" class="btn btn-success" asp-area="" asp-controller="" asp-action="">
+                    <a type="submit" class="btn btn-success" asp-area="" asp-controller="Chat" asp-action="WithUser" asp-route-id="@Model.Doctor.UserId">
                         Online consultation
                     </a>
                 </div>
@@ -54,6 +57,10 @@
 
             <br />
             <h3 class="font-weight-normal text-center">Reviews</h3>
+            @if (!@Model.Ratings.Any())
+            {
+                <h5 class="text-center">Doctor has no reviews</h5>
+            }
             <div class="container-fluid">
                 @foreach (var rating in @Model.Ratings)
                 {
@@ -63,7 +70,6 @@
                             <div class="col-6 starrating2 d-flex justify-content-center flex-row-reverse">
                                 @for (var i = 1; i <= rating.Number; i++)
                                 {
-                                    // <i class="fas fa-star" id="star@i"></i>
                                     <i id="star@i"></i> <label for="star@i"></label>
                                 }
                             </div>

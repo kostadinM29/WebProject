@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MedEx.Web.ViewModels.MessageViewModels.ChatConversationsViewModel>
+
+<div class="tt-all-avatar">
+    <div class="list-group">
+        <ul>
+            @if (Model.Any())
+            {
+                foreach (var conversation in this.Model)
+                {
+                    <li>
+                        <a onclick="location.href = '/Chat/WithUser/@conversation.Id';" href="#"><h4>@conversation.UserName</h4></a>
+                        <div class="text-body container-outline">
+                                <p class="card-text">@conversation.LastMessage</p>
+                                <span class="time-date">@conversation.LastMessageActivity</span>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <div class="tt-layout-404">
+                        <p>
+                            You don't have any messages<br />
+                        </p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

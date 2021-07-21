@@ -257,3 +257,12 @@ body {
 .container-outline {
     border: 1px solid #a7e4e8;
 }
+
+/* messaging*/
+
+.time-date {
+    color: #747474;
+    display: block;
+    font-size: 12px;
+    margin: 8px 0 0;
+}

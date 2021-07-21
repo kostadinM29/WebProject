@@ -27,7 +27,7 @@ namespace MedEx.Services.Data.Doctors
 
         Doctor GetDoctorById(int doctorId);
 
-        Task<bool> VerifyAsync(int doctorId);
+        Task<bool> VerifyAsync(int doctorId, string userId);
 
         Task<bool> DeleteAsync(int doctorId);
     }

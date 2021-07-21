@@ -33,5 +33,9 @@ namespace MedEx.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; } = new List<IdentityUserClaim<string>>();
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; } = new List<IdentityUserLogin<string>>();
+
+        public virtual ICollection<Message> SentMessages { get; set; } = new List<Message>();
+
+        public virtual ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
     }
 }

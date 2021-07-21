@@ -50,11 +50,11 @@
 
         public static class DateTimeFormats
         {
-            public const string DateFormat = "dd-MM-yyyy";
+            public const string DateFormat = "dd/MM/yyyy";
 
             public const string TimeFormat = "h:mmtt";
 
-            public const string DateTimeFormat = "dd-MM-yyyy h:mmtt";
+            public const string DateTimeFormat = "dd MM yyyy h:mmtt";
         }
     }
 }

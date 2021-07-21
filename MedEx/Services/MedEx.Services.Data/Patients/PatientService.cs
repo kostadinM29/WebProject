@@ -9,33 +9,23 @@ namespace MedEx.Services.Data.Patients
     public class PatientService : IPatientService
     {
         private readonly IDeletableEntityRepository<Patient> _patientRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> _userRepository;
 
-        public PatientService(IDeletableEntityRepository<Patient> patientRepository)
+        public PatientService(IDeletableEntityRepository<Patient> patientRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             _patientRepository = patientRepository;
+            _userRepository = userRepository;
         }
 
-        /*
-         * getpatientid
-         *
-         * getallpatients
-         *
-         *
-         * savepatient
-         * updatpatient
-         *
-         * getallpatientappointments
-         *
-         *
-         *
-         */
         public int? GetPatientIdByUserId(string userId)
         {
             return _patientRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
         }
 
-        public async Task CreateAsync(PatientCreateFormModel model)
+        public async Task CreateAsync(PatientCreateFormModel model, string userId)
         {
+            var patientUser = _userRepository.All().FirstOrDefault(u => u.Id == userId);
+
             var patient = new Patient()
             {
                 FirstName = model.FirstName,
@@ -46,6 +36,8 @@ namespace MedEx.Services.Data.Patients
                 TownId = model.TownId,
                 UserId = model.UserId,
             };
+
+            patientUser.Patient = patient;
 
             await _patientRepository.AddAsync(patient);
             await _patientRepository.SaveChangesAsync();

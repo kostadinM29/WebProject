@@ -7,7 +7,9 @@ using MedEx.Data.Seeding;
 using MedEx.Services.Data.Appointments;
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Home;
+using MedEx.Services.Data.Messages;
 using MedEx.Services.Data.Patients;
+using MedEx.Services.Data.Ratings;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Services.DateTimeParser;
@@ -23,7 +25,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using MedEx.Services.Data.Ratings;
+using MedEx.Services.Data.Users;
+using MedEx.Web.Hubs;
 
 namespace MedEx.Web
 {
@@ -57,6 +60,8 @@ namespace MedEx.Web
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
+
+            services.AddSignalR();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -76,7 +81,10 @@ namespace MedEx.Web
             services.AddTransient<ISpecializationService, SpecializationService>();
             services.AddTransient<ITownService, TownService>();
             services.AddTransient<IRatingService, RatingService>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IDateTimeParserService, DateTimeParserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,6 +125,7 @@ namespace MedEx.Web
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapRazorPages();
                     });
         }

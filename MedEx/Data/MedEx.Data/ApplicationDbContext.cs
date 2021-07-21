@@ -30,6 +30,8 @@ namespace MedEx.Data
 
         public DbSet<Patient> Patients { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public DbSet<Image> Images { get; set; }
 
         public DbSet<Rating> Ratings { get; set; }
@@ -59,6 +61,18 @@ namespace MedEx.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany(r => r.ReceivedMessages)
+                .HasForeignKey(m => m.ReceiverId);
+
+            builder
+                .Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(s => s.SentMessages)
+                .HasForeignKey(m => m.SenderId);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

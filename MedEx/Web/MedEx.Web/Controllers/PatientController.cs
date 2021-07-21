@@ -41,7 +41,7 @@ namespace MedEx.Web.Controllers
 
             input.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _patientService.CreateAsync(input);
+            await _patientService.CreateAsync(input, input.UserId);
 
             // TODO Redirect to your profile
             return Redirect("/");

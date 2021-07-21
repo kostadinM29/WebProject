@@ -3,6 +3,13 @@
   "defaultProvider": "jsdelivr",
   "libraries": [
     {
+      "library": "@microsoft/signalr@3.1.3",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
+    },
+    {
       "library": "jquery@3.5.1",
       "destination": "wwwroot/lib/jquery/",
       "files": [
@@ -26,6 +33,13 @@
       "files": [
         "dist/jquery.validate.js",
         "dist/jquery.validate.min.js"
+      ]
+    },
+    {
+      "library": "moment@2.24.0",
+      "destination": "wwwroot/lib/moment",
+      "files": [
+        "min/moment-with-locales.min.js"
       ]
     },
     {

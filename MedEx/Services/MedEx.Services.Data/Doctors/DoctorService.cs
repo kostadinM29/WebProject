@@ -13,10 +13,12 @@ namespace MedEx.Services.Data.Doctors
     public class DoctorService : IDoctorService
     {
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> _userRepository;
 
-        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository)
+        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             _doctorRepository = doctorRepository;
+            _userRepository = userRepository;
         }
 
         /*
@@ -190,16 +192,17 @@ namespace MedEx.Services.Data.Doctors
 
         public Doctor GetDoctorById(int doctorId) => _doctorRepository.All().FirstOrDefault(d => d.Id == doctorId); // has to track
 
-        public async Task<bool> VerifyAsync(int doctorId)
+        public async Task<bool> VerifyAsync(int doctorId, string userId)
         {
             var doctor = GetDoctorById(doctorId);
-
+            var doctorUser = _userRepository.All().FirstOrDefault(u => u.Id == userId);
             if (doctor == null)
             {
                 return false;
             }
 
             doctor.IsValidated = true;
+            doctorUser.Doctor = doctor;
 
             await _doctorRepository.SaveChangesAsync();
             return true;

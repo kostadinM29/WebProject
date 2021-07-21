@@ -41,7 +41,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
 
-            var checkIfDocExists = await _doctorService.VerifyAsync(doctorId);
+            var checkIfDocExists = await _doctorService.VerifyAsync(doctorId, doctor.UserId);
 
             if (checkIfDocExists == false)
             {

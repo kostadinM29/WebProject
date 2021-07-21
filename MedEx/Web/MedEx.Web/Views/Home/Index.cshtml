@@ -1,4 +1,4 @@
-﻿@model IndexViewModel
+﻿@model MedEx.Web.ViewModels.Index.IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
