@@ -1,34 +1,12 @@
 ﻿@model AppointmentsListDoctorViewModel
 
+@{
+    ViewBag.Title = "Your appointments";
+}
 
+<h1 class="text-center">@ViewBag.Title</h1>
 
-<div class="row">
-    <div class="col-lg-10 ml-lg-5">
-        <div class="about_text_highlight">
-            <span class="text-info">*</span> Status
-        </div>
-        <div class="about_text_2">
-            <ol>
-                <li>
-                    <span class="badge badge-secondary">Pending</span>
-                    - Waiting for the Doctor's reply.
-                </li>
-                <li>
-                    <span class="badge badge-success">Confirmed</span>
-                    - Good! Your appointment is confirmed.
-                    They are expecting you on the set date and time.
-                </li>
-                <li>
-                    <span class="badge badge-danger">Declined</span>
-                    - Sorry, the appointment can't happen on the set date and time.
-                    Check your email for rescheduling options from the Doctor.
-                </li>
-            </ol>
-        </div>
-    </div>
-</div>
-
-<hr />
+<hr/>
 
 @if (!@Model.Appointments.Any())
 {
@@ -57,9 +35,9 @@
     </div>
     <div class="row">
         <div class="col-lg-4 ml-lg-5">
-            <div class="button button-large button_3 elements_button mt-4">
+            <div class="btn btn-block btn-outline-info">
                 <a asp-area="" asp-controller="Doctor" asp-action="All" asp-route-id="1">
-                    <span>Find Doctors</span>
+                    <span>Doctors are one click away</span>
                 </a>
             </div>
         </div>
@@ -68,6 +46,34 @@
 
 @if (@Model.Appointments.Any())
 {
+    <div class="row">
+        <div class="col-lg-10 ml-lg-5">
+            <div class="about_text_highlight">
+                <span class="text-info">*</span> Status
+            </div>
+            <div class="about_text_2">
+                <ol>
+                    <li>
+                        <span class="badge badge-secondary">Pending</span>
+                        - Waiting for the Doctor's reply.
+                    </li>
+                    <li>
+                        <span class="badge badge-success">Confirmed</span>
+                        - Good! Your appointment is confirmed.
+                        They are expecting you on the set date and time.
+                    </li>
+                    <li>
+                        <span class="badge badge-danger">Declined</span>
+                        - Sorry, the appointment can't happen on the set date and time.
+                        Check your email for rescheduling options from the Doctor.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
     <h2>Upcoming (@Model.Appointments.Count())</h2>
 
     <table class="table table-bordered table-striped">

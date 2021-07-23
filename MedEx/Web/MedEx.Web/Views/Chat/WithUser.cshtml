@@ -1,29 +1,17 @@
 ﻿@model MedEx.Web.ViewModels.MessageViewModels.ChatWithUserViewModel
 @{
-    ViewData["Title"] = "Messages";
+    ViewBag.Title = $"Conversation with {Model.User.UserName}";
 }
 
 <div class="container">
     <div class="row no-gutters">
-        <div class="col-md-4" id="js-aside">
-            <a asp-area=""
-               asp-controller="Chat"
-               asp-action="SendMessage"
-               class="tt-title-aside">
-                <h2 class="tt-title">
-                    @ViewData["Title"]
-                </h2>
-            </a>
+        <div class="col-md-12">
+            <h2 class=" text-center">
+                @ViewBag.Title
+            </h2>
 
-            <vc:chat-conversations></vc:chat-conversations>
+            <hr />
 
-        </div>
-        <div class="col-md-8">
-            <div class="tt-title-content">
-                <h2 class="tt-title">
-                    @Model.User.UserName
-                </h2>
-            </div>
             <div id="messagesList"
                  class="tt-list-time-topic"
                  style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
@@ -41,16 +29,14 @@
 
             </div>
             <div id="whoIsTyping"></div>
-            <div class="tt-wrapper-inner">
-                <div class="pt-editor form-default">
-                    <div id="addMessageForm">
-                        <div class="form-group">
-                            <textarea id="messageInput" class="form-control" placeholder="Type a message..."></textarea>
-                        </div>
-                        <div class="pt-row">
-                            <div class="col-auto ml-auto">
-                                <button id="sendButton" class="btn btn-secondary btn-custom">Send</button>
-                            </div>
+            <div class="pt-editor form-default">
+                <div id="addMessageForm">
+                    <div class="form-group">
+                        <textarea id="messageInput" class="form-control" placeholder="Type a message..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto ml-auto">
+                            <button id="sendButton" class="btn btn-secondary">Send</button>
                         </div>
                     </div>
                 </div>

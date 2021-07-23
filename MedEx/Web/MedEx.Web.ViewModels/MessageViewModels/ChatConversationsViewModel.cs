@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using AutoMapper;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 
 namespace MedEx.Web.ViewModels.MessageViewModels

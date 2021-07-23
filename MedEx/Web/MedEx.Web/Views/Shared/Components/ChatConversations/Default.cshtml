@@ -1,31 +1,32 @@
 ﻿@model IEnumerable<MedEx.Web.ViewModels.MessageViewModels.ChatConversationsViewModel>
 
-<div class="tt-all-avatar">
-    <div class="list-group">
-        <ul>
-            @if (Model.Any())
+<div class="list-group">
+    <ul>
+        @if (Model.Any())
+        {
+            foreach (var conversation in Model)
             {
-                foreach (var conversation in this.Model)
-                {
-                    <li>
-                        <a onclick="location.href = '/Chat/WithUser/@conversation.Id';" href="#"><h4>@conversation.UserName</h4></a>
-                        <div class="text-body container-outline">
-                                <p class="card-text">@conversation.LastMessage</p>
-                                <span class="time-date">@conversation.LastMessageActivity</span>
+                <ol>
+                    <div class="container-fluid row">
+                        <h4 class="col-md-2">From: </h4>
+                        <a class="col-md-4 " asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.UserName</h4></a>
+                        <div class="text-body container-outline col-md-12">
+                            <p class="card-text">Last message: @conversation.LastMessage</p>
+                            <span class="time-date">Last activity: @conversation.LastMessageActivity</span>
                         </div>
-                    </li>
-                }
-            }
-            else
-            {
-                <li>
-                    <div class="tt-layout-404">
-                        <p>
-                            You don't have any messages<br />
-                        </p>
                     </div>
-                </li>
+                </ol>
             }
-        </ul>
-    </div>
+        }
+        else
+        {
+            <li>
+                <div class="tt-layout-404">
+                    <p>
+                        You don't have any messages<br />
+                    </p>
+                </div>
+            </li>
+        }
+    </ul>
 </div>
