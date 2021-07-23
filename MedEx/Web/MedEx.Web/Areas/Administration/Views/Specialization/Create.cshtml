@@ -1,8 +1,8 @@
-﻿@model SpecializationCreateFormModel
+﻿@model SpecializationCreateInputModel
 @{
-    ViewData["Title"] = "Create a new doctor specialization";
+    ViewBag.Title = "Create a new specialization";
 }
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewBag.Title</h1>
 <hr />
 <form method="post" class="col-md-6 offset-md-3">
     <div class="form-group">
@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="col-md-12 text-center">

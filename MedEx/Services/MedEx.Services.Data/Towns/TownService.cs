@@ -1,6 +1,8 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
+using MedEx.Services.Mapping;
 using MedEx.Web.ViewModels.Administration.TownViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ namespace MedEx.Services.Data.Towns
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
         }
 
-        public async Task CreateAsync(TownCreateFormModel model)
+        public async Task CreateAsync(TownCreateInputModel model)
         {
             var specialization = new Town
             {
@@ -38,6 +40,47 @@ namespace MedEx.Services.Data.Towns
 
             await _townRepository.AddAsync(specialization);
             await _townRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>() => await _townRepository.All().To<T>().ToListAsync();
+
+        public Task<Town> GetTownByIdAsync(int townId) => _townRepository.All().FirstOrDefaultAsync(s => s.Id == townId);
+
+        public Task<T> GetTownByIdAsync<T>(int townId) => _townRepository.All().Where(s => s.Id == townId).To<T>().FirstOrDefaultAsync(); // has to track
+
+        public async Task<bool> EditAsync(int townId, string name, int? zipCode)
+        {
+            var town = await GetTownByIdAsync(townId);
+
+            if (town == null)
+            {
+                return false;
+            }
+
+            town.Name = name;
+            town.ZipCode = zipCode;
+
+            _townRepository.Update(town);
+
+            await _townRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int townId) // potential spaghetti code
+        {
+            var town = await GetTownByIdAsync(townId);
+
+            if (town == null)
+            {
+                return false;
+            }
+
+            _townRepository.Delete(town);
+
+            await _townRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }

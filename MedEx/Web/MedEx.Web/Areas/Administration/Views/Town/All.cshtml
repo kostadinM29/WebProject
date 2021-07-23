@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TownViewModel>
+
+@{
+    ViewBag.Title = "All specializations";
+}
+<h1>@ViewBag.Title</h1>
+<hr />
+
+<div class="row">
+    @foreach (var town in Model)
+    {
+        <div class="col-md-4 container-outline">
+            <div class="card-body">
+                <h3 class="card-title">@town.Name</h3>
+                <p class="card-text">Zipcode: @town.ZipCode</p>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <a type="button" class="btn btn-success" asp-area="Administration" asp-controller="Town" asp-action="Edit" asp-route-specializationId="@town.Id">
+                            Edit
+                        </a>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <a type="button" class="btn btn-danger" asp-area="Administration" asp-controller="Town" asp-action="Delete" asp-route-specializationId="@town.Id">
+                            Delete
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

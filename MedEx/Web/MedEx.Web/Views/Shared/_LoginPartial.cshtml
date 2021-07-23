@@ -1,5 +1,4 @@
-﻿@using MedEx.Common
-@using MedEx.Data.Models
+﻿@using MedEx.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -12,13 +11,13 @@
         </li>
         if (User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <div class="dropdown show"> 
+            <div class="dropdown show">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Admin
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-area="Administration" asp-controller="Doctor" asp-action="AppliedDoctors" asp-route-id="1">View All Doctors</a>
-                    <a class="dropdown-item" asp-area="Administration" asp-controller="Specialization" asp-action="Create">Create new specialization</a>
+                    <a class="dropdown-item" asp-area="Administration" asp-controller="Doctor" asp-action="AppliedDoctors" asp-route-id="1">View All Doctors</a>
+                    <a class="dropdown-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Admin Dashboard</a>
                     <a class="dropdown-item" asp-area="Administration" asp-controller="Town" asp-action="Create">Create new town</a>
                 </div>
             </div>
@@ -26,7 +25,7 @@
         if (User.IsInRole(GlobalConstants.DoctorRoleName))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="DoctorRole" asp-controller="Dashboard" asp-action="Index" >Doctor</a>
+                <a class="nav-link text-dark" asp-area="DoctorRole" asp-controller="Dashboard" asp-action="Index">Doctor</a>
             </li>
         }
         <li class="nav-item">

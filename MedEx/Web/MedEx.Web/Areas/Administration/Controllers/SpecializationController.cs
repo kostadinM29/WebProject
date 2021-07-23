@@ -16,6 +16,14 @@ namespace MedEx.Web.Areas.Administration.Controllers
         }
 
         [Authorize]
+        public async Task<IActionResult> All()
+        {
+            var viewModel = await _specializationService.GetAllAsync<SpecializationViewModel>();
+
+            return View(viewModel);
+        }
+
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -23,7 +31,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(SpecializationCreateFormModel input)
+        public async Task<IActionResult> Create(SpecializationCreateInputModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -32,8 +40,47 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             await _specializationService.CreateAsync(input);
 
-            // TODO Redirect to your profile
-            return Redirect("/");
+            return Redirect(nameof(All));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(int specializationId) // id is pageNumber
+        {
+            var checkIfSpecExists = await _specializationService.DeleteAsync(specializationId);
+
+            if (checkIfSpecExists == false)
+            {
+                return NotFound("specialization not found");
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(int specializationId)
+        {
+            var viewModel = await _specializationService.GetSpecializationByIdAsync<SpecializationEditInputModel>(specializationId);
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(SpecializationEditInputModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Edit), new { input.Id });
+            }
+
+            var checkIfSpecExists = await _specializationService.EditAsync(input.Id, input.Name, input.Description);
+
+            if (checkIfSpecExists == false)
+            {
+                return NotFound("specialization not found");
+            }
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
