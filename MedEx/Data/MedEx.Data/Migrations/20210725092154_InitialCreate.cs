@@ -284,7 +284,6 @@ namespace MedEx.Data.Migrations
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
-                    IsCancelled = table.Column<bool>(type: "bit", nullable: false),
                     Confirmed = table.Column<bool>(type: "bit", nullable: true),
                     IsRated = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),

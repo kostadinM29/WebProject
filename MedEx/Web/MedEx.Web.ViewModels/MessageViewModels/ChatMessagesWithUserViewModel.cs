@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
+using MedEx.Common;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
-using System.Globalization;
-using MedEx.Common;
 
 namespace MedEx.Web.ViewModels.MessageViewModels
 {

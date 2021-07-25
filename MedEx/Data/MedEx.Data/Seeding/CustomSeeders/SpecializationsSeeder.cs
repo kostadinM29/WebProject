@@ -14,7 +14,7 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 return;
             }
 
-            var specializations = new Specialization[]
+            var specializations = new[]
             {
                 new Specialization
                 {

@@ -29,7 +29,10 @@ namespace MedEx.Data.Seeding
                               new RolesSeeder(),
                               new SpecializationsSeeder(),
                               new TownsSeeder(),
-                              new AdminAccountSeeder()
+                              new AccountsSeeder(),
+                              new DoctorsSeeder(),
+                              new PatientsSeeder(),
+                              new AppointmentsSeeder()
                           };
 
             foreach (var seeder in seeders)
