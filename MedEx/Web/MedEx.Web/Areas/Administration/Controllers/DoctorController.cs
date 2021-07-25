@@ -39,14 +39,14 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             var user = _userManager.Users.FirstOrDefault(u => u.Id == doctor.UserId);
 
-            await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
-
             var checkIfDocExists = await _doctorService.VerifyAsync(doctorId, doctor.UserId);
 
             if (checkIfDocExists == false)
             {
                 return NotFound("doctor not found");
             }
+
+            await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
 
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }

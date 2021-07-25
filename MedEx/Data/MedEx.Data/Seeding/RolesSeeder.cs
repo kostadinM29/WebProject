@@ -16,6 +16,7 @@ namespace MedEx.Data.Seeding
 
             await SeedRoleAsync(roleManager, GlobalConstants.AdministratorRoleName);
             await SeedRoleAsync(roleManager, GlobalConstants.DoctorRoleName);
+            await SeedRoleAsync(roleManager, GlobalConstants.PatientRoleName);
         }
 
         private static async Task SeedRoleAsync(RoleManager<ApplicationRole> roleManager, string roleName)

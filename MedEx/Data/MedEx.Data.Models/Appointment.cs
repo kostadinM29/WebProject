@@ -21,5 +21,10 @@ namespace MedEx.Data.Models
         public bool? Confirmed { get; set; }
 
         public bool IsRated { get; set; }
+
+        [ForeignKey(nameof(Rating))]
+        public int? RatingId { get; set; }
+
+        public virtual Rating Rating { get; set; }
     }
 }

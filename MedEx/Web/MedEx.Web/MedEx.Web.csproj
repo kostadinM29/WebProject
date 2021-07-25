@@ -61,4 +61,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\PatientRole\Models\" />
+  </ItemGroup>
 </Project>

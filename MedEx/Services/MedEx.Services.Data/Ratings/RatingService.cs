@@ -34,17 +34,21 @@ namespace MedEx.Services.Data.Ratings
 
         public async Task AddAsync(int appointmentId, int doctorId, int patientId, int number, string comment)
         {
-            await _ratingRepository.AddAsync(new Rating
+            var appointment = _appointmentRepository.All().First(a => a.Id == appointmentId);
+
+            var rating = new Rating
             {
                 AppointmentId = appointmentId,
                 Number = number,
                 Comment = comment,
                 DoctorId = doctorId,
                 PatientId = patientId
-            });
+            };
 
-            _appointmentRepository.All().First(a => a.Id == appointmentId).IsRated = true;
+            appointment.IsRated = true;
+            appointment.Rating = rating;
 
+            await _ratingRepository.AddAsync(rating);
             await _ratingRepository.SaveChangesAsync();
         }
     }

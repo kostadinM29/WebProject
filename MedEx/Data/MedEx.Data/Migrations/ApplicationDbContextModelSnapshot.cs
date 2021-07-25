@@ -183,6 +183,9 @@ namespace MedEx.Data.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RatingId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
@@ -190,6 +193,8 @@ namespace MedEx.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("PatientId");
+
+                    b.HasIndex("RatingId");
 
                     b.ToTable("Appointments");
                 });
@@ -638,9 +643,15 @@ namespace MedEx.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("MedEx.Data.Models.Rating", "Rating")
+                        .WithMany()
+                        .HasForeignKey("RatingId");
+
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("Rating");
                 });
 
             modelBuilder.Entity("MedEx.Data.Models.Doctor", b =>

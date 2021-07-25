@@ -2,6 +2,7 @@
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 using System;
+using MedEx.Common;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {
@@ -9,7 +10,7 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
     {
         public int Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
 
         public int DoctorId { get; set; }
 
@@ -26,6 +27,8 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Appointment, AppointmentViewDoctorModel>()
+                .ForMember(vm => vm.DateTime, opt =>
+                    opt.MapFrom(a => a.DateTime.ToString(GlobalConstants.DateTimeFormats.DateTimeFormat)))
                 .ForMember(vm => vm.DoctorFullName, opt =>
                     opt.MapFrom(a => a.Doctor.FirstName + " " + a.Doctor.LastName));
         }

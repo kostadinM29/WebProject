@@ -144,15 +144,5 @@ namespace MedEx.Services.Data.Appointments
                     .To<T>().FirstOrDefaultAsync();
             return appointment;
         }
-
-        /*
-         * getallappointmentsbypatientid
-         *
-         * getallappointmentsbydoctorid
-         *
-         * addappointment
-         *
-         * deleteappointment
-         */
     }
 }

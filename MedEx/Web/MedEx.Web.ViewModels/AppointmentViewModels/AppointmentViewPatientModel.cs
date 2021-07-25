@@ -2,6 +2,7 @@
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 using System;
+using MedEx.Common;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {
@@ -9,7 +10,7 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
     {
         public int Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
 
         public int DoctorId { get; set; }
 
@@ -21,11 +22,21 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
 
         public bool? Confirmed { get; set; }
 
+        public int? Rating { get; set; }
+
+        public string RatingComment { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Appointment, AppointmentViewPatientModel>()
+                .ForMember(vm => vm.DateTime, opt =>
+                      opt.MapFrom(a => a.DateTime.ToString(GlobalConstants.DateTimeFormats.DateTimeFormat)))
                 .ForMember(vm => vm.PatientFullName, opt =>
-                    opt.MapFrom(a => a.Doctor.FirstName + " " + a.Doctor.LastName));
+                    opt.MapFrom(a => a.Patient.FirstName + " " + a.Patient.LastName))
+                .ForMember(vm => vm.Rating, opt =>
+                    opt.MapFrom(a => a.Rating.Number))
+                .ForMember(vm => vm.RatingComment, opt =>
+                    opt.MapFrom(a => a.Rating.Comment));
         }
     }
 }

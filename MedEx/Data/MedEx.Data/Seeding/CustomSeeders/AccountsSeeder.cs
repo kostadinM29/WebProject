@@ -29,17 +29,19 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 GlobalConstants.AccountsSeeding.DoctorEmail,
                 GlobalConstants.DoctorRoleName);
 
+            // Create Patient
+            await CreateUser(
+                userManager,
+                roleManager,
+                GlobalConstants.AccountsSeeding.PatientEmail,
+                GlobalConstants.PatientRoleName);
+
             // Create User
             await CreateUser(
                 userManager,
                 roleManager,
                 GlobalConstants.AccountsSeeding.UserEmail);
 
-            // Create Patient
-            await CreateUser(
-                userManager,
-                roleManager,
-                GlobalConstants.AccountsSeeding.PatientEmail);
         }
 
         private static async Task CreateUser(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, string email, string roleName = null)
@@ -68,7 +70,7 @@ namespace MedEx.Data.Seeding.CustomSeeders
             }
             else
             {
-                var result = await userManager.CreateAsync(user, password);
+                await userManager.CreateAsync(user, password);
             }
         }
     }

@@ -8,6 +8,8 @@
 
         public const string DoctorRoleName = "Doctor";
 
+        public const string PatientRoleName = "Patient";
+
         public const int AppliedDoctorItemsPerPageCount = 6;
 
         public const int VerifiedDoctorItemsPerPageCount = 6;

@@ -24,9 +24,28 @@
         }
         if (User.IsInRole(GlobalConstants.DoctorRoleName))
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="DoctorRole" asp-controller="Dashboard" asp-action="Index">Doctor</a>
-            </li>
+            <div class="dropdown show">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Doctor
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" asp-area="DoctorRole" asp-controller="Appointment" asp-action="Index">View appointments</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Chat" asp-action="All">Messages</a>
+                </div>
+
+            </div>
+        }
+        if (User.IsInRole(GlobalConstants.PatientRoleName))
+        {
+            <div class="dropdown show">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Patient
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" asp-area="PatientRole" asp-controller="Appointment" asp-action="Index">View appointments</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Chat" asp-action="All">Messages</a>
+                </div>
+            </div>
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = string.Empty })">
