@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace MedEx.Web.ViewModels.Common
+namespace MedEx.Common.Attributes
 {
     public class ValidateImageFileAttribute : RequiredAttribute
     {

@@ -1,8 +1,8 @@
 ﻿using MedEx.Common;
-using MedEx.Web.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MedEx.Common.Attributes;
 
 namespace MedEx.Web.ViewModels.DoctorViewModels
 {

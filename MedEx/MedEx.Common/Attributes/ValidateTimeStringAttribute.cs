@@ -1,9 +1,8 @@
-﻿using MedEx.Common;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace MedEx.Web.ViewModels.Common
+namespace MedEx.Common.Attributes
 {
     public class ValidateTimeStringAttribute : RequiredAttribute
     {

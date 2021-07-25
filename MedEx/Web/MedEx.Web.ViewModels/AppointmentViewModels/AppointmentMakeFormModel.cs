@@ -1,5 +1,5 @@
-﻿using MedEx.Web.ViewModels.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MedEx.Common.Attributes;
 
 namespace MedEx.Web.ViewModels.AppointmentViewModels
 {

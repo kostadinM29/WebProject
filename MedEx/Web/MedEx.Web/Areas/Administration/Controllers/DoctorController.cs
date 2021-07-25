@@ -13,11 +13,13 @@ namespace MedEx.Web.Areas.Administration.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public DoctorController(IDoctorService doctorService, UserManager<ApplicationUser> userManager)
+        public DoctorController(IDoctorService doctorService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _doctorService = doctorService;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult AppliedDoctors(int id)
@@ -47,6 +49,8 @@ namespace MedEx.Web.Areas.Administration.Controllers
             }
 
             await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
+
+            await _signInManager.RefreshSignInAsync(user);
 
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }

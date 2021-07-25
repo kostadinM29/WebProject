@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MedEx.Web.Controllers
 {
@@ -16,12 +18,14 @@ namespace MedEx.Web.Controllers
         private readonly IPatientService _patientService;
         private readonly ITownService _townService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public PatientController(IPatientService patientService, ITownService townService, UserManager<ApplicationUser> userManager)
+        public PatientController(IPatientService patientService, ITownService townService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _patientService = patientService;
             _townService = townService;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [Authorize]
@@ -53,6 +57,8 @@ namespace MedEx.Web.Controllers
             await _patientService.CreateAsync(input, input.UserId);
 
             await _userManager.AddToRoleAsync(user, GlobalConstants.PatientRoleName);
+
+            await _signInManager.RefreshSignInAsync(user);
 
             // TODO Redirect to your profile
             return Redirect("/");
