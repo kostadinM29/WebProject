@@ -2,11 +2,14 @@
 using MedEx.Web.ViewModels.DoctorViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MedEx.Web.ViewModels.Administration.DoctorViewModels;
 
 namespace MedEx.Services.Data.Doctors
 {
     public interface IDoctorService
     {
+        Task EditAsync(DoctorEditFormModel model, string imagePath);
+
         Task CreateAsync(DoctorApplyFormModel model, string imagePath);
 
         IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);

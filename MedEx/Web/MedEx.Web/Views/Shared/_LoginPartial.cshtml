@@ -28,7 +28,8 @@
                     Doctor
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-area="Doctor" asp-controller="Appointment" asp-action="Index">View appointments</a>
+                    <a class="dropdown-item" asp-area="DoctorRole" asp-controller="Doctor" asp-action="Edit">Edit profile</a>
+                    <a class="dropdown-item" asp-area="DoctorRole" asp-controller="Appointment" asp-action="Index">View appointments</a>
                     <a class="dropdown-item" asp-area="" asp-controller="Chat" asp-action="All">Messages</a>
                 </div>
 
@@ -41,7 +42,8 @@
                     Patient
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-area="Patient" asp-controller="Appointment" asp-action="Index">View appointments</a>
+                    <a class="dropdown-item" asp-area="PatientRole" asp-controller="Patient" asp-action="Edit">Edit profile</a>
+                    <a class="dropdown-item" asp-area="PatientRole" asp-controller="Appointment" asp-action="Index">View appointments</a>
                     <a class="dropdown-item" asp-area="" asp-controller="Chat" asp-action="All">Messages</a>
                 </div>
             </div>

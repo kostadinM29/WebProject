@@ -30,7 +30,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(TownCreateInputModel input)
+        public async Task<IActionResult> Create(TownCreateFormModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -59,14 +59,14 @@ namespace MedEx.Web.Areas.Administration.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int specializationId)
         {
-            var viewModel = await _townService.GetTownByIdAsync<TownEditInputModel>(specializationId);
+            var viewModel = await _townService.GetTownByIdAsync<TownEditFormModel>(specializationId);
 
             return View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(TownEditInputModel input)
+        public async Task<IActionResult> Edit(TownEditFormModel input)
         {
             if (!ModelState.IsValid)
             {

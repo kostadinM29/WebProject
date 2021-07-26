@@ -30,7 +30,7 @@ namespace MedEx.Services.Data.Towns
                 .Select(s => new KeyValuePair<string, string>(s.Id.ToString(), s.Name));
         }
 
-        public async Task CreateAsync(TownCreateInputModel model)
+        public async Task CreateAsync(TownCreateFormModel model)
         {
             var specialization = new Town
             {

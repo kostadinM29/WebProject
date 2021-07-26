@@ -1,0 +1,168 @@
+﻿@model AppointmentsListDoctorViewModel
+
+@{
+    ViewBag.Title = "Your appointments";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<hr />
+
+@if (!@Model.Appointments.Any())
+{
+    <div class="row">
+        <div class="col-lg-4 ml-lg-5">
+            <div class="about_text_2">
+                <p>
+                    Oh, no! Nothing booked yet...
+                </p>
+            </div>
+            <div class="about_text_highlight">
+                Book an appointment in 2 easy steps:
+            </div>
+            <div class="about_text_highlight">
+                <ol>
+                    <li>Find a doctor.</li>
+                    <li>Pick date and time.</li>
+                </ol>
+            </div>
+            <div class="about_text_2">
+                <p>
+                    Waiting you back here. :)
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 ml-lg-5">
+            <div class="btn btn-block btn-outline-info">
+                <a asp-area="" asp-controller="Doctor" asp-action="All" asp-route-id="1">
+                    <span>Doctors are one click away</span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (@Model.Appointments.Any())
+{
+    <div class="row">
+        <div class="col-lg-10 ml-lg-5">
+            <div class="about_text_highlight">
+                <span class="text-info">*</span> Status
+            </div>
+            <div class="about_text_2">
+                <ol>
+                    <li>
+                        <span class="badge badge-secondary">Pending</span>
+                        - Waiting for the Doctor's reply.
+                    </li>
+                    <li>
+                        <span class="badge badge-success">Confirmed</span>
+                        - Good! Your appointment is confirmed.
+                        They are expecting you on the set date and time.
+                    </li>
+                    <li>
+                        <span class="badge badge-danger">Declined</span>
+                        - Sorry, the appointment can't happen on the set date and time.
+                        Check your email for rescheduling options from the Doctor.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h2>Upcoming (@Model.Appointments.Count())</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Status <span class="text-info">*</span></th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Address</th>
+                <th scope="col">Cancellation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model.Appointments)
+            {
+                <tr>
+                    <th scope="row">@appointment.DateTime</th>
+                    <td>
+                        @if (appointment.Confirmed == true)
+                        {
+                            <span class="badge badge-success">Confirmed</span>
+                        }
+                        else if (appointment.Confirmed == false)
+                        {
+                            <span class="badge badge-danger">Declined</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Pending</span>
+                        }
+                    </td>
+                    <td>@appointment.DoctorFullName</td>
+                    <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
+                    <td>
+                        <a class="btn btn-outline-danger btn-sm"
+                           asp-area="PatientRole" asp-controller="Appointment" asp-action="CancelAppointment" asp-route-id="@appointment.Id">
+                            Cancel
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@if (@Model.PastAppointments.Any())
+{
+    <h2>Past (@Model.PastAppointments.Count())</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Status <span class="text-info">*</span></th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Address</th>
+                <th scope="col">Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model.PastAppointments)
+            {
+                <tr>
+                    <th scope="row">@appointment.DateTime</th>
+                    <td>
+                        @if (appointment.Confirmed == true)
+                        {
+                            <span class="badge badge-success">Confirmed</span>
+                        }
+                        else if (appointment.Confirmed == false)
+                        {
+                            <span class="badge badge-danger">Declined</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Pending</span>
+                        }
+                    </td>
+                    <td>@appointment.DoctorFullName</td>
+                    <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
+                    <td>
+                        <a class="btn btn-outline-info btn-sm @(appointment.IsRated ? "disabled" : string.Empty)"
+                           asp-area="PatientRole" asp-controller="Appointment" asp-action="RateAppointment" asp-route-appointmentId="@appointment.Id">
+                            @(appointment.IsRated ? "Already Rated" : "Rate")
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

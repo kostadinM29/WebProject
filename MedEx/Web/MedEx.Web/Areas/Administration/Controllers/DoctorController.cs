@@ -2,6 +2,7 @@
 using MedEx.Data.Models;
 using MedEx.Services.Data.Doctors;
 using MedEx.Web.ViewModels.DoctorViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
             _signInManager = signInManager;
         }
 
+        [Authorize]
         public IActionResult AppliedDoctors(int id)
         {
             var viewModel = new DoctorsListViewModel
@@ -35,6 +37,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Verify(int doctorId, int pageNumber)
         {
             var doctor = _doctorService.GetDoctorById(doctorId);
@@ -55,6 +58,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int doctorId, int pageNumber)
         {
             var checkIfDocExists = await _doctorService.DeleteAsync(doctorId);

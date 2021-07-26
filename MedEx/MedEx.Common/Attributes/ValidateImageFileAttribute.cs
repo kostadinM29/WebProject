@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Common.Attributes
 {
-    public class ValidateImageFileAttribute : RequiredAttribute
+    public class ValidateImageFileAttribute : ValidationAttribute
     {
         private const int MaxFileLengthInBytes = 1048576; // = (1 * 1024 * 1024) = 1 MB;
 

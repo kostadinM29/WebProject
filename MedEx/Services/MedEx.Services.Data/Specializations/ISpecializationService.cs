@@ -9,7 +9,7 @@ namespace MedEx.Services.Data.Specializations
     {
         IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
 
-        Task CreateAsync(SpecializationCreateInputModel model);
+        Task CreateAsync(SpecializationCreateFormModel model);
 
         Task<Specialization> GetSpecializationByIdAsync(int specializationId);
 

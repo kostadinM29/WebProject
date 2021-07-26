@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MedEx.Web.ViewModels.Administration.DoctorViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedEx.Services.Data.Doctors
 {
@@ -14,40 +16,61 @@ namespace MedEx.Services.Data.Doctors
     {
         private readonly IDeletableEntityRepository<Doctor> _doctorRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> _userRepository;
+        private readonly IDeletableEntityRepository<Image> _imageRepository;
 
-        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<ApplicationUser> userRepository ,IDeletableEntityRepository<Image> imageRepository)
         {
             _doctorRepository = doctorRepository;
             _userRepository = userRepository;
+            _imageRepository = imageRepository;
         }
 
-        /*
-         * getdoctorId
-         *
-         * getalldoctors
-         *
-         * savedoctor
-         *
-         * updatedoctor
-         *
-         *
-         * getspecializations
-         *
-         * gettown
-         * getaddress
-         *
-         * savetown
-         * updatetown
-         *
-         * saveaddress
-         * updateaddress
-         *
-         *
-         * searchdoctors -- possible multiple methods depending on parameters
-         *
-         * searchsimilardoctors?
-         *
-         */
+        public async Task EditAsync(DoctorEditFormModel model, string imagePath)
+        {
+            var doctor = GetDoctorById(model.Id);
+
+            doctor.FirstName = model.FirstName;
+            doctor.LastName = model.LastName;
+            doctor.Age = model.Age;
+            doctor.PhoneNumber = model.PhoneNumber;
+            doctor.Experience = model.Experience;
+            doctor.Email = model.Email;
+            doctor.Address = model.Address;
+            doctor.Biography = model.Biography;
+            doctor.TownId = model.TownId;
+            doctor.SpecializationId = model.SpecializationId;
+
+            if (model.Image != null)
+            {
+                var image = await _imageRepository.All().FirstOrDefaultAsync(i => i.DoctorId == model.Id);
+
+                if (image.RemoteImageUrl == null) // couldnt figure out a realistic way to delete seeded doctors image
+                {
+                    File.Delete(imagePath + model.ImageUrl);
+                }
+
+                _imageRepository.HardDelete(image);
+
+                Directory.CreateDirectory($"{imagePath}/img/doctors/");
+
+                var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
+
+                var dbImage = new Image
+                {
+                    Extension = extension,
+                };
+                doctor.Images.Add(dbImage);
+
+                var physicalPath = $"{imagePath}/img/doctors/{dbImage.Id}.{extension}";
+
+                await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+
+                await model.Image.CopyToAsync(fileStream);
+            }
+
+            _doctorRepository.Update(doctor);
+            await _doctorRepository.SaveChangesAsync();
+        }
 
         public async Task CreateAsync(DoctorApplyFormModel model, string imagePath)
         {

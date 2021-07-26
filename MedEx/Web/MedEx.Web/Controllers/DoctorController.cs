@@ -110,7 +110,7 @@ namespace MedEx.Web.Controllers
             }
             catch (Exception ex)
             {
-                this.ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, ex.Message);
                 input.TownItems = _townService.GetAllAsKeyValuePairs();
                 input.SpecializationItems = _specializationService.GetAllAsKeyValuePairs();
                 return View(input);

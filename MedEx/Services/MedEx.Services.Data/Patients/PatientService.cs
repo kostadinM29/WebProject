@@ -3,6 +3,9 @@ using MedEx.Data.Models;
 using MedEx.Web.ViewModels.PatientViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using MedEx.Services.Mapping;
+using MedEx.Web.ViewModels.Administration.PatientViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedEx.Services.Data.Patients
 {
@@ -17,9 +20,24 @@ namespace MedEx.Services.Data.Patients
             _userRepository = userRepository;
         }
 
-        public int? GetPatientIdByUserId(string userId)
+        public async Task<int?> GetPatientIdByUserId(string userId)
         {
-            return _patientRepository.AllAsNoTracking().FirstOrDefault(p => p.UserId == userId)?.Id;
+            return await _patientRepository.AllAsNoTracking().Where(p => p.UserId == userId).Select(p => p.Id).FirstOrDefaultAsync();
+        }
+
+        public async Task EditAsync(PatientEditFormModel model)
+        {
+            var patient = GetPatientById(model.Id);
+
+            patient.FirstName = model.FirstName;
+            patient.LastName = model.LastName;
+            patient.Gender = model.Gender;
+            patient.Age = model.Age;
+            patient.PhoneNumber = model.PhoneNumber;
+            patient.TownId = model.TownId;
+
+            _patientRepository.Update(patient);
+            await _patientRepository.SaveChangesAsync();
         }
 
         public async Task CreateAsync(PatientCreateFormModel model, string userId)
@@ -42,5 +60,9 @@ namespace MedEx.Services.Data.Patients
             await _patientRepository.AddAsync(patient);
             await _patientRepository.SaveChangesAsync();
         }
+
+        public T GetPatientById<T>(int patientId) => _patientRepository.All().Where(p => p.Id == patientId).To<T>().FirstOrDefault(); // has to track
+
+        public Patient GetPatientById(int patientId) => _patientRepository.All().FirstOrDefault(d => d.Id == patientId);
     }
 }

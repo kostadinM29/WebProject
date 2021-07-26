@@ -1,13 +1,19 @@
-﻿using MedEx.Common;
+﻿using AutoMapper;
+using MedEx.Common;
 using MedEx.Common.Attributes;
+using MedEx.Data.Models;
+using MedEx.Services.Mapping;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
-namespace MedEx.Web.ViewModels.DoctorViewModels
+namespace MedEx.Web.ViewModels.Administration.DoctorViewModels
 {
-    public class DoctorApplyFormModel
+    public class DoctorEditFormModel : IMapFrom<Doctor>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         [Required]
         [MinLength(3)]
         public string FirstName { get; set; }
@@ -16,8 +22,10 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
         [MinLength(3)]
         public string LastName { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        [Display(Name = "New Image")]
         [DataType(DataType.Upload)]
-        [Required]
         [ValidateImageFile(ErrorMessage = GlobalConstants.ErrorMessages.Image)]
         public IFormFile Image { get; set; }
 
@@ -50,6 +58,15 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
 
         public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
 
-        public string UserId { get; set; } // not sure if needed
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Doctor, DoctorEditFormModel>()
+                .ForMember(vm => vm.ImageUrl, opt =>
+                    opt.MapFrom(d =>
+                        d.Images.FirstOrDefault().RemoteImageUrl != null
+                            ? d.Images.FirstOrDefault().RemoteImageUrl
+                            : "/img/doctors/" + d.Images.FirstOrDefault().Id + "." +
+                              d.Images.FirstOrDefault().Extension));
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(SpecializationCreateInputModel input)
+        public async Task<IActionResult> Create(SpecializationCreateFormModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -59,14 +59,14 @@ namespace MedEx.Web.Areas.Administration.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int specializationId)
         {
-            var viewModel = await _specializationService.GetSpecializationByIdAsync<SpecializationEditInputModel>(specializationId);
+            var viewModel = await _specializationService.GetSpecializationByIdAsync<SpecializationEditFormModel>(specializationId);
 
             return View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(SpecializationEditInputModel input)
+        public async Task<IActionResult> Edit(SpecializationEditFormModel input)
         {
             if (!ModelState.IsValid)
             {

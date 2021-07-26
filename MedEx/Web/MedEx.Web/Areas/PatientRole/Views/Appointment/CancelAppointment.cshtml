@@ -1,0 +1,43 @@
+﻿@model AppointmentViewDoctorModel
+@{
+    ViewData["Title"] = "Cancel Appointment";
+}
+
+<h3 class="text-center"><strong>Are you sure you want to cancel this appointment?</strong></h3>
+    <form class="col-6 mt-5">
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Date and Time</label>
+            <div class="col-sm-7">
+                <div class="form-control">@Model.DateTime</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Doctor</label>
+            <div class="col-sm-7">
+                <div class="form-control">@Model.DoctorFullName</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Address</label>
+            <div class="col-sm-7">
+                <div class="form-control">@Model.DoctorTownName, @Model.DoctorAddress</div>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-6 mt-5 ml-5">
+        <div class="row ml-5">
+            <form method="post">
+                <button type="submit" class="btn btn-outline-success"
+                        asp-area="" asp-controller="Appointment" asp-action="DeleteAppointment" asp-route-id="@Model.Id">
+                    Yes, Cancel it!
+                </button>
+            </form>
+            <div class="ml-5">
+                <button type="submit" class="btn btn-outline-danger"
+                        asp-area="" asp-controller="Appointment" asp-action="Index">
+                    No! Go Back
+                </button>
+            </div>
+        </div>
+    </div>

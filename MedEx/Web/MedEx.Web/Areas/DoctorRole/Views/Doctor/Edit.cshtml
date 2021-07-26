@@ -1,23 +1,33 @@
-﻿@model DoctorApplyFormModel
+﻿@model DoctorEditFormModel
 @{
-    ViewBag.Title = "Apply for a doctor account";
+    ViewBag.Title = "Edit your information";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
     var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
 
 <h1 class="text-center">@ViewBag.Title</h1>
-<hr/>
-<form method="post" class="col-md-6 offset-md-3" enctype = "multipart/form-data" >
+<hr />
+<form method="post" class="col-md-10 " enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <input asp-for="Id" value="@Model.Id" type="hidden" />
+    </div>
+    <div class="form-group">
+        <input asp-for="ImageUrl" value="@Model.ImageUrl" type="hidden" />
+    </div>
     <div class="form-group">
         <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
+        <input asp-for="FirstName" class="form-control" placeholder="@Model.FirstName" />
         <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
+        <input asp-for="LastName" class="form-control" placeholder="@Model.LastName" />
         <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group text-center">
+        <img class="w-50 h-50" src="@Model.ImageUrl" alt="@Model.FirstName">
     </div>
     <div class="form-group">
         <label asp-for="Image"></label>
@@ -26,27 +36,27 @@
     </div>
     <div class="form-group">
         <label asp-for="Age"></label>
-        <input asp-for="Age" class="form-control" value="" />
+        <input asp-for="Age" class="form-control" placeholder="@Model.Age" />
         <span asp-validation-for="Age" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
+        <input asp-for="PhoneNumber" class="form-control" placeholder="@Model.PhoneNumber" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Experience"></label>
-        <input asp-for="Experience" class="form-control" />
+        <input asp-for="Experience" class="form-control" placeholder="@Model.Experience" />
         <span asp-validation-for="Experience" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
+        <input asp-for="Email" class="form-control" placeholder="@Model.Email" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
+        <input asp-for="Address" class="form-control" placeholder="@Model.Address" />
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -61,10 +71,10 @@
     </div>
     <div class="form-group">
         <label asp-for="Biography"></label>
-        <textarea asp-for="Biography" class="form-control" rows="3"></textarea>
+        <textarea asp-for="Biography" class="form-control" rows="3" placeholder="@Model.Biography"></textarea>
         <span asp-validation-for="Biography" class="text-danger"></span>
     </div>
     <div class="col-md-12 text-center">
-        <input type="submit" class="btn btn-primary" />
+        <button type="submit" class="btn btn-primary">Edit profile</button>
     </div>
 </form>
