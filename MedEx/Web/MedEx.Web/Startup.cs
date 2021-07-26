@@ -12,9 +12,11 @@ using MedEx.Services.Data.Patients;
 using MedEx.Services.Data.Ratings;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
+using MedEx.Services.Data.Users;
 using MedEx.Services.DateTimeParser;
 using MedEx.Services.Mapping;
 using MedEx.Services.Messaging;
+using MedEx.Web.Hubs;
 using MedEx.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,8 +27,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using MedEx.Services.Data.Users;
-using MedEx.Web.Hubs;
 
 namespace MedEx.Web
 {
@@ -84,7 +84,6 @@ namespace MedEx.Web
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IDateTimeParserService, DateTimeParserService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

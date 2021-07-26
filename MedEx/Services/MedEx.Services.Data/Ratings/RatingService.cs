@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using MedEx.Data.Common.Repositories;
+﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Ratings
 {

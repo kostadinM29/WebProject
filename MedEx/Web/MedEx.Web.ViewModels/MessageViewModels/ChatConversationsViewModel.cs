@@ -12,6 +12,5 @@ namespace MedEx.Web.ViewModels.MessageViewModels
         public string LastMessage { get; set; }
 
         public string LastMessageActivity { get; set; }
-
     }
 }

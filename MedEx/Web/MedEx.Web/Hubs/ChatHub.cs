@@ -1,10 +1,9 @@
-﻿using MedEx.Data.Models;
+﻿using MedEx.Services.Data.Messages;
+using MedEx.Services.Data.Users;
 using MedEx.Web.ViewModels.MessageViewModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
-using MedEx.Services.Data.Messages;
-using MedEx.Services.Data.Users;
-using Microsoft.AspNet.Identity;
 
 namespace MedEx.Web.Hubs
 {

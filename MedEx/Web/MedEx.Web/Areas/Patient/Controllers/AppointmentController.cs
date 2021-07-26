@@ -1,19 +1,19 @@
-﻿using System;
-using MedEx.Services.Data.Appointments;
+﻿using MedEx.Services.Data.Appointments;
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Patients;
 using MedEx.Services.Data.Ratings;
 using MedEx.Services.DateTimeParser;
 using MedEx.Web.ViewModels.AppointmentViewModels;
+using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.DoctorViewModels;
 
-namespace MedEx.Web.Areas.PatientRole.Controllers
+namespace MedEx.Web.Areas.Patient.Controllers
 {
-    public class AppointmentController : PatientRoleController
+    public class AppointmentController : PatientController
     {
         private readonly IAppointmentService _appointmentService;
         private readonly IDateTimeParserService _dateTimeParserService;
@@ -69,7 +69,7 @@ namespace MedEx.Web.Areas.PatientRole.Controllers
             var patientId = _patientService.GetPatientIdByUserId(userId); // add error if user is not a patient
             if (patientId == null)
             {
-                return NotFound("patient not found");
+                return BadRequest(new { error = "patient not found" });
             }
 
             DateTime dateTime;
@@ -131,17 +131,29 @@ namespace MedEx.Web.Areas.PatientRole.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            var appointment = await _appointmentService.GetByUserIdAsync(userId, input.AppointmentId);
+
+            if (appointment == null)
+            {
+                return BadRequest(new { error = "not your appointment" });
+            }
+
+            if (appointment.IsRated)
+            {
+                return BadRequest(new { error = "already rated" });
+            }
+
             var patientId = _patientService.GetPatientIdByUserId(userId);
             if (patientId == null)
             {
-                return NotFound("patient not found");
+                return BadRequest(new { error = "patient not found" });
             }
 
             var doctorId = _appointmentService.GetDoctorIdByAppointmentId(input.AppointmentId);
 
             if (doctorId == null)
             {
-                return NotFound("doctor not found");
+                return BadRequest(new { error = "doctor not found" });
             }
 
             await _ratingService.AddAsync(input.AppointmentId, doctorId.Value, patientId.Value, input.Number, input.Comment);

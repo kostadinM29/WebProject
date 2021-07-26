@@ -20,10 +20,7 @@ namespace MedEx.Services.Data.Appointments
             _doctorRepository = doctorRepository;
         }
 
-        public int? GetDoctorIdByAppointmentId(int appointmentId)
-        {
-            return _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Appointments.Any(a => a.Id == appointmentId))?.Id;
-        }
+        public int? GetDoctorIdByAppointmentId(int appointmentId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Appointments.Any(a => a.Id == appointmentId))?.Id;
 
         public async Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId)
         {
@@ -135,14 +132,10 @@ namespace MedEx.Services.Data.Appointments
             await _appointmentsRepository.SaveChangesAsync();
         }
 
-        public async Task<T> GetByIdAsync<T>(int id)
-        {
-            var appointment =
-                await _appointmentsRepository
-                    .AllAsNoTracking()
-                    .Where(x => x.Id == id)
-                    .To<T>().FirstOrDefaultAsync();
-            return appointment;
-        }
+        public async Task<Appointment> GetByIdAsync(int id) => await _appointmentsRepository.AllAsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+
+        public async Task<Appointment> GetByUserIdAsync(string userId, int appointmentId) => await _appointmentsRepository.All().Where(a => a.Patient.User.Id == userId && a.Id == appointmentId).FirstOrDefaultAsync();
+
+        public async Task<T> GetByIdAsync<T>(int id) => await _appointmentsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
     }
 }

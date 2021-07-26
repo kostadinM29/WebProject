@@ -35,7 +35,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Verify(int doctorId, int pageNumber) // id is pageNumber
+        public async Task<IActionResult> Verify(int doctorId, int pageNumber)
         {
             var doctor = _doctorService.GetDoctorById(doctorId);
 
@@ -55,7 +55,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }
 
-        public async Task<IActionResult> Delete(int doctorId, int pageNumber) // id is pageNumber
+        public async Task<IActionResult> Delete(int doctorId, int pageNumber)
         {
             var checkIfDocExists = await _doctorService.DeleteAsync(doctorId);
 

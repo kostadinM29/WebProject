@@ -4,19 +4,16 @@ using MedEx.Web.ViewModels.AppointmentViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Services.Data.Patients;
 
-namespace MedEx.Web.Areas.DoctorRole.Controllers
+namespace MedEx.Web.Areas.Doctor.Controllers
 {
-    public class AppointmentController : DoctorRoleController
+    public class AppointmentController : DoctorController
     {
-        private readonly IPatientService _patientService;
         private readonly IAppointmentService _appointmentService;
         private readonly IDoctorService _doctorService;
 
-        public AppointmentController(IPatientService patientService, IAppointmentService appointmentService, IDoctorService doctorService)
+        public AppointmentController(IAppointmentService appointmentService, IDoctorService doctorService)
         {
-            _patientService = patientService;
             _appointmentService = appointmentService;
             _doctorService = doctorService;
         }
@@ -48,7 +45,5 @@ namespace MedEx.Web.Areas.DoctorRole.Controllers
             await _appointmentService.DeclineAsync(appointmentId);
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

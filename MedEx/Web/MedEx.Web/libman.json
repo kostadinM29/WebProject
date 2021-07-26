@@ -3,6 +3,7 @@
   "defaultProvider": "jsdelivr",
   "libraries": [
     {
+      "provider": "unpkg",
       "library": "@microsoft/signalr@3.1.3",
       "destination": "wwwroot/lib/signalr/",
       "files": [

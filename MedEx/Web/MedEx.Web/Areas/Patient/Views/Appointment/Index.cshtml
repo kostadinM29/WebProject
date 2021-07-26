@@ -109,7 +109,7 @@
                     <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
                     <td>
                         <a class="btn btn-outline-danger btn-sm"
-                           asp-area="" asp-controller="Appointment" asp-action="CancelAppointment" asp-route-id="@appointment.Id">
+                           asp-area="Patient" asp-controller="Appointment" asp-action="CancelAppointment" asp-route-id="@appointment.Id">
                             Cancel
                         </a>
                     </td>
@@ -157,7 +157,7 @@
                     <td>@appointment.DoctorTownName, @appointment.DoctorAddress</td>
                     <td>
                         <a class="btn btn-outline-info btn-sm @(appointment.IsRated ? "disabled" : string.Empty)"
-                           asp-area="" asp-controller="Appointment" asp-action="RateAppointment" asp-route-appointmentId="@appointment.Id">
+                           asp-area="Patient" asp-controller="Appointment" asp-action="RateAppointment" asp-route-appointmentId="@appointment.Id">
                             @(appointment.IsRated ? "Already Rated" : "Rate")
                         </a>
                     </td>

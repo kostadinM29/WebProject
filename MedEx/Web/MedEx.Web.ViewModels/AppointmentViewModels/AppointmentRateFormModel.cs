@@ -10,7 +10,7 @@ namespace MedEx.Web.ViewModels.AppointmentViewModels
         [Display(Name = "Rating")]
         public int Number { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(250)]
         public string Comment { get; set; }
 
         public int AppointmentId { get; set; }

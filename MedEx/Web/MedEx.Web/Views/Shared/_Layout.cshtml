@@ -3,8 +3,8 @@
 @using System.Security.Claims
 @inject UserManager<ApplicationUser> UserManager
 @{
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    var user = await UserManager.FindByIdAsync(userId);
+
+}
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -34,18 +34,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="All" asp-route-id="1">View all doctors</a>
                         </li>
-                        @* @if (User.Identity.IsAuthenticated && !(User.IsInRole(GlobalConstants.PatientRoleName) || User.IsInRole(GlobalConstants.DoctorRoleName))) *@
-                        @if (User.Identity.IsAuthenticated && !(await UserManager.IsInRoleAsync(user, GlobalConstants.PatientRoleName) || await UserManager.IsInRoleAsync(user, GlobalConstants.DoctorRoleName)))
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Finish your profile
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Create">Become a patient</a>
+                            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                            var user = await UserManager.FindByIdAsync(userId);
+
+                            @*@if (User.Identity.IsAuthenticated && !(User.IsInRole(GlobalConstants.PatientRoleName) || User.IsInRole(GlobalConstants.DoctorRoleName)))*@
+                            if (!(await UserManager.IsInRoleAsync(user, GlobalConstants.PatientRoleName) || await UserManager.IsInRoleAsync(user, GlobalConstants.DoctorRoleName)))
+                            {
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Finish your profile
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Create">Become a patient</a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </ul>
                 </div>

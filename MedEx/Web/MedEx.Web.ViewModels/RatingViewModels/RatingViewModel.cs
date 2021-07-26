@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
+using System.Globalization;
 
 namespace MedEx.Web.ViewModels.RatingViewModels
 {

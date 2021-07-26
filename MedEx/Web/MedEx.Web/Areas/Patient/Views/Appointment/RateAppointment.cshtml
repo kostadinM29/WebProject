@@ -15,7 +15,7 @@
 <form method="post" class="col-md-4 offset-md-4">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="container">
-        <div class="starrating1 d-flex justify-content-center flex-row-reverse">
+        <div class="starrating1 d-flex justify-content-center flex-row-reverse" >
             <input type="radio" id="star5" asp-for="Number" value="5" /><label for="star5" title="5 star"></label>
             <input type="radio" id="star4" asp-for="Number" value="4" /><label for="star4" title="4 star"></label>
             <input type="radio" id="star3" asp-for="Number" value="3" /><label for="star3" title="3 star"></label>
@@ -27,7 +27,7 @@
     <br />
 
     <div class="form-group">
-        <textarea asp-for="Comment" class="form-control" rows="2" placeholder="Enter your comment here..."></textarea>
+        <textarea asp-for="Comment" class="form-control" rows="4" placeholder="Enter your comment here..."></textarea>
         <span asp-validation-for="Comment" class="text-danger"></span>
     </div>
 

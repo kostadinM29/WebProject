@@ -1,5 +1,4 @@
-﻿@using MedEx.Common
-@model AppointmentsListPatientViewModel
+﻿@model AppointmentsListPatientViewModel
 @{
     ViewBag.Title = "Your appointments";
 }
@@ -62,7 +61,7 @@
                         <td>
                             <form method="post">
                                 <button type="submit" class="btn btn-outline-success btn-sm"
-                                        asp-area="DoctorRole" asp-controller="Appointment" asp-action="ConfirmAppointment" asp-route-appointmentId="@appointment.Id">
+                                        asp-area="Doctor" asp-controller="Appointment" asp-action="ConfirmAppointment" asp-route-appointmentId="@appointment.Id">
                                     Confirm
                                 </button>
                             </form>
@@ -70,7 +69,7 @@
                         <td>
                             <form method="post">
                                 <button type="submit" class="btn btn-outline-danger btn-sm"
-                                        asp-area="DoctorRole" asp-controller="Appointment" asp-action="DeclineAppointment" asp-route-appointmentId="@appointment.Id">
+                                        asp-area="Doctor" asp-controller="Appointment" asp-action="DeclineAppointment" asp-route-appointmentId="@appointment.Id">
                                     Decline
                                 </button>
                             </form>

@@ -1,7 +1,7 @@
-﻿using MedEx.Web.ViewModels.Administration.TownViewModels;
+﻿using MedEx.Data.Models;
+using MedEx.Web.ViewModels.Administration.TownViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedEx.Data.Models;
 
 namespace MedEx.Services.Data.Towns
 {

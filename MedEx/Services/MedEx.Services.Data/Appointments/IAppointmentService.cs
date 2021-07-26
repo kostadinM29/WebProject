@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedEx.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,6 +24,10 @@ namespace MedEx.Services.Data.Appointments
         Task ConfirmAsync(int appointmentId);
 
         Task DeclineAsync(int appointmentId);
+
+        Task<Appointment> GetByIdAsync(int id);
+
+        Task<Appointment> GetByUserIdAsync(string userId, int appointmentId);
 
         Task<T> GetByIdAsync<T>(int id);
     }

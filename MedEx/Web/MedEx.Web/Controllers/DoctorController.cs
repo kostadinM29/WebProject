@@ -4,6 +4,7 @@ using MedEx.Services.Data.Ratings;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.DoctorViewModels;
+using MedEx.Web.ViewModels.RatingViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,6 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.RatingViewModels;
 
 namespace MedEx.Web.Controllers
 {

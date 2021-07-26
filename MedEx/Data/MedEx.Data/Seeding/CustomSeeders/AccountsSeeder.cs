@@ -41,7 +41,6 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 userManager,
                 roleManager,
                 GlobalConstants.AccountsSeeding.UserEmail);
-
         }
 
         private static async Task CreateUser(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, string email, string roleName = null)

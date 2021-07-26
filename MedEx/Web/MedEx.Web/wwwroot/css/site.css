@@ -90,6 +90,7 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
     position: relative;
     min-height: 100%;
@@ -217,6 +218,7 @@ body {
 /* Remove radio buttons */
 
 .starrating1 > label:before {
+    cursor: pointer;
     content: "\f005"; /* Star */
     margin: 2px;
     font-size: 5em;
@@ -232,6 +234,7 @@ body {
 }
 
 .starrating1 > label {
+    cursor: pointer;
     color: #222222; /* Start color when not clicked */
 }
 
@@ -265,4 +268,8 @@ body {
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
+}
+
+.pointer {
+    cursor: pointer;
 }

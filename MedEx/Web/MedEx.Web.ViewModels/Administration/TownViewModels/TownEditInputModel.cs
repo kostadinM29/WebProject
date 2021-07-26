@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 namespace MedEx.Web.ViewModels.Administration.TownViewModels
 {
-    public class TownEditInputModel :IMapFrom<Town>
+    public class TownEditInputModel : IMapFrom<Town>
     {
         public int Id { get; set; }
 
@@ -13,6 +13,5 @@ namespace MedEx.Web.ViewModels.Administration.TownViewModels
         public string Name { get; set; }
 
         public int? ZipCode { get; set; }
-
     }
 }

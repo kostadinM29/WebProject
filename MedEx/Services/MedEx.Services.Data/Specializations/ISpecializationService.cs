@@ -1,7 +1,7 @@
-﻿using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
+﻿using MedEx.Data.Models;
+using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedEx.Data.Models;
 
 namespace MedEx.Services.Data.Specializations
 {

@@ -24,14 +24,13 @@ namespace MedEx.Data.Seeding.CustomSeeders
 
             // Get doctor
             var doctor = await dbContext.Doctors.FirstOrDefaultAsync();
-
             {
                 // Add Upcoming Appointments
                 appointments.Add(new Appointment
                 {
                     DateTime = DateTime.UtcNow.AddDays(5),
-                    DoctorId = doctor.Id,
-                    PatientId = patient.Id,
+                    Doctor = doctor,
+                    Patient = patient,
                     IsRated = false,
                 });
 
@@ -39,8 +38,8 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 appointments.Add(new Appointment
                 {
                     DateTime = DateTime.UtcNow.AddDays(-5),
-                    DoctorId = doctor.Id,
-                    PatientId = patient.Id,
+                    Doctor = doctor,
+                    Patient = patient,
                     IsRated = false,
                     Confirmed = true
                 });
@@ -49,8 +48,8 @@ namespace MedEx.Data.Seeding.CustomSeeders
                 appointments.Add(new Appointment
                 {
                     DateTime = DateTime.UtcNow.AddDays(-10),
-                    DoctorId = doctor.Id,
-                    PatientId = patient.Id,
+                    Doctor = doctor,
+                    Patient = patient,
                     IsRated = false,
                     Confirmed = true
                 });

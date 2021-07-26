@@ -79,8 +79,8 @@ namespace MedEx.Services.Data.Doctors
             var physicalPath = $"{imagePath}/doctors/{dbImage.Id}.{extension}";
 
             await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            await model.Image.CopyToAsync(fileStream);
 
+            await model.Image.CopyToAsync(fileStream);
 
             await _doctorRepository.AddAsync(doctor);
             await _doctorRepository.SaveChangesAsync();

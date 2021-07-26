@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Services.Data.Doctors;
 
 namespace MedEx.Web.Controllers
 {
@@ -44,7 +43,6 @@ namespace MedEx.Web.Controllers
         public async Task<IActionResult> WithUser(string id)
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
 
             var viewModel = new ChatWithUserViewModel
             {
