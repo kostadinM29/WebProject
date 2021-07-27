@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MedEx.Web.Controllers
 {
+    [Authorize]
     public class PatientController : BaseController
     {
         private readonly IPatientService _patientService;
@@ -26,7 +27,6 @@ namespace MedEx.Web.Controllers
             _signInManager = signInManager;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             var viewModel = new PatientCreateFormModel
@@ -36,7 +36,6 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(PatientCreateFormModel input)
         {

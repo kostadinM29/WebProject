@@ -2,11 +2,13 @@
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels;
 using MedEx.Web.ViewModels.Index;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace MedEx.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseController
     {
         private readonly ITownService _townService;

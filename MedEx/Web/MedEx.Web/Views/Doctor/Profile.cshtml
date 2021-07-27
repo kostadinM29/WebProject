@@ -36,20 +36,21 @@
                     </li>
                 </ul>
             </div>
-            <div class="text-center row">
-                <div class="col-6">
-
-                    <a type="submit" class="btn btn-info " asp-area="PatientRole" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@Model.Doctor.Id">
-                        Make an appointment
-                    </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="text-center row">
+                    <div class="col-6">
+                        <a type="submit" class="btn btn-info " asp-area="PatientRole" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@Model.Doctor.Id">
+                            Make an appointment
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a type="submit" class="btn btn-success" asp-area="" asp-controller="Chat" asp-action="WithUser" asp-route-id="@Model.Doctor.UserId">
+                            Online consultation
+                        </a>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <a type="submit" class="btn btn-success" asp-area="" asp-controller="Chat" asp-action="WithUser" asp-route-id="@Model.Doctor.UserId">
-                        Online consultation
-                    </a>
-                </div>
-            </div>
-
+            }
         </div>
         <div class="col-lg-7 col-md-6 pl-xl-3">
             <h3 class="font-weight-normal">Biography of @Model.Doctor.FullName</h3>
@@ -66,14 +67,14 @@
                 {
                     <div class="card bottom-padding-rating">
                         <div class="card-group">
-                            <h6 class="card-title col-3">@rating.PatientFullName</h6>
-                            <div class="col-6 starrating2 d-flex justify-content-center flex-row-reverse">
+                            <h6 class="card-title col-4">@rating.PatientFullName</h6>
+                            <div class="col-4 starrating2 d-flex justify-content-center flex-row-reverse">
                                 @for (var i = 1; i <= rating.Number; i++)
                                 {
                                     <i id="star@i"></i> <label for="star@i"></label>
                                 }
                             </div>
-                            <div class="col-3 ">@rating.CreatedOn</div>
+                            <div class="col-4 ">@rating.CreatedOn</div>
                             <div class="container ">
                                 <div class="card bottom-padding-rating container-outline">
                                     <div class="container ">

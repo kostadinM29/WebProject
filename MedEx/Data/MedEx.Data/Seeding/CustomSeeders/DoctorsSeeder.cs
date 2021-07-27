@@ -40,7 +40,7 @@ namespace MedEx.Data.Seeding.CustomSeeders
             var image = new Image()
             {
                 Doctor = doctor,
-                RemoteImageUrl = "https://thumbs.dreamstime.com/b/beautiful-young-female-doctor-9182291.jpg"
+                RemoteImageUrl = "https://med-advisor.site/files/products/gulsumaydin.600x340.jpg.pagespeed.ce.ndnt82GhOH.jpg"
             };
 
             doctor.Images.Add(image);

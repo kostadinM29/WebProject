@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace MedEx.Web.Controllers
 {
+    [Authorize]
     public class DoctorController : BaseController
     {
         private readonly ISpecializationService _specializationService;
@@ -32,12 +33,12 @@ namespace MedEx.Web.Controllers
             _environment = environment;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Profile(int doctorId)
         {
             var viewModel = new DoctorProfileViewModel()
@@ -48,7 +49,7 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult All(int id, [FromQuery] string searchTerm, int? townId, int? specializationId)
         {
             if (id == 0)
@@ -81,7 +82,6 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         public IActionResult Apply()
         {
             var viewModel = new DoctorApplyFormModel
@@ -92,7 +92,6 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Apply(DoctorApplyFormModel input)
         {

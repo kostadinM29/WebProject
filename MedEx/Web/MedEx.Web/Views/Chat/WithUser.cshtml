@@ -19,7 +19,7 @@
                 @foreach (var message in Model.Messages)
                 {
                     <div class="card">
-                        <h4>@message.SenderUserName</h4>
+                        <h4 class="">@message.SenderUserName</h4>
                         <div class="container ">
                             <p class="card-text">@message.Content</p>
                             <span class="time-date">@message.CreatedOn</span>
@@ -76,21 +76,24 @@
             });
         connection.on("ReceiveMessage",
             function(message) {
-                var date = new Date();
-                date.setMonth(date.getMonth() + 1);
-                var timeOfDay = date.getHours() < 12 ? 'AM' : 'PM';
-                var hours = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
-                var chatInfo = `
-<div class="card">
-    <h4>${message.senderUserName}</h4>
-        <div class="container ">
-            <p class="card-text">${escapeHtml(message.content)}</p>
-        <span class="time-date">${date.getDate() + '/' + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + '/' + date.getFullYear() + ' ' + hours + ':' + (date.getMinutes() < 10 ? `0${date.getMinutes()}` :date.getMinutes())  + timeOfDay}</span>
-        </div>
-</div>`;
-                $("#messagesList").append(chatInfo);
-                $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+                location.reload(); // this is the easier way because otherwise i would have to write new js methods with group logic
             });
+//            function (message) {
+//                var date = new Date();
+//                date.setMonth(date.getMonth() + 1);
+//                var timeOfDay = date.getHours() < 12 ? 'AM' : 'PM';
+//                var hours = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
+//                var chatInfo = `
+//<div class="card">
+//    <h4>${message.senderUserName}</h4>
+//        <div class="container ">
+//            <p class="card-text">${escapeHtml(message.content)}</p>
+//        <span class="time-date">${date.getDate() + '/' + (date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()) + '/' + date.getFullYear() + ' ' + hours + ':' + (date.getMinutes() < 10 ? `0${date.getMinutes()}` :date.getMinutes())  + timeOfDay}</span>
+//        </div>
+//</div>`;
+//                $("#messagesList").append(chatInfo);
+//                $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+//            });
         $("#sendButton").click(function() {
             var message = $.trim($('#messageInput').val());
             $('#messageInput').val('');
