@@ -2,6 +2,7 @@
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
 using System.Globalization;
+using MedEx.Common;
 
 namespace MedEx.Web.ViewModels.RatingViewModels
 {
@@ -17,12 +18,11 @@ namespace MedEx.Web.ViewModels.RatingViewModels
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            var ci = new CultureInfo("en-US");
             configuration.CreateMap<Rating, RatingViewModel>()
                 .ForMember(vm => vm.PatientFullName, opt =>
                     opt.MapFrom(r => r.Patient.FirstName + " " + r.Patient.LastName))
                 .ForMember(vm => vm.CreatedOn, opt =>
-                    opt.MapFrom(r => r.CreatedOn.ToString("dd MMMM yyyy", ci)));
+                    opt.MapFrom(r => r.CreatedOn.ToString(GlobalConstants.DateTimeFormats.DateTimeFormat)));
         }
     }
 }

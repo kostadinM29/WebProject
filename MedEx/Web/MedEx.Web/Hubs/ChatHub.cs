@@ -18,7 +18,7 @@ namespace MedEx.Web.Hubs
             _messageService = messageService;
         }
 
-        public async Task WhoIsTyping(string name) => await Clients.Others.SendAsync("SayWhoIsTyping", name);
+        //public async Task WhoIsTyping(string name) => await Clients.Others.SendAsync("SayWhoIsTyping", name);
 
         public async Task SendMessage(string message, string receiverId)
         {

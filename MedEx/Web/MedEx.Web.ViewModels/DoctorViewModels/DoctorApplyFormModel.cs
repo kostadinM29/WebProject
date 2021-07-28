@@ -40,11 +40,13 @@ namespace MedEx.Web.ViewModels.DoctorViewModels
 
         public string Biography { get; set; }
 
+        [Required(ErrorMessage = "Select a town.")]
         [Display(Name = "Town")]
         public int TownId { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> TownItems { get; set; }
 
+        [Required(ErrorMessage = "Select a specialization.")]
         [Display(Name = "Specialization")]
         public int SpecializationId { get; set; }
 

@@ -1,10 +1,13 @@
-﻿using MedEx.Services.Data.Specializations;
+﻿using MedEx.Services.Data.Home;
+using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels;
+using MedEx.Web.ViewModels.HomeViewModels;
 using MedEx.Web.ViewModels.Index;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Controllers
 {
@@ -13,11 +16,13 @@ namespace MedEx.Web.Controllers
     {
         private readonly ITownService _townService;
         private readonly ISpecializationService _specializationService;
+        private readonly IHomeService _homeService;
 
-        public HomeController(ITownService townService, ISpecializationService specializationService)
+        public HomeController(ITownService townService, ISpecializationService specializationService, IHomeService homeService)
         {
             _townService = townService;
             _specializationService = specializationService;
+            _homeService = homeService;
         }
 
         public IActionResult Index()
@@ -33,6 +38,24 @@ namespace MedEx.Web.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(FeedbackCreateFormModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(input);
+            }
+
+            await _homeService.CreateAsync(input);
+
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

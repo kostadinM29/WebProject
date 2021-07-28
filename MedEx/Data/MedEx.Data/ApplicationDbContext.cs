@@ -40,6 +40,8 @@ namespace MedEx.Data
 
         public DbSet<Town> Towns { get; set; }
 
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         public override int SaveChanges() => SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

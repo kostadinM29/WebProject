@@ -1,9 +1,18 @@
-﻿using MedEx.Web.ViewModels.Index;
+﻿using MedEx.Data.Models;
+using MedEx.Web.ViewModels.HomeViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Home
 {
     public interface IHomeService
     {
-        IndexViewModel GetAllCounts();
+        Task CreateAsync(FeedbackCreateFormModel model);
+
+        Task SolveAsync(int feedbackId);
+
+        Task<IEnumerable<T>> GetAllFeedbacksAsync<T>();
+
+        public Feedback GetFeedbackById(int feedbackId);
     }
 }

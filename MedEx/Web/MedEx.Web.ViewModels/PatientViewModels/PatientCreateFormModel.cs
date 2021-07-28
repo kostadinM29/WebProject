@@ -23,6 +23,7 @@ namespace MedEx.Web.ViewModels.PatientViewModels
         [Phone]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Select a town.")]
         [Display(Name = "Town")]
         public int TownId { get; set; }
 

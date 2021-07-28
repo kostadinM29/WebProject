@@ -14,15 +14,15 @@
 
             <div id="messagesList"
                  class="tt-list-time-topic"
-                 style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
+                 style="overflow-y: auto; overflow-x: hidden; height:500px; display:block; word-break: break-word;">
 
                 @foreach (var message in Model.Messages)
                 {
                     <div class="card">
-                        <h4 class="">@message.SenderUserName</h4>
-                        <div class="container ">
-                            <p class="card-text">@message.Content</p>
-                            <span class="time-date">@message.CreatedOn</span>
+                        <h4 class="@(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.SenderUserName</h4>
+                        <div class="container">
+                            <p class="card-text @(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.Content</p>
+                            <span class="time-date @(Model.User.Id == message.SenderId ? "text-left" : "text-right")" >@message.CreatedOn</span>
                         </div>
                     </div>
                 }
@@ -54,26 +54,26 @@
                     $('#sendButton').click();
                 }
             });
-        $("#messageInput").on('change keyup copy paste cut',
+        @*$("#messageInput").on('change keyup copy paste cut',
             function() {
                 if (!this.value) {
                     connection.invoke("WhoIsTyping", '');
                 } else {
                     connection.invoke("WhoIsTyping", '@User.Identity?.Name');
                 }
-            });
+            });*@
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/chat")
             .build();
-        connection.on("SayWhoIsTyping",
-            function(name) {
-                if (name === null || name === "") {
-                    $("#whoIsTyping").html('');
-                } else {
-                    var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
-                    $("#whoIsTyping").html(whoIsTypingInfo);
-                }
-            });
+        //connection.on("SayWhoIsTyping",
+        //    function(name) {
+        //        if (name === null || name === "") {
+        //            $("#whoIsTyping").html('');
+        //        } else {
+        //            var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
+        //            $("#whoIsTyping").html(whoIsTypingInfo);
+        //        }
+        //    });
         connection.on("ReceiveMessage",
             function(message) {
                 location.reload(); // this is the easier way because otherwise i would have to write new js methods with group logic

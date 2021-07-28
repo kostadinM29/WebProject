@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FeedbackViewModel>
+@{
+    ViewBag.Title = "Client feedbacks";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<hr />
+
+@if (Model.Any())
+{
+    foreach (var feedback in @Model)
+    {
+        <div class="card">
+            <div class="card-header text-center">
+                Type: @feedback.Type
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">From: @feedback.FullName - @feedback.Email </h5>
+                <p class="card-text">@feedback.Comment</p>
+            </div>
+            <div class="card-footer text-muted row">
+                <span class="col-lg-2 col-md-6"> @feedback.CreatedOn</span>
+                <div class="col-lg-10 col-md-6 text-right">
+                    <a type="button" class="btn btn-success" asp-area="Administration" asp-controller="Home" asp-action="Solve" asp-route-feedbackId="@feedback.Id">
+                        Solve
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+}
+@if (!Model.Any())
+{
+        <div class="row">
+            <div class="col-lg-4 ml-lg-5">
+                <div class="about_text_2">
+                    <p>
+                       No feedbacks! Not great, not terrible.
+                    </p>
+                </div>
+            </div>
+        </div>
+}

@@ -43,7 +43,11 @@
     </div>
     <div class="form-group">
         <label asp-for="TownId"></label>
-        <select asp-for="TownId" class="form-control" asp-items="townItems"></select>
+        <select asp-for="TownId" class="form-control" asp-items="townItems">
+            <option selected value="">
+                Choose a town
+            </option>
+        </select>
         <span asp-validation-for="TownId" class="text-danger"></span>
     </div>
     <div class="col-md-12 text-center">

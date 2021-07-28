@@ -4,6 +4,8 @@
 // Write your JavaScript code.
 
 
+// image validation
+
 jQuery.validator.addMethod("dimention", function (value, element, param) {
     var width = $(element).data('imageWidth');
     var height = $(element).data('imageHeight');
