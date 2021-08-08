@@ -11,6 +11,7 @@ namespace MedEx.Web.ViewModels.HomeViewModels
         public string LastName { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Select a type.")]
@@ -21,3 +22,4 @@ namespace MedEx.Web.ViewModels.HomeViewModels
         public string Comment { get; set; }
     }
 }
+

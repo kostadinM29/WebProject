@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedEx.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210728103507_FeedbackFix")]
-    partial class FeedbackFix
+    [Migration("20210808081137_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -307,6 +307,9 @@ namespace MedEx.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSolved")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")

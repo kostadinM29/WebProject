@@ -11,8 +11,6 @@ namespace MedEx.Services.Data.Specializations
 
         Task CreateAsync(SpecializationCreateFormModel model);
 
-        Task<Specialization> GetSpecializationByIdAsync(int specializationId);
-
         Task<T> GetSpecializationByIdAsync<T>(int specializationId);
 
         Task<IEnumerable<T>> GetAllAsync<T>();

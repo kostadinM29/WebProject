@@ -1,14 +1,13 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
 using MedEx.Services.Mapping;
+using MedEx.Web.ViewModels.Administration.DoctorViewModels;
 using MedEx.Web.ViewModels.DoctorViewModels;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.Administration.DoctorViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace MedEx.Services.Data.Doctors
 {
@@ -202,8 +201,6 @@ namespace MedEx.Services.Data.Doctors
 
             return model;
         }
-
-        public int GetValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.IsValidated);
 
         public int GetAppliedAndNotValidatedDoctorsCount() => _doctorRepository.AllAsNoTracking().Count(d => d.HasApplied && d.IsValidated == false);
 

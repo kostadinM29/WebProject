@@ -11,8 +11,8 @@ namespace MedEx.Services.Data.Messages
 
         Task<string> GetLastMessageAsync(string currentUserId, string userId);
 
-        Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId);
+        Task<IEnumerable<T>> GetAllWithUserAsync<T>(string currentUserId, string userId);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string currentUserId);
+        Task<IEnumerable<T>> GetAllAsync<T>(string currentUserId);
     }
 }

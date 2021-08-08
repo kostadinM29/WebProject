@@ -22,34 +22,6 @@ namespace MedEx.Services.Data.Appointments
 
         public int? GetDoctorIdByAppointmentId(int appointmentId) => _doctorRepository.AllAsNoTracking().FirstOrDefault(d => d.Appointments.Any(a => a.Id == appointmentId))?.Id;
 
-        public async Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId)
-        {
-            var appointments =
-                await _appointmentsRepository
-                    .AllAsNoTracking()
-                    .Where(a => a.DoctorId == doctorId
-                                && a.DateTime.Date < DateTime.UtcNow.Date)
-                    .OrderBy(a => a.DateTime)
-                    .To<T>()
-                    .ToListAsync();
-
-            return appointments;
-        }
-
-        public async Task<IEnumerable<T>> GetUpcomingByDoctorAsync<T>(int doctorId)
-        {
-            var appointments =
-                await _appointmentsRepository
-                    .AllAsNoTracking()
-                    .Where(a => a.DoctorId == doctorId
-                                && a.DateTime.Date > DateTime.UtcNow.Date)
-                    .OrderBy(a => a.DateTime)
-                    .To<T>()
-                    .ToListAsync();
-
-            return appointments;
-        }
-
         public async Task<IEnumerable<T>> GetPastByPatientAsync<T>(int patientId)
         {
             var appointments =
@@ -131,8 +103,6 @@ namespace MedEx.Services.Data.Appointments
             appointment.Confirmed = false;
             await _appointmentsRepository.SaveChangesAsync();
         }
-
-        public async Task<Appointment> GetByIdAsync(int id) => await _appointmentsRepository.AllAsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
 
         public async Task<Appointment> GetByUserIdAsync(string userId, int appointmentId) => await _appointmentsRepository.All().Where(a => a.Patient.User.Id == userId && a.Id == appointmentId).FirstOrDefaultAsync();
 

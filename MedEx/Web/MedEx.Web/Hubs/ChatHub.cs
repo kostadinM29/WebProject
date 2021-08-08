@@ -36,7 +36,6 @@ namespace MedEx.Web.Hubs
                 new ChatMessagesWithUserViewModel
                 {
                     SenderId = senderId,
-                    SenderUserName = user.UserName,
                     Content = message,
                 });
         }

@@ -14,7 +14,5 @@ namespace MedEx.Services.Data.Patients
         Task<int?> GetPatientIdByUserId(string userId);
 
         T GetPatientById<T>(int patientId);
-
-        Patient GetPatientById(int patientId);
     }
 }

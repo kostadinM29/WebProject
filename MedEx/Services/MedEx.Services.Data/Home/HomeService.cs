@@ -36,7 +36,7 @@ namespace MedEx.Services.Data.Home
 
         public async Task SolveAsync(int feedbackId)
         {
-            var feedback = GetFeedbackById(feedbackId);
+            var feedback = _feedbackRepository.All().FirstOrDefault(d => d.Id == feedbackId);
 
             feedback.IsSolved = true;
 
@@ -44,7 +44,5 @@ namespace MedEx.Services.Data.Home
         }
 
         public async Task<IEnumerable<T>> GetAllFeedbacksAsync<T>() => await _feedbackRepository.All().Where(f => !f.IsSolved.HasValue).To<T>().ToListAsync();
-
-        public Feedback GetFeedbackById(int feedbackId) => _feedbackRepository.All().FirstOrDefault(d => d.Id == feedbackId);
     }
 }

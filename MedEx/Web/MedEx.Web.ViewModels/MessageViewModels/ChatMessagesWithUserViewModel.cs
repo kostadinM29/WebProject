@@ -11,7 +11,7 @@ namespace MedEx.Web.ViewModels.MessageViewModels
 
         public string SenderId { get; set; }
 
-        public string SenderUserName { get; set; }
+        public string FullName { get; set; }
 
         public string CreatedOn { get; set; }
 
@@ -19,7 +19,11 @@ namespace MedEx.Web.ViewModels.MessageViewModels
         {
             configuration.CreateMap<Message, ChatMessagesWithUserViewModel>()
                 .ForMember(vm => vm.CreatedOn, opt =>
-                    opt.MapFrom(m => m.CreatedOn.AddHours(3).ToString(GlobalConstants.DateTimeFormats.DateTimeFormat)));
+                    opt.MapFrom(m => m.CreatedOn.AddHours(3).ToString(GlobalConstants.DateTimeFormats.DateTimeFormat)))
+                .ForMember(vm => vm.FullName, opt =>
+                    opt.MapFrom(m => m.Sender.Doctor.FirstName != null
+                        ? "Dr. " + m.Sender.Doctor.FirstName + " " + m.Sender.Doctor.LastName
+                        : m.Sender.Patient.FirstName + " " + m.Sender.Patient.LastName));
         }
     }
 }

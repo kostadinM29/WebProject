@@ -26,6 +26,28 @@ namespace MedEx.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Feedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    IsSolved = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Feedbacks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Specializations",
                 columns: table => new
                 {
@@ -286,6 +308,7 @@ namespace MedEx.Data.Migrations
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     Confirmed = table.Column<bool>(type: "bit", nullable: true),
                     IsRated = table.Column<bool>(type: "bit", nullable: false),
+                    RatingId = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -304,6 +327,12 @@ namespace MedEx.Data.Migrations
                         name: "FK_Appointments_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Ratings_RatingId",
+                        column: x => x.RatingId,
+                        principalTable: "Ratings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -365,6 +394,11 @@ namespace MedEx.Data.Migrations
                 name: "IX_Appointments_PatientId",
                 table: "Appointments",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_RatingId",
+                table: "Appointments",
+                column: "RatingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -444,6 +478,11 @@ namespace MedEx.Data.Migrations
                 name: "IX_Doctors_UserId",
                 table: "Doctors",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Feedbacks_IsDeleted",
+                table: "Feedbacks",
+                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_DoctorId",
@@ -602,12 +641,32 @@ namespace MedEx.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_Appointments_Doctors_DoctorId",
+                table: "Appointments");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_AspNetUsers_Doctors_DoctorId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropForeignKey(
+                name: "FK_Ratings_Doctors_DoctorId",
+                table: "Ratings");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Appointments_Patients_PatientId",
+                table: "Appointments");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_AspNetUsers_Patients_PatientId",
                 table: "AspNetUsers");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Ratings_Patients_PatientId",
+                table: "Ratings");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Appointments_Ratings_RatingId",
+                table: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -625,19 +684,16 @@ namespace MedEx.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Feedbacks");
+
+            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Ratings");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "Doctors");
@@ -653,6 +709,12 @@ namespace MedEx.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Towns");
+
+            migrationBuilder.DropTable(
+                name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "Appointments");
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MedEx.Services.Data.Patients
 
         public async Task EditAsync(PatientEditFormModel model)
         {
-            var patient = GetPatientById(model.Id);
+            var patient = _patientRepository.All().FirstOrDefault(d => d.Id == model.Id);
 
             patient.FirstName = model.FirstName;
             patient.LastName = model.LastName;
@@ -62,7 +62,5 @@ namespace MedEx.Services.Data.Patients
         }
 
         public T GetPatientById<T>(int patientId) => _patientRepository.All().Where(p => p.Id == patientId).To<T>().FirstOrDefault(); // has to track
-
-        public Patient GetPatientById(int patientId) => _patientRepository.All().FirstOrDefault(d => d.Id == patientId);
     }
 }

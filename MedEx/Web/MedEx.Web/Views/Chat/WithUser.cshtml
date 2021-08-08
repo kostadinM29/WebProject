@@ -1,6 +1,6 @@
 ﻿@model MedEx.Web.ViewModels.MessageViewModels.ChatWithUserViewModel
 @{
-    ViewBag.Title = $"Conversation with {Model.User.UserName}";
+    ViewBag.Title = $"Conversation with {Model.User.FullName}";
 }
 
 <div class="container">
@@ -19,7 +19,7 @@
                 @foreach (var message in Model.Messages)
                 {
                     <div class="card">
-                        <h4 class="@(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.SenderUserName</h4>
+                        <h4 class="@(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.FullName</h4>
                         <div class="container">
                             <p class="card-text @(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.Content</p>
                             <span class="time-date @(Model.User.Id == message.SenderId ? "text-left" : "text-right")" >@message.CreatedOn</span>

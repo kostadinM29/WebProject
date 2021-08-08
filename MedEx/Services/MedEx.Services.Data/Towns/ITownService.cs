@@ -13,8 +13,6 @@ namespace MedEx.Services.Data.Towns
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 
-        Task<Town> GetTownByIdAsync(int townId);
-
         Task<T> GetTownByIdAsync<T>(int townId);
 
         Task<bool> EditAsync(int townId, string name, int? zipCode);

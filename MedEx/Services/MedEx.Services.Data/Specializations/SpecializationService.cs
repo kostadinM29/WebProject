@@ -44,8 +44,6 @@ namespace MedEx.Services.Data.Specializations
 
         public async Task<IEnumerable<T>> GetAllAsync<T>() => await _specializationsRepository.All().To<T>().ToListAsync();
 
-        public Task<Specialization> GetSpecializationByIdAsync(int specializationId) => _specializationsRepository.All().FirstOrDefaultAsync(s => s.Id == specializationId);
-
         public Task<T> GetSpecializationByIdAsync<T>(int specializationId) => _specializationsRepository.All().Where(s => s.Id == specializationId).To<T>().FirstOrDefaultAsync(); // has to track
 
         public async Task<bool> EditAsync(int specializationId, string name, string description)
@@ -82,5 +80,7 @@ namespace MedEx.Services.Data.Specializations
 
             return true;
         }
+
+        private Task<Specialization> GetSpecializationByIdAsync(int specializationId) => _specializationsRepository.All().FirstOrDefaultAsync(s => s.Id == specializationId);
     }
 }

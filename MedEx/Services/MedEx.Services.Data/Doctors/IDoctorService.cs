@@ -18,8 +18,6 @@ namespace MedEx.Services.Data.Doctors
 
         IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
 
-        int GetValidatedDoctorsCount();
-
         int GetAppliedAndNotValidatedDoctorsCount();
 
         int? GetDoctorIdByUserId(string userId);

@@ -44,8 +44,6 @@ namespace MedEx.Services.Data.Towns
 
         public async Task<IEnumerable<T>> GetAllAsync<T>() => await _townRepository.All().To<T>().ToListAsync();
 
-        public Task<Town> GetTownByIdAsync(int townId) => _townRepository.All().FirstOrDefaultAsync(s => s.Id == townId);
-
         public Task<T> GetTownByIdAsync<T>(int townId) => _townRepository.All().Where(s => s.Id == townId).To<T>().FirstOrDefaultAsync(); // has to track
 
         public async Task<bool> EditAsync(int townId, string name, int? zipCode)
@@ -82,5 +80,7 @@ namespace MedEx.Services.Data.Towns
 
             return true;
         }
+
+        private Task<Town> GetTownByIdAsync(int townId) => _townRepository.All().FirstOrDefaultAsync(s => s.Id == townId);
     }
 }

@@ -9,10 +9,6 @@ namespace MedEx.Services.Data.Appointments
     {
         int? GetDoctorIdByAppointmentId(int appointmentId);
 
-        Task<IEnumerable<T>> GetPastByDoctorAsync<T>(int doctorId);
-
-        Task<IEnumerable<T>> GetUpcomingByDoctorAsync<T>(int doctorId);
-
         Task<IEnumerable<T>> GetPastByPatientAsync<T>(int patientId);
 
         Task<IEnumerable<T>> GetUpcomingByPatientAsync<T>(int patientId);
@@ -24,8 +20,6 @@ namespace MedEx.Services.Data.Appointments
         Task ConfirmAsync(int appointmentId);
 
         Task DeclineAsync(int appointmentId);
-
-        Task<Appointment> GetByIdAsync(int id);
 
         Task<Appointment> GetByUserIdAsync(string userId, int appointmentId);
 

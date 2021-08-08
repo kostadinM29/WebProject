@@ -20,7 +20,7 @@
                         <select asp-for="ReceiverId" id="input-user">
                             @foreach (var user in Model.Users.Where(u => u.Id != User.FindFirstValue(ClaimTypes.NameIdentifier)))
                             {
-                                <option value="@user.Id">@user.UserName</option>
+                                <option value="@user.Id">@user.FullName</option>
                             }
                         </select>
                         <span asp-validation-for="ReceiverId"></span>

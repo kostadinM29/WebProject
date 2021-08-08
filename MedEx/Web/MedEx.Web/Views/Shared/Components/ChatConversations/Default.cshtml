@@ -8,8 +8,8 @@
             {
                 <ol>
                     <div class="container-fluid row">
-                        <h4 class="col-md-2">From: </h4>
-                        <a class="col-md-4 " asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.UserName</h4></a>
+                        <h4 class="col-md-4">From: </h4>
+                        <a class="col-md-8 " asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.FullName</h4></a>
                         <div class="text-body container-outline col-md-12">
                             <p class="card-text">Last message: @conversation.LastMessage</p>
                             <span class="time-date">Last activity: @conversation.LastMessageActivity</span>
