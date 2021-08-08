@@ -1,18 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Messages";
+    ViewBag.Title = "Messages";
 }
 
-<div class="container">
-    <br />
-    <div class="row no-gutters">
-        <div class="col-md-6 offset-3">
+<div class="container mt-3">
+        <div class="col-md-12">
             <h1 class="text-center">
-                @ViewData["Title"]
+                @ViewBag.Title
+                
+                <hr/>
             </h1>
-            <hr />
-
-            <vc:chat-conversations></vc:chat-conversations>
-
+            <div class="row">
+                <vc:chat-conversations></vc:chat-conversations>
+            </div>
         </div>
-    </div>
 </div>

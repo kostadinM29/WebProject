@@ -1,21 +1,20 @@
 ﻿@model IEnumerable<MedEx.Web.ViewModels.MessageViewModels.ChatConversationsViewModel>
 
-<div class="list-group">
+<div class="row col-md-6 offset-md-3">
     <ul>
         @if (Model.Any())
         {
             foreach (var conversation in Model)
             {
-                <ol>
-                    <div class="container-fluid row">
+                    <div class="container row table-bordered rounded-top rounded-bottom ">
                         <h4 class="col-md-4">From: </h4>
-                        <a class="col-md-8 " asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.FullName</h4></a>
-                        <div class="text-body container-outline col-md-12">
+                        <a class="col-md-8 text-right" asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.FullName</h4></a>
+                        <div class="text-body container-fluid col-md-12">
                             <p class="card-text">Last message: @conversation.LastMessage</p>
                             <span class="time-date">Last activity: @conversation.LastMessageActivity</span>
                         </div>
                     </div>
-                </ol>
+                <br/>
             }
         }
         else

@@ -1,11 +1,26 @@
 ﻿@model MedEx.Web.ViewModels.Index.IndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
-    var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
-    var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
+    ViewBag.Title = "Home Page";
+}
+@section head{
+    <style type="text/css">
+        body {
+            background-image: url('/img/homepage.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 }
 
-<div class="text-center">
-    <h1 class="col-md-6">Welcome to @GlobalConstants.SystemName!</h1>
+<div class="jumbotron jumbotron-fluid jumbotron-opacity jumbo-text">
+    <div class="container">
+        <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+        <p class="lead">A platform connecting doctors and patients in real time.</p>
+        <hr class="my-4">
+        <p>You can register as a doctor or as a patient. As a patient you can make appointments and have online consultations with your preferred doctor. As a doctor you can manage your patient appointments and review their symptoms online.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Register">Make your account</a>
+        </p>
+    </div>
 </div>
-fix inc

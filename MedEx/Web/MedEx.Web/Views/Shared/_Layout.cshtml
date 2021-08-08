@@ -2,10 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
 @inject UserManager<ApplicationUser> UserManager
-@{
 
-}
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +16,7 @@
     @await this.RenderSectionAsync("Styles", required: false)
 </head>
 <body>
+    @RenderSection("head", required: false)
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -66,7 +64,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer bg-info">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> - <a asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a>
         </div>

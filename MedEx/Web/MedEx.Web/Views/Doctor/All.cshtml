@@ -4,137 +4,129 @@
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
     var townItems = Model.TownItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
-<div class="row">
-    <div class="about_text_2">
-        You can search:
-        <ul>
-            <li>
-                Doctor Name
+@section head{
+    <style type="text/css">
+        body {
+            background-image: url('https://forum.facmedicine.com/data/MetaMirrorCache/accb8e91b442f13b64c28193f157c268.jpeg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+}
+<div class="container jumbotron-opacity">
+    <hr />
+
+    <form method="get" class="mt-3">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="SearchTerm"></label>
+                <input asp-for="SearchTerm" class="form-control bg-transparent border-info" placeholder="Daniela Spasova..">
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="TownId"></label>
+                <select asp-for="TownId" class="form-control bg-transparent border-info" asp-items="townItems">
+                    <option value="0" selected>Any Town</option>
+                </select>
+                <span asp-validation-for="TownId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="SpecializationId"></label>
+                <select asp-for="SpecializationId" class="form-control bg-transparent border-info" asp-items="specializationItems">
+                    <option value="0" selected>Any Specialization</option>
+                </select>
+                <span asp-validation-for="SpecializationId" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary d-none" />
+            </div>
+        </div>
+    </form>
+
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            @foreach (var doctor in Model.Doctors)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xl-4">
+                    <div class="card">
+                        <img src="@doctor.ImageUrl" class="img-fluid justify-content-center" alt="@doctor.FullName">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Dr. @doctor.FullName</h5>
+                            <p class="card-text text-center">@doctor.SpecializationName - @doctor.TownName</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Age: @doctor.Age</li>
+                            <li class="list-group-item">Average rating: @(doctor.AverageRating == null ?  (object) "Not rated" : doctor.AverageRating)</li> @* idk bro *@
+                            <li class="list-group-item">Email address: @doctor.Email</li>
+                            <li class="list-group-item">Phone: @doctor.PhoneNumber</li>
+                        </ul>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="card-body row">
+                                <div class=" col-6 text-center">
+                                    <a type="submit" class="btn btn-info" asp-area="PatientRole" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
+                                        Make an appointment
+                                    </a>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <a type="submit" class="btn btn-secondary" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
+                                        View doctor profile
+                                    </a>
+                                </div>
+
+                            </div>
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="card-body row">
+                                <div class="col-12 text-center">
+                                    <a type="submit" class="btn btn-info" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
+                                        View doctor profile
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(!Model.HasPreviousPage ? "disabled" : string.Empty)">
+                <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.PreviousPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Previous</a>
             </li>
-            <li>
-                Specific Town
+            @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
+            {
+                if (i > 0)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
+                    </li>
+                }
+            }
+            <li class="page-item active">
+                <span class="page-link">
+                    @Model.PageNumber
+                    <span class="sr-only">(current)</span>
+                </span>
             </li>
-            <li>
-                Specific Specialization
-            </li>
-            <li>
-                Or all of the above at once
+            @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
+            {
+                if (i <= Model.PagesCount)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
+                    </li>
+                }
+            }
+            <li class="page-item @(!Model.HasNextPage ? "disabled" : string.Empty)">
+                <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.NextPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Next</a>
             </li>
         </ul>
-    </div>
+    </nav>
 </div>
-
-<hr />
-
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label asp-for="SearchTerm"></label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Daniela Spasova..">
-        </div>
-        <div class="form-group col-md-4">
-            <label asp-for="TownId"></label>
-            <select asp-for="TownId" class="form-control" asp-items="townItems">
-                <option value="0" selected>Any Town</option>
-            </select>
-            <span asp-validation-for="TownId" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-4">
-            <label asp-for="SpecializationId"></label>
-            <select asp-for="SpecializationId" class="form-control" asp-items="specializationItems">
-                <option value="0" selected>Any Specialization</option>
-            </select>
-            <span asp-validation-for="SpecializationId" class="text-danger"></span>
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary d-none" />
-        </div>
-    </div>
-</form>
-
-<hr />
-
-<div class="container">
-    <div class="row">
-        @foreach (var doctor in Model.Doctors)
-        {
-            <div class="col-lg-4 col-md-6 col-sm-12 col-xl-4">
-                <div class="card">
-                    <img src="@doctor.ImageUrl" class="img-fluid justify-content-center" alt="@doctor.FullName">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Dr. @doctor.FullName</h5>
-                        <p class="card-text text-center">@doctor.SpecializationName - @doctor.TownName</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Age: @doctor.Age</li>
-                        <li class="list-group-item">Average rating: @(doctor.AverageRating == null ?  (object) "Not rated" : doctor.AverageRating)</li> @* idk bro *@
-                        <li class="list-group-item">Email address: @doctor.Email</li>
-                        <li class="list-group-item">Phone: @doctor.PhoneNumber</li>
-                    </ul>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="card-body row">
-                            <div class=" col-6 text-center">
-                                <a type="submit" class="btn btn-info" asp-area="PatientRole" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@doctor.Id">
-                                    Make an appointment
-                                </a>
-                            </div>
-                            <div class="col-6 text-center">
-                                <a type="submit" class="btn btn-secondary" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
-                                    View doctor profile
-                                </a>
-                            </div>
-
-                        </div>
-                    }
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <div class="card-body row">
-                            <div class="col-12 text-center">
-                                <a type="submit" class="btn btn-secondary" asp-area="" asp-controller="Doctor" asp-action="Profile" asp-route-doctorId="@doctor.Id">
-                                    View doctor profile
-                                </a>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    </div>
-</div>
-<hr />
-
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item @(!Model.HasPreviousPage ? "disabled" : string.Empty)">
-            <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.PreviousPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Previous</a>
-        </li>
-        @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
-        {
-            if (i > 0)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
-                </li>
-            }
-        }
-        <li class="page-item active">
-            <span class="page-link">
-                @Model.PageNumber
-                <span class="sr-only">(current)</span>
-            </span>
-        </li>
-        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
-        {
-            if (i <= Model.PagesCount)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@i" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">@i</a>
-                </li>
-            }
-        }
-        <li class="page-item @(!Model.HasNextPage ? "disabled" : string.Empty)">
-            <a class="page-link" asp-controller="Doctor" asp-action="All" asp-route-id="@Model.NextPageNumber" asp-route-searchTerm="@Model.SearchTerm" asp-route-townId="@Model.TownId" asp-route-specializationId="@Model.SpecializationId">Next</a>
-        </li>
-    </ul>
-</nav>
