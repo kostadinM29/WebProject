@@ -11,13 +11,13 @@ A website for doctor consultations and appointments.  :calendar:
   - apply as a doctor or register as a patient;
   - read doctor profiles.
 - Logged Users:
-  - book appointments using interactive datepicker; 
-  - can cancel appointments; 
-  - can rate salons for which they had confirmed past appointments.  
+  - same as guest;
+  - can apply as a doctor or register as a patient.
 - Doctor (user role):
   - confirms/declines patients' appointments; 
   - edits their profile.
 - Patient(user role):
+  - can cancel appointments;
   - makes appointments with doctors;
   - makes online consultations with doctors;
   - rates doctors after appointments;
