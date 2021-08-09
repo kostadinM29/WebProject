@@ -1,45 +1,66 @@
 # WebProject
- Softuni web project
 
-Things i'd like to add: 
--realtime chat with doctors	
--make model collections private	
--add google/facebook login options	
--integrate a bootstrap template	
--add emailsender 	
+A website for doctor consultations and appointments.  :calendar:
 
-- add header with drop down menus(doctors , towns etc)
+:dart:  My project for the ASP.NET Core course at SoftUni. (August 2021) 
 
+## :information_source: How It Works
 
-DOCTOR STUFF:
-set up and see their schedule,
-add appointment from phone/cabinet visits,
-possibly have notes on appointments,
-see previous appointments with client,
-***printable appointment schedule for office***??????????????,
-online-consultations with SignalR ??????
+- Guest visitors: 
+  - browse all available doctors;
+  - apply as a doctor or register as a patient;
+  - read doctor profiles.
+- Logged Users:
+  - book appointments using interactive datepicker; 
+  - can cancel appointments; 
+  - can rate salons for which they had confirmed past appointments.  
+- Doctor (user role):
+  - confirms/declines patients' appointments; 
+  - edits their profile.
+- Patient(user role):
+  - makes appointments with doctors;
+  - makes online consultations with doctors;
+  - rates doctors after appointments;
+  - edits their profile.
+- Admin:
+  - creates/deletes towns and specializations; 
+  - can review client feedback;
+  - can validate applied doctors.
 
+## :hammer_and_pick: Built With
 
-use status code pages?
+- ASP.NET Core 5
+- Entity Framework (EF) Core 5
+- Microsoft SQL Server Express
+- ASP.NET Identity System
+- MVC Areas with Multiple Layouts
+- View Components
+- Repository Pattern
+- Auto Мapping
+- Dependency Injection
+- Sorting, Filtering, and Paging with EF Core
+- Data Validation, both Client-side and Server-side
+- Data Validation in the Models and Input View Models
+- Custom Validation Attributes
+- Responsive Design
+- Bootstrap
+- XUnit
+- SignalR
+- jQuery
 
+## :gear: Application Configurations
 
-VIEWS
---upper footer?? search pulldown tab with doctors and towns and user profile
---footer - about the site, link to github, towns?
+### 1. The Connection string 
+is in `appsettings.json`. If you don't use SQLEXPRESS, you should replace `Server=.\\SQLEXPRESS;` with `Server=.;`
 
--- view with more detailed search:
-does doc work with health buerau,
-doctors above certain rating,
-sort by earliest hour possible,
-is doctor kid friendly?
-possible search nearest doctor?
+### 2. Database Migrations 
+would be applied when you run the application, since the `ASPNETCORE-ENVIRONMENT` is set to `Development`. If you change it, you should apply the migrations yourself.
 
--- view with doctor profile
-bio, location, qualification, and a table of already appointed for hours,
-map for doctor location?
+### 3. Seeding sample data
+would happen once you run the application, including Test Accounts:
+  - User: user@user.com / password: 12345678
+  - Patient: patient@patient.com / password: 12345678
+  - Doctor: doctor@doctor.com / password: 12345678
+  - Admin: admin@admin.com / password: 12345678
+ 
 
---google-like calendar with worktime hours 
---- possible clickable dates with more detailed day info(10:00 - 11:00 example)
-
-
--send email confirmation on book
