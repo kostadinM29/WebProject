@@ -33,11 +33,6 @@ namespace MedEx.Web.Controllers
             _environment = environment;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [AllowAnonymous]
         public IActionResult Profile(int doctorId)
         {
@@ -115,7 +110,6 @@ namespace MedEx.Web.Controllers
                 return View(input);
             }
 
-            // TODO Redirect to your doctor profile
             return Redirect("/");
         }
     }

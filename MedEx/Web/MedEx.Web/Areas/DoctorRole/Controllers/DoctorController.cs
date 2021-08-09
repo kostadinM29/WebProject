@@ -81,7 +81,6 @@ namespace MedEx.Web.Areas.DoctorRole.Controllers
                 return View(viewModel);
             }
 
-            // TODO Redirect to your doctor profile
             return Redirect("/");
         }
     }

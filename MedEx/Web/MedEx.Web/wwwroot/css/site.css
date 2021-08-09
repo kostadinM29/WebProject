@@ -280,4 +280,14 @@ body {
     background-color: rgba(255,255,255,0.6);
 }
 
+.jumbotron-opacity-chat {
+    background-color: rgba(255,255,255,0.4);
+}
 
+.search-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}

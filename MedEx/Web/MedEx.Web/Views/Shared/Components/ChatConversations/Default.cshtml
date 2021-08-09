@@ -1,31 +1,28 @@
 ﻿@model IEnumerable<MedEx.Web.ViewModels.MessageViewModels.ChatConversationsViewModel>
-
-<div class="row col-md-6 offset-md-3">
-    <ul>
-        @if (Model.Any())
-        {
-            foreach (var conversation in Model)
+<div class="container col-6 row">
+            @if (Model.Any())
             {
-                    <div class="container row table-bordered rounded-top rounded-bottom ">
-                        <h4 class="col-md-4">From: </h4>
-                        <a class="col-md-8 text-right" asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.FullName</h4></a>
-                        <div class="text-body container-fluid col-md-12">
-                            <p class="card-text">Last message: @conversation.LastMessage</p>
-                            <span class="time-date">Last activity: @conversation.LastMessageActivity</span>
+                foreach (var conversation in Model)
+                {
+                    <div class="jumbotron-opacity-chat">
+                        <div class="container row table-bordered rounded-top rounded-bottom ">
+                            <h4 class="col-md-4">From: </h4>
+                            <a class="col-md-8 text-right" asp-controller="Chat" asp-action="WithUser" asp-route-id="@conversation.Id"><h4>@conversation.FullName</h4></a>
+                            <div class="text-body container-fluid col-md-12">
+                                <p class="card-text">Last message: @conversation.LastMessage</p>
+                                <span class="time-date">Last activity: @conversation.LastMessageActivity</span>
+                            </div>
                         </div>
+                        <br />
                     </div>
-                <br/>
+                }
             }
-        }
-        else
-        {
-            <li>
-                <div class="tt-layout-404">
-                    <p>
-                        You don't have any messages<br />
-                    </p>
-                </div>
-            </li>
-        }
-    </ul>
-</div>
+            else
+            {
+                    <div class="text-center align-content-center">
+                        <p>
+                            You don't have any messages
+                        </p>
+                    </div>
+            }
+    </div>

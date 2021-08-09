@@ -2,15 +2,23 @@
     ViewBag.Title = "Messages";
 }
 
-<div class="container mt-3">
+@section head{
+    <style type="text/css">
+        body {
+            background: rgb(255,255,255);
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 36%, rgba(23,162,184,1) 100%);
+        }
+    </style>
+}
+    <div class="container mt-3">
         <div class="col-md-12">
             <h1 class="text-center">
                 @ViewBag.Title
-                
-                <hr/>
+
+                <hr />
             </h1>
             <div class="row">
                 <vc:chat-conversations></vc:chat-conversations>
             </div>
         </div>
-</div>
+    </div>

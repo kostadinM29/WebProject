@@ -1,43 +1,51 @@
 ﻿@model AppointmentViewDoctorModel
 @{
-    ViewData["Title"] = "Cancel Appointment";
+    ViewBag.Title = "Cancel Appointment";
 }
-
-<h3 class="text-center"><strong>Are you sure you want to cancel this appointment?</strong></h3>
-    <form class="col-6 mt-5">
+@section head{
+    <style type="text/css">
+        body {
+            background-image: url('/img/appointment.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+}
+<div class="container jumbotron-opacity">
+    <h3 class="text-center"><strong>Are you sure you want to cancel this appointment?</strong></h3>
+    <div class="col-xl-12 col-lg-12 offset-xl-0  offset-lg-0 col-md-6 offset-md-3  mt-4" method="post">
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Date and Time</label>
-            <div class="col-sm-7">
+            <label class="col-auto col-form-label">Date and Time</label>
+            <div class="col-12">
                 <div class="form-control">@Model.DateTime</div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Doctor</label>
-            <div class="col-sm-7">
+            <label class="col-auto col-form-label">Doctor</label>
+            <div class="col-12">
                 <div class="form-control">@Model.DoctorFullName</div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Address</label>
-            <div class="col-sm-7">
+            <label class="col-auto col-form-label">Address</label>
+            <div class="col-12">
                 <div class="form-control">@Model.DoctorTownName, @Model.DoctorAddress</div>
             </div>
         </div>
-    </form>
-
-    <div class="col-6 mt-5 ml-5">
-        <div class="row ml-5">
-            <form method="post">
-                <button type="submit" class="btn btn-outline-success"
-                        asp-area="" asp-controller="Appointment" asp-action="DeleteAppointment" asp-route-id="@Model.Id">
+        <form class="row" method="post">
+            <div class="col-6 text-left">
+                <button type="submit" class="btn btn-success mt-3 mb-2"
+                        asp-area="PatientRole" asp-controller="Appointment" asp-action="DeleteAppointment" asp-route-id="@Model.Id">
                     Yes, Cancel it!
                 </button>
-            </form>
-            <div class="ml-5">
-                <button type="submit" class="btn btn-outline-danger"
-                        asp-area="" asp-controller="Appointment" asp-action="Index">
+            </div>
+            <div class="col-6 text-right">
+                <button type="submit" class="btn btn-danger mt-3 mb-2"
+                        asp-area="PatientRole" asp-controller="Appointment" asp-action="Index">
                     No! Go Back
                 </button>
             </div>
-        </div>
+        </form>
     </div>
+</div>

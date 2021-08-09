@@ -2,8 +2,15 @@
 @{
     ViewBag.Title = $"Conversation with {Model.User.FullName}";
 }
-
-<div class="container">
+@section head{
+    <style type="text/css">
+        body {
+            background: rgb(255,255,255);
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 36%, rgba(23,162,184,1) 100%);
+        }
+    </style>
+}
+<div class="container jumbotron-opacity-chat">
     <div class="row no-gutters">
         <div class="col-md-12">
             <h2 class=" text-center">
@@ -13,7 +20,6 @@
             <hr />
 
             <div id="messagesList"
-                 class="tt-list-time-topic"
                  style="overflow-y: auto; overflow-x: hidden; height:500px; display:block; word-break: break-word;">
 
                 @foreach (var message in Model.Messages)
@@ -22,14 +28,14 @@
                         <h4 class="@(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.FullName</h4>
                         <div class="container">
                             <p class="card-text @(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.Content</p>
-                            <span class="time-date @(Model.User.Id == message.SenderId ? "text-left" : "text-right")" >@message.CreatedOn</span>
+                            <span class="time-date @(Model.User.Id == message.SenderId ? "text-left" : "text-right")">@message.CreatedOn</span>
                         </div>
                     </div>
                 }
 
             </div>
             <div id="whoIsTyping"></div>
-            <div class="pt-editor form-default">
+            <div class="form-control-plaintext">
                 <div id="addMessageForm">
                     <div class="form-group">
                         <textarea id="messageInput" class="form-control" placeholder="Type a message..."></textarea>

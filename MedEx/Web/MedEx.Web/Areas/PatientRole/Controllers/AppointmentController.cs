@@ -95,7 +95,6 @@ namespace MedEx.Web.Areas.PatientRole.Controllers
         }
 
         [Authorize]
-        [HttpPost]
         public async Task<IActionResult> CancelAppointment(int id)
         {
             var viewModel = await _appointmentService.GetByIdAsync<AppointmentViewDoctorModel>(id);

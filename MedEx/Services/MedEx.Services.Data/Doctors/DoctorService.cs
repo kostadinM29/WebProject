@@ -17,7 +17,7 @@ namespace MedEx.Services.Data.Doctors
         private readonly IDeletableEntityRepository<ApplicationUser> _userRepository;
         private readonly IDeletableEntityRepository<Image> _imageRepository;
 
-        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<ApplicationUser> userRepository ,IDeletableEntityRepository<Image> imageRepository)
+        public DoctorService(IDeletableEntityRepository<Doctor> doctorRepository, IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Image> imageRepository)
         {
             _doctorRepository = doctorRepository;
             _userRepository = userRepository;
@@ -223,6 +223,7 @@ namespace MedEx.Services.Data.Doctors
 
             doctor.IsValidated = true;
             doctorUser.Doctor = doctor;
+
 
             await _doctorRepository.SaveChangesAsync();
             return true;
