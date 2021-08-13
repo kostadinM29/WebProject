@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Common;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Data.Patients;
 using MedEx.Services.Data.Towns;
-using MedEx.Web.ViewModels.Administration.DoctorViewModels;
 using MedEx.Web.ViewModels.Administration.PatientViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.PatientRole.Controllers
 {

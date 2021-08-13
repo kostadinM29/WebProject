@@ -1,19 +1,15 @@
-﻿using MedEx.Services.Data.Home;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
+using MedEx.Services.Data.Home;
 using MedEx.Web.ViewModels.HomeViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MedEx.Services.Data.Tests
 {
     public class HomeServiceTests : BaseServiceTests
     {
-        private Random Random => new Random();
-
         private IHomeService Service => ServiceProvider.GetRequiredService<IHomeService>();
 
         /*

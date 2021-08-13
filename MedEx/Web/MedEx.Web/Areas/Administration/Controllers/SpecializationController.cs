@@ -50,7 +50,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfSpecExists == false)
             {
-                return NotFound("specialization not found");
+                return new StatusCodeResult(404);
             }
 
             return RedirectToAction(nameof(All));
@@ -77,7 +77,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfSpecExists == false)
             {
-                return NotFound("specialization not found");
+                return new StatusCodeResult(404);
             }
 
             return RedirectToAction(nameof(All));

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using MedEx.Services.Data.Home;
+﻿using MedEx.Services.Data.Home;
 using MedEx.Web.ViewModels.HomeViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.Administration.Controllers
 {

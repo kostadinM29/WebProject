@@ -18,8 +18,7 @@ namespace MedEx.Web.Hubs
             _messageService = messageService;
         }
 
-        //public async Task WhoIsTyping(string name) => await Clients.Others.SendAsync("SayWhoIsTyping", name);
-
+         //public async Task WhoIsTyping(string name) => await Clients.Others.SendAsync("SayWhoIsTyping", name);
         public async Task SendMessage(string message, string receiverId)
         {
             if (string.IsNullOrWhiteSpace(message))
@@ -28,7 +27,7 @@ namespace MedEx.Web.Hubs
             }
 
             var senderId = Context.User?.Identity.GetUserId();
-            var user = await _userService.GetByIdAsync<ChatUserViewModel>(senderId);
+            await _userService.GetByIdAsync<ChatUserViewModel>(senderId);
 
             await _messageService.CreateAsync(message, senderId, receiverId);
             await Clients.All.SendAsync(

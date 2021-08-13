@@ -11,8 +11,6 @@ namespace MedEx.Services.Data.Tests
 {
     public class MessageServiceTests : BaseServiceTests
     {
-        private Random Random => new Random();
-
         private IMessageService Service => ServiceProvider.GetRequiredService<IMessageService>();
 
         /*

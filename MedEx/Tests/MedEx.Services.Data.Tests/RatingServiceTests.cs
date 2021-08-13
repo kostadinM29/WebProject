@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Data.Ratings;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
-using MedEx.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MedEx.Services.Data.Tests

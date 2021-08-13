@@ -1,9 +1,9 @@
 ﻿using MedEx.Services.Data.Appointments;
 using MedEx.Services.Data.Doctors;
+using MedEx.Web.ViewModels.Administration.AppointmentViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MedEx.Web.ViewModels.Administration.AppointmentViewModels;
 
 namespace MedEx.Web.Areas.DoctorRole.Controllers
 {

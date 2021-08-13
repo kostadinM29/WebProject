@@ -16,7 +16,7 @@ namespace MedEx.Services.Data.Tests
         private IAppointmentService Service => ServiceProvider.GetRequiredService<IAppointmentService>();
 
         /*
-            int? GetDoctorIdByAppointmentId(int appointmentId);
+           int? GetDoctorIdByAppointmentId(int appointmentId);
            Task<IEnumerable<T>> GetPastByPatientAsync<T>(int patientId);
            Task<IEnumerable<T>> GetUpcomingByPatientAsync<T>(int patientId);
            Task<Appointment> GetByUserIdAsync(string userId, int appointmentId);

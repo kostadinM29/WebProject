@@ -1,7 +1,4 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Services.Data.Appointments;
+﻿using MedEx.Services.Data.Appointments;
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Patients;
 using MedEx.Services.Data.Ratings;
@@ -10,6 +7,9 @@ using MedEx.Web.ViewModels.Administration.AppointmentViewModels;
 using MedEx.Web.ViewModels.DoctorViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.PatientRole.Controllers
 {

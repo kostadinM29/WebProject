@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Data.Doctors;
 using MedEx.Services.Data.Specializations;
 using MedEx.Services.Data.Towns;
 using MedEx.Web.ViewModels.Administration.DoctorViewModels;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MedEx.Web.Areas.DoctorRole.Controllers
 {

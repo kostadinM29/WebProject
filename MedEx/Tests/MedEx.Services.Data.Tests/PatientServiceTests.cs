@@ -1,20 +1,18 @@
-﻿using MedEx.Services.Data.Patients;
+﻿using MedEx.Data.Models;
+using MedEx.Services.Data.Patients;
+using MedEx.Web.ViewModels.Administration.PatientViewModels;
+using MedEx.Web.ViewModels.PatientViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Data.Models;
-using MedEx.Web.ViewModels.Administration.PatientViewModels;
-using MedEx.Web.ViewModels.PatientViewModels;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace MedEx.Services.Data.Tests
 {
     public class PatientServiceTests : BaseServiceTests
     {
-        private Random Random => new Random();
-
         private IPatientService Service => ServiceProvider.GetRequiredService<IPatientService>();
 
         /*

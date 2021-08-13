@@ -36,13 +36,13 @@ namespace MedEx.Web.Controllers
         }
 
         [Route("/Home/Error/404")]
-        public IActionResult NotFound()
+        public IActionResult Error404()
         {
             return View();
         }
 
         [Route("/Home/Error/400")]
-        public IActionResult BadRequest()
+        public IActionResult Error400()
         {
             return View();
         }
