@@ -6,31 +6,25 @@ using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Image = MedEx.Data.Models.Image;
 
 namespace MedEx.Services.Data.Tests
 {
     public class DoctorServiceTests : BaseServiceTests
     {
-        private Random Random => new Random();
+        private static Random Random => new Random();
 
         private IDoctorService Service => ServiceProvider.GetRequiredService<IDoctorService>();
 
         /*
            IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage);
-           
            IEnumerable<T> GetAllValidatedDoctors<T>(int page, int itemsPerPage, string searchTerm, int? townId, int? specializationId);
-           
            IEnumerable<T> GetAllAppliedDoctors<T>(int page, int itemsPerPage);
-           
            T GetDoctorByAppointmentId<T>(int appointmentId);
-           
            T GetDoctorById<T>(int doctorId);
          */
 
@@ -94,7 +88,7 @@ namespace MedEx.Services.Data.Tests
         [Fact]
         public async Task GetAppliedAndNotValidatedDoctorsCountShouldReturnCorrectly()
         {
-            var doctor = await CreateDoctorAsync();
+            await CreateDoctorAsync();
             var doctor2 = await CreateDoctorAsync();
 
             doctor2.IsValidated = true;

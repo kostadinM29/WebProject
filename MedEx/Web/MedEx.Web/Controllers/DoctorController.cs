@@ -47,9 +47,9 @@ namespace MedEx.Web.Controllers
         [AllowAnonymous]
         public IActionResult All(int id, [FromQuery] string searchTerm, int? townId, int? specializationId)
         {
-            if (id == 0)
+            if (id <= 0)
             {
-                return NotFound("there is no page 0");
+                return new StatusCodeResult(400);
             }
 
             var viewModel = new DoctorsListViewModel

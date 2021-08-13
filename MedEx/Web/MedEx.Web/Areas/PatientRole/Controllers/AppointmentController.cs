@@ -69,7 +69,7 @@ namespace MedEx.Web.Areas.PatientRole.Controllers
             var patientId = await _patientService.GetPatientIdByUserId(userId); // add error if user is not a patient
             if (patientId == null)
             {
-                return BadRequest(new { error = "patient not found" });
+                return new StatusCodeResult(404);
             }
 
             DateTime dateTime;
@@ -134,25 +134,25 @@ namespace MedEx.Web.Areas.PatientRole.Controllers
 
             if (appointment == null)
             {
-                return BadRequest(new { error = "not your appointment" });
+                return new StatusCodeResult(404);
             }
 
             if (appointment.IsRated)
             {
-                return BadRequest(new { error = "already rated" });
+                return new StatusCodeResult(404);
             }
 
             var patientId = await _patientService.GetPatientIdByUserId(userId);
             if (patientId == null)
             {
-                return BadRequest(new { error = "patient not found" });
+                return new StatusCodeResult(404);
             }
 
             var doctorId = _appointmentService.GetDoctorIdByAppointmentId(input.AppointmentId);
 
             if (doctorId == null)
             {
-                return BadRequest(new { error = "doctor not found" });
+                return new StatusCodeResult(404);
             }
 
             await _ratingService.AddAsync(input.AppointmentId, doctorId.Value, patientId.Value, input.Number, input.Comment);

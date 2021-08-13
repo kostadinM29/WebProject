@@ -43,7 +43,8 @@ namespace MedEx.Services.Data.Doctors
             {
                 var image = await _imageRepository.All().FirstOrDefaultAsync(i => i.DoctorId == model.Id);
 
-                if (image.RemoteImageUrl == null) // couldnt figure out a realistic way to delete seeded doctors image
+                // couldn't figure out a realistic way to delete seeded doctors image
+                if (image.RemoteImageUrl == null)
                 {
                     File.Delete(imagePath + model.ImageUrl);
                 }
@@ -223,7 +224,6 @@ namespace MedEx.Services.Data.Doctors
 
             doctor.IsValidated = true;
             doctorUser.Doctor = doctor;
-
 
             await _doctorRepository.SaveChangesAsync();
             return true;

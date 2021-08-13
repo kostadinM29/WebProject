@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MedEx.Data;
+﻿using MedEx.Data;
 using MedEx.Data.Common.Repositories;
 using MedEx.Data.Repositories;
 using MedEx.Services.Data.Appointments;
@@ -17,6 +12,7 @@ using MedEx.Services.Data.Towns;
 using MedEx.Services.Data.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace MedEx.Services.Data.Tests
 {
@@ -24,10 +20,10 @@ namespace MedEx.Services.Data.Tests
     {
         protected BaseServiceTests()
         {
-            var services = this.SetServices();
+            var services = SetServices();
 
-            this.ServiceProvider = services.BuildServiceProvider();
-            this.DbContext = this.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            ServiceProvider = services.BuildServiceProvider();
+            DbContext = ServiceProvider.GetRequiredService<ApplicationDbContext>();
         }
 
         protected IServiceProvider ServiceProvider { get; set; }
@@ -36,11 +32,11 @@ namespace MedEx.Services.Data.Tests
 
         public void Dispose()
         {
-            this.DbContext.Database.EnsureDeleted();
-            this.SetServices();
+           DbContext.Database.EnsureDeleted();
+           SetServices();
         }
 
-        private ServiceCollection SetServices()
+        private static ServiceCollection SetServices()
         {
             var services = new ServiceCollection();
 

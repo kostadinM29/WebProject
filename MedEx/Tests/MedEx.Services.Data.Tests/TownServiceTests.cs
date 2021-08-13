@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MedEx.Data.Models;
+﻿using MedEx.Data.Models;
 using MedEx.Services.Data.Towns;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
 using MedEx.Web.ViewModels.Administration.TownViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MedEx.Services.Data.Tests
@@ -21,7 +18,6 @@ namespace MedEx.Services.Data.Tests
 
         /*
         Task<IEnumerable<T>> GetAllAsync<T>();
-
         Task<T> GetTownByIdAsync<T>(int townId);
          */
         [Fact]

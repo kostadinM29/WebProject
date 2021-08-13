@@ -35,6 +35,18 @@ namespace MedEx.Web.Controllers
             return View(viewModel);
         }
 
+        [Route("/Home/Error/404")]
+        public IActionResult NotFound()
+        {
+            return View();
+        }
+
+        [Route("/Home/Error/400")]
+        public IActionResult BadRequest()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -17,13 +17,9 @@ namespace MedEx.Services.Data.Tests
 
         /*
             int? GetDoctorIdByAppointmentId(int appointmentId);
-           
            Task<IEnumerable<T>> GetPastByPatientAsync<T>(int patientId);
-           
            Task<IEnumerable<T>> GetUpcomingByPatientAsync<T>(int patientId);
-           
            Task<Appointment> GetByUserIdAsync(string userId, int appointmentId);
-           
            Task<T> GetByIdAsync<T>(int id);
          */
 

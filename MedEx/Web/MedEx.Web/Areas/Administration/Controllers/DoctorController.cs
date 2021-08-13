@@ -48,7 +48,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfDocExists == false)
             {
-                return NotFound("doctor not found");
+                return new StatusCodeResult(404);
             }
 
             await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
@@ -65,7 +65,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             if (checkIfDocExists == false)
             {
-                return NotFound("doctor not found");
+                return new StatusCodeResult(404);
             }
 
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });

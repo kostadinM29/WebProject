@@ -1,12 +1,11 @@
-﻿using MedEx.Services.Data.Specializations;
+﻿using MedEx.Data.Models;
+using MedEx.Services.Data.Specializations;
+using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MedEx.Data.Models;
-using MedEx.Web.ViewModels.Administration.SpecializationViewModels;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace MedEx.Services.Data.Tests
@@ -19,7 +18,6 @@ namespace MedEx.Services.Data.Tests
 
         /*
         Task<T> GetSpecializationByIdAsync<T>(int specializationId);
-
         Task<IEnumerable<T>> GetAllAsync<T>();
          */
         [Fact]

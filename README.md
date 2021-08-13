@@ -16,7 +16,7 @@ A website for doctor consultations and appointments.  :calendar:
 - Doctor (user role):
   - confirms/declines patients' appointments; 
   - edits their profile.
-- Patient(user role):
+- Patient (user role):
   - can cancel appointments;
   - makes appointments with doctors;
   - makes online consultations with doctors;

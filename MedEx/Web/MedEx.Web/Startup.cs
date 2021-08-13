@@ -101,13 +101,15 @@ namespace MedEx.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}"); // swap
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
 
             app.UseHttpsRedirection();

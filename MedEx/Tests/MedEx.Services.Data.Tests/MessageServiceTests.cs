@@ -21,7 +21,6 @@ namespace MedEx.Services.Data.Tests
         Task<IEnumerable<T>> GetAllAsync<T>(string currentUserId);
          */
 
-
         [Fact]
         public async Task GetLastMessageAsyncShouldWorkCorrectly()
         {
