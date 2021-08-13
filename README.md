@@ -69,16 +69,16 @@ would happen once you run the application, including Test Accounts:
 ## :camera: Screenshots
 
 <h5>All doctors</h5>
-<img src="https://github.com/kostadinM29/WebProject/images/all-doctors.png/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/all-doctors.png/>
 
 <<h5>Doctor appointments</h5>
-<img src="https://github.com/kostadinM29/WebProject/images/doctor-appointments.png"/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/doctor-appointments.png"/>
 
 <<h5>Doctor profile</h5>
-<img src="https://github.com/kostadinM29/WebProject/images/doctor-profile.png"/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/doctor-profile.png"/>
 
 <<h5>Patient appointments</h5>
-<img src="https://github.com/kostadinM29/WebProject/images/patient-appointments.png"/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/patient-appointments.png"/>
 
 <<h5>Admin panel for verifying doctors</h5>
-<img src="https://github.com/kostadinM29/WebProject/images/applied-doctors.png"/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/applied-doctors.png"/>
