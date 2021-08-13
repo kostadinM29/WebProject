@@ -4,6 +4,8 @@ A website for doctor consultations and appointments.  :calendar:
 
 :dart:  My project for the ASP.NET Core course at SoftUni. (August 2021) 
 
+
+
 ## :information_source: How It Works
 
 - Guest visitors: 
@@ -63,4 +65,20 @@ would happen once you run the application, including Test Accounts:
   - Doctor: doctor@doctor.com / password: 12345678
   - Admin: admin@admin.com / password: 12345678
  
+ 
+## :camera: Screenshots
 
+<h5>All doctors</h5>
+<img src="https://github.com/kostadinM29/WebProject/images/all-doctors.png?raw=true"/>
+
+<<h5>Doctor appointments</h5>
+<img src="https://github.com/kostadinM29/WebProject/images/doctor-appointments.png?raw=true"/>
+
+<<h5>Doctor profile</h5>
+<img src="https://github.com/kostadinM29/WebProject/images/doctor-profile.png?raw=true"/>
+
+<<h5>Patient appointments</h5>
+<img src="https://github.com/kostadinM29/WebProject/images/patient-appointments.png?raw=true"/>
+
+<<h5>Admin panel for verifying doctors</h5>
+<img src="https://github.com/kostadinM29/WebProject/images/applied-doctors.png?raw=true"/>
