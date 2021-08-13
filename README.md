@@ -69,7 +69,7 @@ would happen once you run the application, including Test Accounts:
 ## :camera: Screenshots
 
 ### All doctors
-<img src="https://github.com/kostadinM29/WebProject/blob/main/images/all-doctors.png/>
+<img src="https://github.com/kostadinM29/WebProject/blob/main/images/all-doctors.png"/>
 
 ### Doctor appointments
 <img src="https://github.com/kostadinM29/WebProject/blob/main/images/doctor-appointments.png"/>
