@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MedEx.Data.Common.Repositories;
+﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
-using MedEx.Web.ViewModels.HomeViewModels;
-using System.Threading.Tasks;
 using MedEx.Services.Mapping;
+using MedEx.Web.ViewModels.HomeViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Home
 {

@@ -291,3 +291,15 @@ body {
     flex-flow: row wrap;
     align-items: center;
 }
+
+.medex-color {
+    color: #1b6ec2;
+}
+
+.messages {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+    display: block;
+    word-break: break-word;
+}

@@ -45,7 +45,7 @@ namespace MedEx.Services.Data.Tests
 
             await Service.DeleteAsync(appointment.Id);
 
-            var appointmentsCount = DbContext.Appointments.Where(x => !x.IsDeleted).ToArray().Count();
+            var appointmentsCount = DbContext.Appointments.Where(x => !x.IsDeleted).ToArray().Length;
             var deletedAppointment = await DbContext.Appointments.FirstOrDefaultAsync(x => x.Id == appointment.Id);
             Assert.Equal(0, appointmentsCount);
             Assert.Null(deletedAppointment);
@@ -74,19 +74,6 @@ namespace MedEx.Services.Data.Tests
 
             Assert.True(!result);
         }
-
-        //[Fact]
-        //public async Task GetPastByPatientAsyncShouldReturnCorrectAppointments()
-        //{
-        //    var patientId = 2;
-        //    await Service.AddAsync(1, patientId, DateTime.UtcNow.AddDays(-5));
-        //    await Service.AddAsync(1, patientId, DateTime.UtcNow.AddDays(-3));
-
-        //    var appointments = await Service.GetPastByPatientAsync<AppointmentViewPatientModel>(patientId);
-        //    var result = appointments.Count();
-
-        //    Assert.Equal(2, result);
-        //}
 
         private async Task<Appointment> CreateAppointmentAsync()
         {

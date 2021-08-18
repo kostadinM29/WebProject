@@ -1,9 +1,9 @@
 ﻿@model DoctorsListViewModel
 @{
-    ViewData["Title"] = $"Applied Doctors, Page {Model.PageNumber}";
+    ViewBag.Title = $"Applied Doctors, Page {Model.PageNumber}";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 <div class="container">
     <div class="row">

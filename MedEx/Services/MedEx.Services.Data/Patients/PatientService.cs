@@ -1,11 +1,11 @@
 ﻿using MedEx.Data.Common.Repositories;
 using MedEx.Data.Models;
-using MedEx.Web.ViewModels.PatientViewModels;
-using System.Linq;
-using System.Threading.Tasks;
 using MedEx.Services.Mapping;
 using MedEx.Web.ViewModels.Administration.PatientViewModels;
+using MedEx.Web.ViewModels.PatientViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MedEx.Services.Data.Patients
 {
