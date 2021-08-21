@@ -53,7 +53,7 @@ namespace MedEx.Web.Areas.Administration.Controllers
 
             await _userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
 
-            await _signInManager.RefreshSignInAsync(user);
+            //await _signInManager.RefreshSignInAsync(user);
 
             return RedirectToAction(nameof(AppliedDoctors), new { id = pageNumber });
         }
